@@ -1000,7 +1000,8 @@
             <div id="stage">
               <!-- 设置WALL -->
               <div id="wall">
-                <div class="row">
+                <!-- __WALL.HTML.SAMPLE__ -->
+                <!-- <div class="row">
                   <div></div>
                   <div></div>
                   <div></div>
@@ -1031,7 +1032,7 @@
                   <div></div>
                   <div></div>
                   <div></div>
-                </div>
+                </div> -->
               </div>
               <!-- 设置車 -->
               <div id="car">

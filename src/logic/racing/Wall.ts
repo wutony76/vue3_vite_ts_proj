@@ -9,9 +9,9 @@ export const WALLSTATUS = {
 export default class Wall{
   wall: HTMLElement
   parentGame: any
+  wallData = [] // 牆壁數據
   distance = 10 // number
   startCarX = 14 // 初始Car位置
-
   // startRoadX = -1 // 紀錄ROW位置
   // startRoadLen = -1 // 紀錄ROW寬度
   // 紀錄ROW位置- 需要有足夠的空間讓CAR過 
@@ -43,6 +43,7 @@ export default class Wall{
      */
     this.addRowWall()
     this.checkWallRowEnd()
+    console.log('WALL.Move.D.', this.wallData)
   }
   // CHECK.REOMVE.ROW.
   checkWallRowEnd() {
@@ -50,6 +51,8 @@ export default class Wall{
     if (_getArr.length > 30) {
       let elEnd = _getArr[_getArr.length - 1]
       elEnd.remove()
+      let _shift: any =  this.wallData.shift ()
+      if (+elEnd.getAttribute('_id') !== _shift.id) console.log("Err.wall.index...")
     }
   }
   // ADD.ROW
@@ -72,7 +75,9 @@ export default class Wall{
   }
   // 產生.ROW一列牆壁
   _proRow () {
+    this.wallData.map((w) => w.wallIndex++ )
     let _randomArr=  this._proWallArr()
+    this.wallData.push (_randomArr)
     let rowNode = document.createElement("div")
     rowNode.classList.add("row")
     rowNode.setAttribute("_id", _randomArr.id.toString())
@@ -173,6 +178,6 @@ export default class Wall{
     
     console.log('CANGETPOS-5.', `_arr: ${_arr}`)
     this.wallInfoArr[this.counter] = _arr
-    return {arr:_arr, id: this.counter}  
+    return {arr:_arr, id: this.counter, wallIndex: 0, road: [_startRoad*10, _endRoad*10]}
   }
 }
