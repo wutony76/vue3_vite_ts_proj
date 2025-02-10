@@ -27,14 +27,23 @@ export default class Wall{
     this.wall = document.getElementById('wall')!
   }
   init () {
-    console.log('INIT~ wall')
+    console.log('INIT.WALL.', this.wall)
+
+    if (this.wall) {
+      while (this.wall.firstChild) {
+        this.wall.removeChild(this.wall.firstChild);
+      }
+    }
+    this.wallData = []
+    this.wallInfoArr = {}
+    this.counter = 0
   }
   handleGetPoint(point: any) {
     let _v = point.replace('px', '') 
     return isNaN(+_v) ? 0 :+_v
   }
   move () {
-    console.log(`WALL.MOVE. ${this.counter}`)
+    // console.log(`WALL.MOVE. ${this.counter}`)
     /**
     // WALL移動
     let _y = this.handleGetPoint (this.wall.style.top)
@@ -43,7 +52,7 @@ export default class Wall{
      */
     this.addRowWall()
     this.checkWallRowEnd()
-    console.log('WALL.Move.D.', this.wallData)
+    // console.log('WALL.Move.D.', this.wallData)
   }
   // CHECK.REOMVE.ROW.
   checkWallRowEnd() {

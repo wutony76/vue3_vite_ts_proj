@@ -80,6 +80,7 @@
         if (state.gameStatus === GAMESTATUS.START) {
           selfGame?.updateStatus(GAMESTATUS.PAUSE)
           setTimeout(() => {
+            if (selfGame) selfGame.reset()
             state.gameStatus = GAMESTATUS.READY
             changeGameStatus(state.gameStatus)
           }, 1000)
@@ -375,15 +376,13 @@
         simulationClick('gameRightRanking', 4500)
         
         selfGame = new Game(state)
-
-        
-        // selfGame.setCallback(() => {
-        //   // 設定.RESULT STATUS
-        //   state.gameStatus = GAMESTATUS.RESULT
-        //   setTimeout(() => {
-        //     changeGameStatus( state.gameStatus )
-        //   }, 1000)
-        // })
+        selfGame.setCallback(() => {
+          // 設定.RESULT STATUS
+          state.gameStatus = GAMESTATUS.RESULT
+          setTimeout(() => {
+            changeGameStatus( state.gameStatus )
+          }, 3000)
+        })
         break
       // 遊戲結果
       case GAMESTATUS.RESULT:
@@ -797,13 +796,13 @@
               <div class="label">LEVEL</div>
               <div class="score">{{ state.level }}</div>
             </div>
-            <div id="resultItemAnim03" class="item">
-              <div class="label">SNAKELEN</div>
-              <div class="score">{{ state.snakeLen }}</div>
+            <div  id="resultItemAnim03" class="item">
+              <div class="label"> - </div>
+              <div class="score"> - </div>
             </div>
-            <div id="resultItemAnim04" class="item">
-              <div class="label">FRUIT</div>
-              <div class="score">{{ state.fruitCount }}</div>
+            <div  id="resultItemAnim04" class="item">
+              <div class="label"> - </div>
+              <div class="score"> - </div>
             </div>
           </div>
 
@@ -1044,14 +1043,6 @@
                   <div></div>
                   <div></div>
                 </div>
-              </div>
-              <!-- 设置食物 -->
-              <div id="food">
-                <!-- 设置四个小div来设置食物的样式 -->
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
               </div>
             </div>
             <!-- 设置计分盘 -->

@@ -17,6 +17,7 @@ export default class Game {
   callback: any // 遊戲結束.callback
   status: string = GAMESTATUS.NONE
   state: any // 外部參數
+  scoreCounter: number = 0
 
   constructor (state: any) {
     // this.food = new Food()
@@ -39,6 +40,7 @@ export default class Game {
     this.isLive = true
     this.direction = EVENTS.NONE
     this.status = GAMESTATUS.READY 
+    this.scoreCounter = 0
 
     this.state.score = 0
     this.state.level = 1
@@ -50,6 +52,17 @@ export default class Game {
       this.status = GAMESTATUS.PLAYING 
       this.run()
     })
+  }
+  reset() {
+    this.scoreCounter = 0
+    this.state.score = 0
+    this.state.level = 1
+    this.car.init()
+    this.control.init() 
+    this.wall.init()
+  }
+  setCallback (cb: any) {
+    if (cb) this.callback = cb
   }
 
   run () {
@@ -66,6 +79,9 @@ export default class Game {
     x = newXY[0] 
     y = newXY[1] 
     this.logPrint(`ori:(${x},${y})  new:(${newXY[0]},${newXY[1]})`)
+
+    // __CALC計算分數__
+    this.calcScore()
 
     try {
       // WALL碰撞判斷.
@@ -101,29 +117,20 @@ export default class Game {
     return [_x, _y]
   }
   returnTimeout () {
-    const defTimeout = 300 
+    const defTimeout = 500 
     let timeOut = defTimeout
-    return timeOut
-    // switch (this.state.level) {
-    //   case 2:
-    //     timeOut = 900
-    //     break
-    //   case 3:
-    //     timeOut = 800
-    //     break
-    //   case 4:
-    //     timeOut = 700
-    //     break
-    //   case 5:
-    //     timeOut = 600
-    //     break
-    //   case 6:
-    //     timeOut = 500
-    //     break
-    //   default:
-    //     timeOut = defTimeout
-    //     break
-    // }
+    switch (this.state.level) {
+      case 2:
+        timeOut = 300
+        break
+      case 3:
+        timeOut = 230
+        break
+      default:
+        timeOut = defTimeout
+        break
+    }
+    return timeOut 
   }
   returnkeybordKeyToDirection (keybordKey:string|null) {
     let direction = '' 
@@ -144,13 +151,13 @@ export default class Game {
     return direction 
   }
   checkCollision(x:number, y:number) {
-    console.log('checkCollision.', x, y, this.wall.wallData)
+    // console.log('checkCollision.', x, y, this.wall.wallData)
     // 由y來計算wallData索引位置
     const _index: number = y/10
     const _find:any = this.wall.wallData.find((w) =>w.wallIndex === _index)
     const _find2:any = this.wall.wallData.find((w) =>w.wallIndex === _index+1)
-    console.log('checkCollision._find.', _find)
-    console.log('checkCollision._find2.', _find2)
+    // console.log('checkCollision._find.', _find)
+    // console.log('checkCollision._find2.', _find2)
     if (!_find && !_find2) return
     const carVolume:any = {hand: [x+10, x+20], body: [x, x+30]}
 
@@ -167,6 +174,44 @@ export default class Game {
         // console.log('***car.collision.body', _find2.road,  _find2.road[0],  _find2.road[1]-30)
         throw new Error('車身撞到牆壁了！', carVolume.body[0], _find2.road )
       }
+    }
+  }
+  calcScore() {
+    console.log('_G.SCORE.', this.wall.wallData[this.wall.wallData.length-1])
+    let ruleMod = 5
+    const _get =this.wall.wallData[this.wall.wallData.length-1]
+    if (_get?.id <=30) return 
+    this.scoreCounter ++
+    if (this.scoreCounter%ruleMod === 0) {
+      this.scoreCounter = 0 
+      this.state.score ++
+    }
+
+    // __Rule.Mode Level__
+    switch(this.state.score) {
+      case 5:
+        ruleMod = 10 
+        break
+      case 15:
+        ruleMod = 30 
+        break
+      case 50:
+        ruleMod = 50 
+        break
+
+      case 200:
+        ruleMod = 5 
+        this.state.level = 2
+        break
+      case 350:
+        ruleMod = 10 
+        this.state.level = 2
+        break
+
+      case 999:
+        ruleMod = 1 
+        this.state.level = 3 
+        break
     }
   }
 }
