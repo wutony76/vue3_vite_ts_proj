@@ -2,9 +2,10 @@
 import { nextTick, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Splitting from 'splitting'
-import Animation from '@/logic/util/Animation'
-import ArtsEffect from '@/logic/util/ArtsEffect'
-import { ACTIONS, GAME, STATIC, PATH_NAME } from '@/logic/util/Parameter'
+
+import Animation from '@/logic/utils/Animation'
+import ArtsEffect from '@/logic/utils/ArtsEffect'
+import { ACTIONS, GAME, STATIC, PATH_NAME } from '@/logic/utils/Parameter'
 import Lobby from '@/logic/lobby/Lobby'
 import Nvbar from '@/components/Ui/NvbarList.vue'
 import MainFooter from '@/components/Lobby/Footer.vue'

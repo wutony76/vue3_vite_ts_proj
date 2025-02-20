@@ -3,8 +3,8 @@ import Car from '@/logic/racing/Car'
 import Wall from '@/logic/racing/Wall'
 // import Food from '@/logic/snake/Food'
 import {EVENTS, GAMESTATUS} from '@/logic/racing/Parameter'
-import { ACTIONS } from '@/logic/util/Parameter'
-import Tools from '@/logic/util/Tools' 
+import { ACTIONS } from '@/logic/utils/Parameter'
+import Tools from '@/logic/utils/Tools' 
 
 export default class Game {
   car:Car

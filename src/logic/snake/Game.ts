@@ -2,7 +2,7 @@ import Control from '@/logic/snake/Control'
 import Snake from '@/logic/snake/Snake'
 import Food from '@/logic/snake/Food'
 import {EVENTS, GAMESTATUS} from '@/logic/snake/Parameter'
-import { ACTIONS } from '@/logic/util/Parameter'
+import { ACTIONS } from '@/logic/utils/Parameter'
 
 export default class Game {
   snake:Snake

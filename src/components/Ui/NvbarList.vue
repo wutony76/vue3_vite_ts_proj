@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PATH_NAME } from '@/logic/util/Parameter'
+import { PATH_NAME } from '@/logic/utils/Parameter'
 // import { useRouter } from 'vue-router'
 // const router = useRouter()
 // const clickListener = (urlName: string) => {
@@ -26,11 +26,11 @@ import { PATH_NAME } from '@/logic/util/Parameter'
     z-index: 99;
   ">
     <router-link to="/">HOME</router-link> |
-    <router-link :to="{name: PATH_NAME.LOBBY}"> LOBBY </router-link> |
-    <router-link :to="{name: PATH_NAME.SNAKE}"> SNAKE </router-link> |
-    <router-link :to="{name: PATH_NAME.LOTTERY}"> LOTTERY </router-link> |
+    <router-link :to="{ name: PATH_NAME.LOBBY }"> LOBBY </router-link> |
+    <router-link :to="{ name: PATH_NAME.SNAKE }"> SNAKE </router-link> |
+    <router-link :to="{ name: PATH_NAME.LOTTERY }"> LOTTERY </router-link> |
     <router-link to="/splitting">SPLITTING</router-link> |
     <router-link to="/floatingMenu">FLOAT-MENU</router-link>
   </nav>
-
 </template>
+@/logic/utils/Parameter

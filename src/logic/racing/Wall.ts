@@ -1,4 +1,4 @@
-import Tools from '@/logic/util/Tools' 
+import Tools from '@/logic/utils/Tools' 
 export const WALLSTATUS = {
   WALL: 0,
   ROAD: 1,
