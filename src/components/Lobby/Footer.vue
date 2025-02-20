@@ -100,11 +100,12 @@ onMounted(() => {
 
     .note0 {
       width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: end;
-      font-size: 12px;
-      color: #1f1e21;
+      font-size: 13px;
+      color: #bbbbbb;
     }
   }
 
