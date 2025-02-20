@@ -7,8 +7,9 @@ import ArtsEffect from '@/logic/util/ArtsEffect'
 import { ACTIONS, GAME, STATIC, PATH_NAME } from '@/logic/util/Parameter'
 import Lobby from '@/logic/lobby/Lobby'
 import Nvbar from '@/components/Ui/NvbarList.vue'
-const router = useRouter()
+import MainFooter from '@/components/Lobby/Footer.vue'
 
+const router = useRouter()
 defineOptions({
   name: "GameLoddy",
   inheritAttrs: false,
@@ -22,13 +23,13 @@ const clickListener = (actions: string) => {
       break
 
     case GAME.ELECTRONIC.SNAKE:
-      changePath (STATIC.SPACE, PATH_NAME.SNAKE)
+      changePath(STATIC.SPACE, PATH_NAME.SNAKE)
       break
     case GAME.ELECTRONIC.RACING:
-      changePath (STATIC.SPACE, PATH_NAME.RACING)
+      changePath(STATIC.SPACE, PATH_NAME.RACING)
       break
     case GAME.ELECTRONIC.LOTTERY:
-      changePath (STATIC.SPACE, PATH_NAME.LOTTERY)
+      changePath(STATIC.SPACE, PATH_NAME.LOTTERY)
       break
   }
 }
@@ -43,6 +44,7 @@ onMounted(() => {
 
     // layout
     Animation.addClass('nvbarBlock', 'animation-block-down', 10)
+    Animation.addClass('mainFooter', 'animation-block-down', 10)
 
     // logo
     Animation.addClass('logoBox', 'page--alphaIn', 500)
@@ -67,7 +69,7 @@ onMounted(() => {
     Animation.addSubClass('block1GameList', 'animation-item-intro', 2100)
     Animation.removeSubClass('block1GameList', 'animation-item-intro', 3000)
     Animation.addSubClass('block1GameList', 'alpha-1', 2900)
-    
+
     // Animation.addClass('logoBox', 'page--alphaIn', 500)
     setTimeout(() => {
       ArtsEffect.thickness('logoBox', 7, '#b14c4a', '#2a0303')
@@ -107,15 +109,15 @@ const changePath = (_target: string, _name: string) => {
             <div>center</div>
             <div class="settings">
               <div class="listBox">
-                <span class="item setting-text self button--float"
-                  @click="clickListener(ACTIONS.RELOAD)"
-                > RELOAD </span>
+                <span class="item setting-text self button--float" @click="clickListener(ACTIONS.RELOAD)"> RELOAD </span>
               </div>
             </div>
           </div>
           <div class="footer"></div>
         </div>
       </div>
+
+      <!-- __MAIN__ -->
       <div class="main">
         <div class="header">
           <div id="bannerBlock" class="bannerBlock">
@@ -159,9 +161,11 @@ const changePath = (_target: string, _name: string) => {
           </div>
         </div>
         <div class="center">
-          <div class="nvbarBlock"> <Nvbar></Nvbar> </div>
+          <div class="nvbarBlock">
+            <Nvbar></Nvbar>
+          </div>
           <div id="gameListBlock" class="gameListBlock">
-            <span class="item setting-text"> GAMELIST 
+            <span class="item setting-text"> GAMELIST
               <span class="path00"></span>
               <span class="path01 title-rotate"></span>
             </span>
@@ -180,9 +184,7 @@ const changePath = (_target: string, _name: string) => {
                 <div class="content">?</div>
               </div>
 
-              <div style="--item-index: 1;" class="game-block game racing"
-                @click="clickListener(GAME.ELECTRONIC.RACING)"
-              >
+              <div style="--item-index: 1;" class="game-block game racing" @click="clickListener(GAME.ELECTRONIC.RACING)">
                 <div class="content">
                   <div class="light-1"></div>
                   <div class="light-2"></div>
@@ -192,9 +194,7 @@ const changePath = (_target: string, _name: string) => {
                 <span class="name">RACING</span>
               </div>
 
-              <div style="--item-index: 0;" class="game-block game snake"
-                @click="clickListener(GAME.ELECTRONIC.SNAKE)"
-              >
+              <div style="--item-index: 0;" class="game-block game snake" @click="clickListener(GAME.ELECTRONIC.SNAKE)">
                 <div class="content"></div>
                 <span class="name">SNAKE</span>
               </div>
@@ -203,12 +203,13 @@ const changePath = (_target: string, _name: string) => {
           </div>
         </div>
       </div>
-      <div class="footer"></div>
+      <!-- <div class="main-footer"></div> -->
+      <MainFooter id="mainFooter" />
     </div>
 
   </div>
 </template>
 
 <style lang="scss">
-  @import "../assets/css/game/gameLobby.scss";
+@import "../assets/css/game/gameLobby.scss";
 </style>

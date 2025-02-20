@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import eslintPlugin from "vite-plugin-eslint" // 新增這行
+// import eslintPlugin from "vite-plugin-eslint" // 新增這行
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,5 +14,8 @@ export default defineConfig({
       { find: '@', replacement: '/src' },
       // { find: 'assets', replacement: '/src/assets' },
     ]
+  },
+  optimizeDeps: {
+    include: ['jquery']
   }
 })

@@ -2,6 +2,10 @@ import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
 import './style.css'
+import $ from 'jquery'
+
+window.$ = $
+window.jQuery = $
 
 const app = createApp(App)
 app.use(router)
