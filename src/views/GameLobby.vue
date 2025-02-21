@@ -2,6 +2,7 @@
 import { nextTick, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Splitting from 'splitting'
+import Net from '@/logic/base/Net'
 
 import Animation from '@/logic/utils/Animation'
 import ArtsEffect from '@/logic/utils/ArtsEffect'
@@ -34,9 +35,27 @@ const clickListener = (actions: string) => {
       break
   }
 }
+const changePath = (_target: string, _name: string) => {
+  Animation.addClass('lobbyContainer', 'animation-load-out', 10)
+  setTimeout(() => {
+    if (_target) router.replace({ path: _target })
+    if (_name) router.replace({ name: _name })
+    setTimeout(() => { window.location.reload() }, 10)
+  }, 1300)
+}
+const init = () => {
+  Net.test({
+    title: 'TEST_這是標題',
+    body: 'TEST_這是身體',
+    userId: 'TEST_a1234567',
+  }).then((res: Object) => {
+    console.log('TEST.API.RES', res)
+  })
+}
 
 onMounted(() => {
   console.log('onMounted')
+  init()
   Splitting()
   new Lobby()
 
@@ -77,15 +96,6 @@ onMounted(() => {
     }, 300)
   })
 })
-
-const changePath = (_target: string, _name: string) => {
-  Animation.addClass('lobbyContainer', 'animation-load-out', 10)
-  setTimeout(() => {
-    if (_target) router.replace({ path: _target })
-    if (_name) router.replace({ name: _name })
-    setTimeout(() => { window.location.reload() }, 10)
-  }, 1300)
-}
 
 </script>
 

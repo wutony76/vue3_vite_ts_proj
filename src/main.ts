@@ -3,7 +3,7 @@ import router from './router'
 import App from './App.vue'
 import './style.css'
 import $ from 'jquery'
-import ready from '@/logic/base/launch'
+import ready from '@/logic/base/Launch'
 
 console.log('__PROCESS-MAIN.js-start')
 window.$ = $

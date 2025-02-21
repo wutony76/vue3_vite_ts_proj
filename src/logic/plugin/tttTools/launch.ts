@@ -1,3 +1,4 @@
+// import { get } from 'lodash-es'
 import router from '@/router'
 
 export default function ready() {
@@ -60,6 +61,12 @@ export function queryString(key: string) {
       value = null
     }
   }
+
+  // if (value === null) {
+  //   let _url = document.location.href
+  //   let _params = new URL(_url).searchParams
+  //   value = get(_params, key, null)
+  // }
   return value
 }
 export function removeQueryString(keys: string[] = []) {
