@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "prettier": "^3.3.3",
     "splitting": "^1.0.6",
     "vue": "^3.3.4",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.5.32",
+    "@types/splitting": "^1.0.6",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
     "@vitejs/plugin-vue": "^4.2.3",
