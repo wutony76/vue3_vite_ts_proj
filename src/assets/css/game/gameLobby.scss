@@ -20,7 +20,7 @@
   background: var(--bgLobbyColor);
 
   .lobbyContainer {
-    overflow: hidden;
+    // overflow: hidden;
     padding: 0px;
     margin: 0px;
   }
@@ -898,6 +898,7 @@
         top: 35px;
       }
 
+      /* __GameList__ */
       .gameListBlock {
         margin-top: 45px;
         width: 195px;
@@ -908,6 +909,17 @@
         --gameListColor:#f64d4d;
         transform-origin: 50% 100%;
         transform: scaleY(0);
+        .note {
+          position: absolute;
+          color: var(--gameListColor);
+          font-size: 12px;
+          font-weight: bold;
+          white-space: nowrap;
+          z-index: 3;
+          left: 200px;
+          // letter-spacing: 12px;
+        }
+
         .item.setting-text {
           line-height: 33px;
           color: var(--gameListColor);
@@ -1009,6 +1021,7 @@
           background: var(--gameListColor);
         }
       }
+      /* __GameList. END__ */
 
       .list-block-1 {
         margin-top: 60px;

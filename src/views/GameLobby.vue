@@ -176,6 +176,7 @@ onMounted(() => {
             <Nvbar></Nvbar>
           </div>
           <div id="gameListBlock" class="gameListBlock">
+            <span class="note note-text"> (〃°ω°〃)上班好累喔！ 玩一下遊戲吧 ♡♥♥♥♡♡</span>
             <span class="item setting-text"> GAMELIST
               <span class="path00"></span>
               <span class="path01 title-rotate"></span>
