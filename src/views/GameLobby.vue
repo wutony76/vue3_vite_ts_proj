@@ -94,6 +94,34 @@ onMounted(() => {
     setTimeout(() => {
       ArtsEffect.thickness('logoBox', 7, '#b14c4a', '#2a0303')
     }, 300)
+
+
+    /*
+     * ACTIONS. 
+     */
+    // __Note.gameList__
+    $('#gameListBlock').find('[tag="GAMELIST"]').hover(() => {
+      let _dom = $('#gameListBlock').find('[tag="NOTE"]')
+      let _class = 'note-gamelist-right'
+      if (!_dom.attr('class')?.split(' ').includes(_class)) {
+        _dom.addClass(_class)
+        setTimeout(() => {
+          _dom.removeClass(_class)
+        }, 1700)
+      }
+    })
+    // __Note.contactListBlock__
+    $('#contactListBlock').hover(() => {
+      let _dom = $('#contactBlock').find('[tag="NOTE"]')
+      let _class = 'note-contact-left'
+      if (!_dom.attr('class')?.split(' ').includes(_class)) {
+        _dom.addClass(_class)
+        setTimeout(() => {
+          _dom.removeClass(_class)
+        }, 1700)
+      }
+    })
+
   })
 })
 
@@ -166,7 +194,8 @@ onMounted(() => {
                 <span class="item button-line"> LINE </span>
               </div>
 
-              <div class="header-footer"></div>
+              <span class="note note-text" tag="NOTE">有錢賺聯絡我 (Ò ‸ Ó╬)</span>
+              <div class="header-footer"></div> <!-- mask -->
               <div class="footer"></div>
             </div>
           </div>
@@ -176,8 +205,8 @@ onMounted(() => {
             <Nvbar></Nvbar>
           </div>
           <div id="gameListBlock" class="gameListBlock">
-            <span class="note note-text"> (〃°ω°〃)上班好累喔！ 玩一下遊戲吧 ♡♥♥♥♡♡</span>
-            <span class="item setting-text"> GAMELIST
+            <span class="note note-text" tag="NOTE"> (〃°ω°〃)上班好累喔！ 玩一下遊戲吧 ♡♥♥♥♡♡</span>
+            <span class="item setting-text" tag="GAMELIST"> GAMELIST
               <span class="path00"></span>
               <span class="path01 title-rotate"></span>
             </span>
