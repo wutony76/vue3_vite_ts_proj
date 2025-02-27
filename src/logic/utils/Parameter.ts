@@ -1,14 +1,14 @@
 
 // CLICK事件狀態
 export const ACTIONS = {
-  GAMEBACK: 'game_back_btn', 
-  GAMEPAUSE: 'game_pause_btn', 
-  GAMEPLAY: 'game_play_btn', 
-  GAMEREPLAY: 'game_replay_btn', 
-  GAMERESULT: 'game_result_btn', 
+  GAMEBACK: 'game_back_btn',
+  GAMEPAUSE: 'game_pause_btn',
+  GAMEPLAY: 'game_play_btn',
+  GAMEREPLAY: 'game_replay_btn',
+  GAMERESULT: 'game_result_btn',
 
-  GAMEDETAILS: 'game_details_btn', 
-  GAMECONTROLS: 'game_controls_btn', 
+  GAMEDETAILS: 'game_details_btn',
+  GAMECONTROLS: 'game_controls_btn',
   GAMERANKING: 'game_ranking_btn',
 
   CONTROLSUP: 'UP',
@@ -36,21 +36,21 @@ export const VIEWS = {
   CONTROLS: 'view_controls',
   RANKING: 'view_ranking',
 
-  NONE:'NONE',
-  READY:'READY',
-  PLAYING:'PLAYING',
+  NONE: 'NONE',
+  READY: 'READY',
+  PLAYING: 'PLAYING',
   PAUSE: 'PAUSE',
-  RESULT:'RESULT',
-  END:'END'
+  RESULT: 'RESULT',
+  END: 'END'
 }
 export const GAME = {
-  ELECTRONIC : {
+  ELECTRONIC: {
     SNAKE: 'electronic-snake',
     RACING: 'electronic-racing',
     LOTTERY: 'electronic-lottery',
   }
 }
-export const STATIC= {
+export const STATIC = {
   SPACE: '',
 }
 export const PATH = {
@@ -67,4 +67,14 @@ export const PATH_NAME = {
 export const UI = {
   CLICKLEFT: 'click-left',
   CLICKRIGHT: 'click-right',
+}
+
+/**
+ * __GAME.ICON.STATUS__
+ * default > ?
+ */
+export const STATUS_ICON = {
+  DEFAULT: 'default',
+  SNAKE: 'snake',
+  RACING: 'racing'
 }

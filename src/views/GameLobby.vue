@@ -6,9 +6,10 @@ import Net from '@/logic/base/Net'
 
 import Animation from '@/logic/utils/Animation'
 import ArtsEffect from '@/logic/utils/ArtsEffect'
-import { ACTIONS, GAME, STATIC, PATH_NAME } from '@/logic/utils/Parameter'
+import { ACTIONS, GAME, STATIC, PATH_NAME, STATUS_ICON } from '@/logic/utils/Parameter'
 import Lobby from '@/logic/lobby/Lobby'
 import Nvbar from '@/components/Ui/NvbarList.vue'
+import GameIcon from '@/components/Lobby/GameIcon.vue'
 import MainFooter from '@/components/Lobby/Footer.vue'
 
 const router = useRouter()
@@ -85,10 +86,17 @@ onMounted(() => {
     // gamelist 
     Animation.addClass('gameListBlock', 'animation-block-up', 900)
     Animation.addClass('gameBlock1', 'animation-block-right', 1600)
+    // Animation.addClass('gameBlock2', 'animation-block-right', 1600)
 
     Animation.addSubClass('block1GameList', 'animation-item-intro', 2100)
     Animation.removeSubClass('block1GameList', 'animation-item-intro', 3000)
     Animation.addSubClass('block1GameList', 'alpha-1', 2900)
+
+    Animation.addSubClass('block1GameList2', 'animation-item-intro', 2100)
+    Animation.removeSubClass('block1GameList2', 'animation-item-intro', 3000)
+    Animation.addSubClass('block1GameList2', 'alpha-1', 2900)
+
+
 
     // Animation.addClass('logoBox', 'page--alphaIn', 500)
     setTimeout(() => {
@@ -212,36 +220,36 @@ onMounted(() => {
             </span>
             <div class="footer"></div>
           </div>
+
+          <!-- GAME.ELECTRONIC.BLOCK01 -->
           <div id="gameBlock1" class="list-block-1">
             <span class="item setting-text"> ELECTRONIC </span>
             <div id="block1GameList" class="list-game-block">
-              <div style="--item-index: 4;" class="game-block ready">
+              <!-- HTML. default icon sample ? -->
+              <!-- <div style="--item-index: 2;" class="game-icon game-block ready">
                 <div class="content">?</div>
-              </div>
-              <div style="--item-index: 3;" class="game-block ready">
-                <div class="content">?</div>
-              </div>
-              <div style="--item-index: 2;" class="game-block ready">
-                <div class="content">?</div>
-              </div>
-
-              <div style="--item-index: 1;" class="game-block game racing" @click="clickListener(GAME.ELECTRONIC.RACING)">
-                <div class="content">
-                  <div class="light-1"></div>
-                  <div class="light-2"></div>
-                  <div class="light-3"></div>
-                  <div class="auto-light-1"></div>
-                </div>
-                <span class="name">RACING</span>
-              </div>
-
-              <div style="--item-index: 0;" class="game-block game snake" @click="clickListener(GAME.ELECTRONIC.SNAKE)">
-                <div class="content"></div>
-                <span class="name">SNAKE</span>
-              </div>
-
+              </div> -->
+              <GameIcon style="--item-index: 4;" />
+              <GameIcon style="--item-index: 3;" />
+              <GameIcon style="--item-index: 2;" />
+              <GameIcon style="--item-index: 1;" :status="STATUS_ICON.RACING"
+                @click="clickListener(GAME.ELECTRONIC.RACING)" />
+              <GameIcon style="--item-index: 0;" :status="STATUS_ICON.SNAKE"
+                @click="clickListener(GAME.ELECTRONIC.SNAKE)" />
             </div>
           </div>
+          <!-- GAME.ELECTRONIC.BLOCK02 -->
+          <div id="gameBlock2" class="list-block-2">
+            <span class="item setting-text"> ELECTRONIC </span>
+            <div id="block1GameList2" class="list-game-block">
+              <GameIcon style="--item-index: 4;" />
+              <GameIcon style="--item-index: 3;" />
+              <GameIcon style="--item-index: 2;" />
+              <GameIcon style="--item-index: 1;" />
+              <GameIcon style="--item-index: 0;" />
+            </div>
+          </div>
+
         </div>
       </div>
       <!-- <div class="main-footer"></div> -->
