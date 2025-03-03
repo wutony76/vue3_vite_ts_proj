@@ -936,9 +936,10 @@
       }
     }
 
+    /* CSS.HANDLE.CENTER */
     .center {
       border: 1px solid #ff0000;
-      height: 800px;
+      height: 560px;
       position: relative;
       z-index: 12;
 
@@ -1208,6 +1209,7 @@
       }
 
       .list-block-3 {
+        height: unset;
         padding-top: 0px;
 
         .list-game-block {
@@ -1215,6 +1217,24 @@
           height: 140px;
         }
       }
+
+      /*__OtherGameBlock__*/
+      .gameOtherBlock {
+        width: 80%;
+        margin: 0 auto;
+        border: 1px solid #4f7de8;
+        position: relative;
+        z-index: 3;
+      }
+    }
+
+    .center2 {
+      border: 1px solid #2600ff;
+      height: 100px;
+    }
+
+    .center.end {
+      height: 60px;
     }
   }
 
