@@ -31,6 +31,7 @@
     margin: 0px;
   }
 
+  .main .center .list-block-3 .list-game-block .game-icon.alpha-1,
   .main .center .list-block-2 .list-game-block .game-icon.alpha-1,
   .main .center .list-block-1 .list-game-block .game-icon.alpha-1,
   .main .center .list-block-1 .list-game-block .game-block.alpha-1 {
@@ -950,7 +951,8 @@
       .gameListBlock {
         margin-top: 45px;
         width: 195px;
-        height: 100%;
+        // height: 100%;
+        height: 540px;
         background: var(--gameListColor);
         border-radius: 0px 0px 85px 0px;
         position: absolute;
@@ -1144,12 +1146,13 @@
         }
       }
 
+      .list-block-3,
       .list-block-2 {
         height: 170px;
         position: relative;
         left: -150px;
         padding: 15px;
-        overflow: hidden;
+        // overflow: hidden;
 
         .item.setting-text {
           display: none;
@@ -1190,7 +1193,7 @@
 
         .list-game-block {
           border: 1px solid #ff0000;
-          width: 75%;
+          width: 90%;
           height: 100%;
           margin-left: 190px;
 
@@ -1201,6 +1204,15 @@
           .game-icon {
             margin-left: 20px;
           }
+        }
+      }
+
+      .list-block-3 {
+        padding-top: 0px;
+
+        .list-game-block {
+          width: 85%;
+          height: 140px;
         }
       }
     }

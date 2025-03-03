@@ -96,6 +96,9 @@ onMounted(() => {
     Animation.removeSubClass('block1GameList2', 'animation-item-intro', 3000)
     Animation.addSubClass('block1GameList2', 'alpha-1', 2900)
 
+    Animation.addSubClass('block1GameList3', 'animation-item-intro', 2100)
+    Animation.removeSubClass('block1GameList3', 'animation-item-intro', 3000)
+    Animation.addSubClass('block1GameList3', 'alpha-1', 2900)
 
 
     // Animation.addClass('logoBox', 'page--alphaIn', 500)
@@ -242,11 +245,25 @@ onMounted(() => {
           <div id="gameBlock2" class="list-block-2">
             <span class="item setting-text"> ELECTRONIC </span>
             <div id="block1GameList2" class="list-game-block">
-              <GameIcon style="--item-index: 4;" />
-              <GameIcon style="--item-index: 3;" />
-              <GameIcon style="--item-index: 2;" />
-              <GameIcon style="--item-index: 1;" />
-              <GameIcon style="--item-index: 0;" />
+              <GameIcon style="--item-index: 0;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 1;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 2;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 3;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 4;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 5;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 6;" :status="STATUS_ICON.COMINGSOON" />
+            </div>
+          </div>
+          <!-- GAME.ELECTRONIC.BLOCK03 -->
+          <div id="gameBlock3" class="list-block-3">
+            <span class="item setting-text"> ELECTRONIC </span>
+            <div id="block1GameList3" class="list-game-block">
+              <GameIcon style="--item-index: 5;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 4;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 3;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 2;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 1;" :status="STATUS_ICON.COMINGSOON" />
+              <GameIcon style="--item-index: 0;" :status="STATUS_ICON.COMINGSOON" />
             </div>
           </div>
 

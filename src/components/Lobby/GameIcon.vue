@@ -15,6 +15,9 @@ const props = defineProps({
     <div v-if="props.status === STATUS_ICON.DEFAULT" class="game-icon">
       <div class="content ready">?</div>
     </div>
+    <div v-else-if="props.status === STATUS_ICON.COMINGSOON" class="game-icon" :class="[STATUS_ICON.COMINGSOON]">
+      <div class="content ready">?</div>
+    </div>
     <div v-else-if="props.status === STATUS_ICON.RACING" class="game-icon" :class="[STATUS_ICON.RACING]">
       <div class="content">
         <div class="light-1"></div>
@@ -33,6 +36,7 @@ const props = defineProps({
 </template>
 
 <style lang="scss" scoped>
+.game-icon.coming_soon,
 .game-icon {
   cursor: default;
   height: 140px;
@@ -88,6 +92,10 @@ const props = defineProps({
       }
     }
   }
+}
+
+.game-icon.coming_soon {
+  border: 15px solid #a3a3a3;
 }
 
 // __SNAKE__
