@@ -5,6 +5,10 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 9001
+  },
+
   plugins: [
     vue(),
     // eslintPlugin({ cache: false }) // 新增這行
