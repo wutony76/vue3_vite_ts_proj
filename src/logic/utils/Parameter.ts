@@ -47,6 +47,7 @@ export const GAME = {
   ELECTRONIC: {
     SNAKE: 'electronic-snake',
     RACING: 'electronic-racing',
+    TETRIMINOS: 'electronic-tetriminos',
     LOTTERY: 'electronic-lottery',
   }
 }
@@ -62,6 +63,7 @@ export const PATH_NAME = {
   LOBBY: 'Lobby',
   SNAKE: 'Snake',
   RACING: 'Racing',
+  TETRIMINOS: 'Tetriminos',
   LOTTERY: 'Lottery'
 }
 export const UI = {
@@ -74,6 +76,7 @@ export const UI = {
  * default > ?
  */
 export const STATUS_ICON = {
+  TEST: 'test',
   DEFAULT: 'default',
   COMINGSOON: 'coming_soon',
   SNAKE: 'snake',

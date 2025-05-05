@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { STATUS_ICON } from '@/logic/utils/Parameter'
+
 const props = defineProps({
   status: {
     type: String,
     default: 'default',
   },
+  title: { default: null },
 })
 
 // defineEmits({ ICON })
@@ -13,7 +15,8 @@ const props = defineProps({
 <template>
   <div>
     <div v-if="props.status === STATUS_ICON.DEFAULT" class="game-icon">
-      <div class="content ready">?</div>
+      <div v-if="!props.title" class="content ready">?</div>
+      <span v-else class="name">{{ props.title }}</span>
     </div>
     <div v-else-if="props.status === STATUS_ICON.COMINGSOON" class="game-icon" :class="[STATUS_ICON.COMINGSOON]">
       <div class="content ready">?</div>

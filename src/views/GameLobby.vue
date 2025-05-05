@@ -31,6 +31,11 @@ const clickListener = (actions: string) => {
     case GAME.ELECTRONIC.RACING:
       changePath(STATIC.SPACE, PATH_NAME.RACING)
       break
+    case GAME.ELECTRONIC.TETRIMINOS:
+      changePath(STATIC.SPACE, PATH_NAME.TETRIMINOS)
+      break
+
+
     case GAME.ELECTRONIC.LOTTERY:
       changePath(STATIC.SPACE, PATH_NAME.LOTTERY)
       break
@@ -236,7 +241,8 @@ onMounted(() => {
               </div> -->
               <GameIcon style="--item-index: 4;" />
               <GameIcon style="--item-index: 3;" />
-              <GameIcon style="--item-index: 2;" />
+              <GameIcon style="--item-index: 2;" :title="'Tetriminos'"
+                @click="clickListener(GAME.ELECTRONIC.TETRIMINOS)" />
               <GameIcon style="--item-index: 1;" :status="STATUS_ICON.RACING"
                 @click="clickListener(GAME.ELECTRONIC.RACING)" />
               <GameIcon style="--item-index: 0;" :status="STATUS_ICON.SNAKE"
