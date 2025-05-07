@@ -988,10 +988,11 @@ changeGameStatus(state.gameStatus)
             <div class="mainBackground"></div>
             <!-- 设置游戏的舞台 -->
             <div id="stage">
-              <!-- 设置WALL -->
-              <div id="wall">
-                <!-- __WALL.HTML.SAMPLE__ -->
-                <!-- <div class="row">
+              <slot name="SLOT-STAGE">
+                <!-- 设置WALL -->
+                <div id="wall">
+                  <!-- __WALL.HTML.SAMPLE__ -->
+                  <!-- <div class="row">
                   <div></div>
                   <div></div>
                   <div></div>
@@ -1023,18 +1024,19 @@ changeGameStatus(state.gameStatus)
                   <div></div>
                   <div></div>
                 </div> -->
-              </div>
-              <!-- 设置車 -->
-              <div id="car">
-                <div class="head">
-                  <div></div>
                 </div>
-                <div class="body">
-                  <div></div>
-                  <div></div>
-                  <div></div>
+                <!-- 设置車 -->
+                <div id="car">
+                  <div class="head">
+                    <div></div>
+                  </div>
+                  <div class="body">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
                 </div>
-              </div>
+              </slot>
             </div>
             <!-- 设置计分盘 -->
             <div id="score-panel">

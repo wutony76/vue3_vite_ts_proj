@@ -45,6 +45,9 @@ const state = reactive({
 
 <template>
   <GameBase ref="refGame" :data="state" :game="Game" :args="state.args">
+    <template #SLOT-STAGE>
+
+    </template>
   </GameBase>
 </template>
 
