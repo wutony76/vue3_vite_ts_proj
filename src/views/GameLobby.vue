@@ -17,14 +17,77 @@ defineOptions({
   name: "GameLoddy",
   inheritAttrs: false,
 })
-// const state = reactive({ })
+
+// Animation timing constants
+const ANIMATION_TIMING = {
+  NAVBAR: 10,
+  FOOTER: 10,
+  LOGO: 500,
+  APPY_WORD: 1500,
+  YOYO_WORD: 2000,
+  FAT_WORD: 3000,
+  BANNER: 700,
+  CONTACT: 1100,
+  CONTACT_LIST: 2000,
+  FACEBOOK_BUTTON: 2500,
+  FACEBOOK_BUTTON_END: 3000,
+  GAME_LIST: 900,
+  GAME_BLOCK: 1600,
+  GAME_ITEM: 2100,
+  GAME_ITEM_END: 3000,
+  GAME_ITEM_ALPHA: 2900,
+  LOGO_EFFECT: 300,
+  PATH_CHANGE: 1300,
+  PATH_RELOAD: 10
+} as const
+
+// Animation sequences
+const initAnimations = () => {
+  // Layout animations
+  Animation.addClass('nvbarBlock', 'animation-block-down', ANIMATION_TIMING.NAVBAR)
+  Animation.addClass('mainFooter', 'animation-block-down', ANIMATION_TIMING.FOOTER)
+
+  // Logo animations
+  Animation.addClass('logoBox', 'page--alphaIn', ANIMATION_TIMING.LOGO)
+  Animation.addClass('appyWord', 'headline--self001', ANIMATION_TIMING.APPY_WORD)
+  Animation.addClass('yoyoWord', 'headline--self001', ANIMATION_TIMING.YOYO_WORD)
+  Animation.addClass('fatWord', 'page--alphaIn', ANIMATION_TIMING.FAT_WORD)
+
+  // Block animations
+  Animation.addClass('bannerBlock', 'animation-block-right', ANIMATION_TIMING.BANNER)
+  Animation.addClass('contactBlock', 'animation-block-left', ANIMATION_TIMING.CONTACT)
+  Animation.addClass('contactListBlock', 'animation-block-down', ANIMATION_TIMING.CONTACT_LIST)
+
+  // Facebook button animation
+  Animation.addClass('buttonFacebook', 'animation-scale-90-show-start', ANIMATION_TIMING.FACEBOOK_BUTTON)
+  Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', ANIMATION_TIMING.FACEBOOK_BUTTON_END)
+  setTimeout(() => {
+    Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
+  }, ANIMATION_TIMING.FACEBOOK_BUTTON_END)
+
+  // Game list animations
+  Animation.addClass('gameListBlock', 'animation-block-up', ANIMATION_TIMING.GAME_LIST)
+  Animation.addClass('gameBlock1', 'animation-block-right', ANIMATION_TIMING.GAME_BLOCK)
+
+  // Game item animations
+  const gameBlocks = ['block1GameList', 'block1GameList2', 'block1GameList3']
+  gameBlocks.forEach(block => {
+    Animation.addSubClass(block, 'animation-item-intro', ANIMATION_TIMING.GAME_ITEM)
+    Animation.removeSubClass(block, 'animation-item-intro', ANIMATION_TIMING.GAME_ITEM_END)
+    Animation.addSubClass(block, 'alpha-1', ANIMATION_TIMING.GAME_ITEM_ALPHA)
+  })
+
+  // Logo effect
+  setTimeout(() => {
+    ArtsEffect.thickness('logoBox', 7, '#b14c4a', '#2a0303')
+  }, ANIMATION_TIMING.LOGO_EFFECT)
+}
 
 const clickListener = (actions: string) => {
   switch (actions) {
     case ACTIONS.RELOAD:
       window.location.reload()
       break
-
     case GAME.ELECTRONIC.SNAKE:
       changePath(STATIC.SPACE, PATH_NAME.SNAKE)
       break
@@ -34,21 +97,21 @@ const clickListener = (actions: string) => {
     case GAME.ELECTRONIC.TETRIMINOS:
       changePath(STATIC.SPACE, PATH_NAME.TETRIMINOS)
       break
-
-
     case GAME.ELECTRONIC.LOTTERY:
       changePath(STATIC.SPACE, PATH_NAME.LOTTERY)
       break
   }
 }
+
 const changePath = (_target: string, _name: string) => {
   Animation.addClass('lobbyContainer', 'animation-load-out', 10)
   setTimeout(() => {
     if (_target) router.replace({ path: _target })
     if (_name) router.replace({ name: _name })
-    setTimeout(() => { window.location.reload() }, 10)
-  }, 1300)
+    setTimeout(() => { window.location.reload() }, ANIMATION_TIMING.PATH_RELOAD)
+  }, ANIMATION_TIMING.PATH_CHANGE)
 }
+
 const init = () => {
   Net.test({
     title: 'TEST_這是標題',
@@ -67,79 +130,32 @@ onMounted(() => {
 
   nextTick(() => {
     console.log('nextTick')
-
-    // layout
-    Animation.addClass('nvbarBlock', 'animation-block-down', 10)
-    Animation.addClass('mainFooter', 'animation-block-down', 10)
-
-    // logo
-    Animation.addClass('logoBox', 'page--alphaIn', 500)
-    Animation.addClass('appyWord', 'headline--self001', 1500)
-    Animation.addClass('yoyoWord', 'headline--self001', 2000)
-    Animation.addClass('fatWord', 'page--alphaIn', 3000)
-    // Animation.addClass('logoLine', 'logo-line-move', 3300)
-
-    Animation.addClass('bannerBlock', 'animation-block-right', 700)
-    Animation.addClass('contactBlock', 'animation-block-left', 1100)
-    Animation.addClass('contactListBlock', 'animation-block-down', 2000)
-    Animation.addClass('buttonFacebook', 'animation-scale-90-show-start', 2500)
-    Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 3000)
-    setTimeout(() => {
-      Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
-    }, 3000)
-
-    // gamelist 
-    Animation.addClass('gameListBlock', 'animation-block-up', 900)
-    Animation.addClass('gameBlock1', 'animation-block-right', 1600)
-    // Animation.addClass('gameBlock2', 'animation-block-right', 1600)
-
-    Animation.addSubClass('block1GameList', 'animation-item-intro', 2100)
-    Animation.removeSubClass('block1GameList', 'animation-item-intro', 3000)
-    Animation.addSubClass('block1GameList', 'alpha-1', 2900)
-
-    Animation.addSubClass('block1GameList2', 'animation-item-intro', 2100)
-    Animation.removeSubClass('block1GameList2', 'animation-item-intro', 3000)
-    Animation.addSubClass('block1GameList2', 'alpha-1', 2900)
-
-    Animation.addSubClass('block1GameList3', 'animation-item-intro', 2100)
-    Animation.removeSubClass('block1GameList3', 'animation-item-intro', 3000)
-    Animation.addSubClass('block1GameList3', 'alpha-1', 2900)
-
-
-    // Animation.addClass('logoBox', 'page--alphaIn', 500)
-    setTimeout(() => {
-      ArtsEffect.thickness('logoBox', 7, '#b14c4a', '#2a0303')
-    }, 300)
-
-
-    /*
-     * ACTIONS. 
-     */
-    // __Note.gameList__
-    $('#gameListBlock').find('[tag="GAMELIST"]').hover(() => {
-      let _dom = $('#gameListBlock').find('[tag="NOTE"]')
-      let _class = 'note-gamelist-right'
-      if (!_dom.attr('class')?.split(' ').includes(_class)) {
-        _dom.addClass(_class)
-        setTimeout(() => {
-          _dom.removeClass(_class)
-        }, 1700)
-      }
-    })
-    // __Note.contactListBlock__
-    $('#contactListBlock').hover(() => {
-      let _dom = $('#contactBlock').find('[tag="NOTE"]')
-      let _class = 'note-contact-left'
-      if (!_dom.attr('class')?.split(' ').includes(_class)) {
-        _dom.addClass(_class)
-        setTimeout(() => {
-          _dom.removeClass(_class)
-        }, 1700)
-      }
-    })
-
+    initAnimations()
+    setupHoverEffects()
   })
 })
+
+const setupHoverEffects = () => {
+  // Game list hover effect
+  $('#gameListBlock').find('[tag="GAMELIST"]').hover(() => {
+    const note = $('#gameListBlock').find('[tag="NOTE"]')
+    const hoverClass = 'note-gamelist-right'
+    if (!note.attr('class')?.split(' ').includes(hoverClass)) {
+      note.addClass(hoverClass)
+      setTimeout(() => note.removeClass(hoverClass), 1700)
+    }
+  })
+
+  // Contact list hover effect
+  $('#contactListBlock').hover(() => {
+    const note = $('#contactBlock').find('[tag="NOTE"]')
+    const hoverClass = 'note-contact-left'
+    if (!note.attr('class')?.split(' ').includes(hoverClass)) {
+      note.addClass(hoverClass)
+      setTimeout(() => note.removeClass(hoverClass), 1700)
+    }
+  })
+}
 
 </script>
 
@@ -164,7 +180,8 @@ onMounted(() => {
             <div>center</div>
             <div class="settings">
               <div class="listBox">
-                <span class="item setting-text self button--float" @click="clickListener(ACTIONS.RELOAD)"> RELOAD </span>
+                <span class="item setting-text self button--float" @click="clickListener(ACTIONS.RELOAD)"> RELOAD
+                </span>
               </div>
             </div>
           </div>
@@ -241,7 +258,7 @@ onMounted(() => {
               </div> -->
               <GameIcon style="--item-index: 4;" />
               <GameIcon style="--item-index: 3;" />
-              <GameIcon style="--item-index: 2;" :title="'Tetriminos'"
+              <GameIcon style="--item-index: 2;" :title="'Tetriminos'" :status="STATUS_ICON.DEFAULT"
                 @click="clickListener(GAME.ELECTRONIC.TETRIMINOS)" />
               <GameIcon style="--item-index: 1;" :status="STATUS_ICON.RACING"
                 @click="clickListener(GAME.ELECTRONIC.RACING)" />
