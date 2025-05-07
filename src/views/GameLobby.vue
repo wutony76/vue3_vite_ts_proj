@@ -161,9 +161,7 @@ const setupHoverEffects = () => {
 
 <template>
   <div class="gameLobby animations">
-    <!-- <div id="loadPage" class="loadPage"></div> -->
     <div id="loadPage" class="loadPage"> </div>
-
     <div id="lobbyContainer" class="lobbyContainer">
       <div id="nvbarBlock" class="nvbar">
         <div class="nvbarContainer">
@@ -305,7 +303,6 @@ const setupHoverEffects = () => {
       <!-- <div class="main-footer"></div> -->
       <MainFooter id="mainFooter" />
     </div>
-
   </div>
 </template>
 
