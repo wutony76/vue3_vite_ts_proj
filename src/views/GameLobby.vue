@@ -11,6 +11,7 @@ import Lobby from '@/logic/lobby/Lobby'
 import Nvbar from '@/components/Ui/NvbarList.vue'
 import GameIcon from '@/components/Lobby/GameIcon.vue'
 import MainFooter from '@/components/Lobby/Footer.vue'
+import PluginGameBoyAnim from '@/components/SelfIcon/PluginGameBoyAnim.vue'
 
 const router = useRouter()
 defineOptions({
@@ -40,7 +41,6 @@ const ANIMATION_TIMING = {
   PATH_CHANGE: 1300,
   PATH_RELOAD: 10
 } as const
-
 // Animation sequences
 const initAnimations = () => {
   // Layout animations
@@ -102,7 +102,6 @@ const clickListener = (actions: string) => {
       break
   }
 }
-
 const changePath = (_target: string, _name: string) => {
   Animation.addClass('lobbyContainer', 'animation-load-out', 10)
   setTimeout(() => {
@@ -121,7 +120,6 @@ const init = () => {
     console.log('TEST.API.RES', res)
   })
 }
-
 onMounted(() => {
   console.log('onMounted')
   init()
@@ -145,7 +143,6 @@ const setupHoverEffects = () => {
       setTimeout(() => note.removeClass(hoverClass), 1700)
     }
   })
-
   // Contact list hover effect
   $('#contactListBlock').hover(() => {
     const note = $('#contactBlock').find('[tag="NOTE"]')
@@ -295,6 +292,65 @@ const setupHoverEffects = () => {
         </div>
         <!-- center2 -->
         <div class="center2">
+          <div class="game-info-container">
+            <div class="info-section">
+              <div class="section-header">
+                <span class="item setting-text">GAME STATS</span>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon">🎮</div>
+                  <div class="stat-content">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Active Games</div>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon">🏆</div>
+                  <div class="stat-content">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Total Wins</div>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon">⭐</div>
+                  <div class="stat-content">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">Average Rating</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-section">
+              <div class="section-header">
+                <span class="item setting-text">RECENT ACTIVITY</span>
+              </div>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-icon">🎯</div>
+                  <div class="activity-content">
+                    <div class="activity-title">Snake Game High Score</div>
+                    <div class="activity-time">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-icon">🏎️</div>
+                  <div class="activity-content">
+                    <div class="activity-title">New Racing Record</div>
+                    <div class="activity-time">5 hours ago</div>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="activity-icon">🎲</div>
+                  <div class="activity-content">
+                    <div class="activity-title">Tetriminos Level Up</div>
+                    <div class="activity-time">1 day ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- center2.end -->
         <div class="center end">
@@ -302,10 +358,216 @@ const setupHoverEffects = () => {
       </div>
       <!-- <div class="main-footer"></div> -->
       <MainFooter id="mainFooter" />
+
+      <div style="position: fixed; bottom: 200px; right: 50px; z-index: 90; border: 1px solid red;">
+        <PluginGameBoyAnim :size="90" :text="'HAPPY FAT YOYO'" @click="clickListener(ACTIONS.RELOAD)" />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
 @import "../assets/css/game/gameLobby.scss";
+
+.game-info-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  .info-section {
+    background: linear-gradient(135deg, rgba(42, 3, 3, 0.1) 0%, rgba(177, 76, 74, 0.1) 100%);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(177, 76, 74, 0.2);
+
+    .section-header {
+      margin-bottom: 20px;
+
+      .setting-text {
+        color: #b14c4a;
+        font-size: 18px;
+        text-shadow: 0 0 10px rgba(177, 76, 74, 0.3);
+      }
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    .stat-card {
+      background: linear-gradient(135deg, #2a0303 0%, #b14c4a 100%);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(42, 3, 3, 0.2);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(177, 76, 74, 0.3);
+      }
+
+      .stat-icon {
+        font-size: 24px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      .stat-content {
+        .stat-value {
+          font-size: 24px;
+          color: #fff;
+          font-weight: bold;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-label {
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+    }
+  }
+
+  .activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(42, 3, 3, 0.8) 0%, rgba(177, 76, 74, 0.8) 100%);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(177, 76, 74, 0.3);
+
+      &:hover {
+        transform: translateX(4px);
+        background: linear-gradient(135deg, rgba(42, 3, 3, 0.9) 0%, rgba(177, 76, 74, 0.9) 100%);
+        box-shadow: 0 4px 12px rgba(177, 76, 74, 0.2);
+      }
+
+      .activity-icon {
+        font-size: 20px;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      .activity-content {
+        flex: 1;
+
+        .activity-title {
+          font-size: 16px;
+          color: #fff;
+          margin-bottom: 4px;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .activity-time {
+          font-size: 12px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
+  }
+}
+
+.gameboy-icon {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+
+    .gameboy-svg {
+      .gameboy-screen {
+        animation: screenGlow 2s infinite;
+      }
+
+      .gameboy-button {
+        animation: buttonPress 0.5s infinite;
+      }
+
+      .gameboy-dpad {
+        animation: dpadGlow 1s infinite;
+      }
+    }
+  }
+
+  .gameboy-svg {
+    width: 100%;
+    height: 100%;
+
+    .gameboy-body {
+      fill: #9bbc0f; // GameBoy 經典綠色
+      stroke: #0f380f; // 深綠色邊框
+      stroke-width: 2;
+    }
+
+    .gameboy-screen {
+      fill: #0f380f; // 深綠色螢幕
+      opacity: 0.9;
+    }
+
+    .gameboy-button {
+      fill: #0f380f; // 深綠色按鈕
+      opacity: 0.9;
+    }
+
+    .gameboy-dpad {
+      stroke: #0f380f; // 深綠色方向鍵
+      stroke-width: 2;
+      fill: none;
+    }
+  }
+}
+
+@keyframes screenGlow {
+
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes buttonPress {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes dpadGlow {
+
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+
+  50% {
+    stroke-opacity: 0.7;
+  }
+}
 </style>
