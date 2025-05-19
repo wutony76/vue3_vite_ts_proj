@@ -10,6 +10,7 @@ import { ACTIONS, GAME, STATIC, PATH_NAME, STATUS_ICON } from '@/logic/utils/Par
 import Lobby from '@/logic/lobby/Lobby'
 import Nvbar from '@/components/Ui/NvbarList.vue'
 import GameIcon from '@/components/Lobby/GameIcon.vue'
+import PluginCenter2 from '@/components/Lobby/Center2/Index.vue'
 import MainFooter from '@/components/Lobby/Footer.vue'
 import PluginGameBoyAnim from '@/components/SelfIcon/PluginGameBoyAnim.vue'
 
@@ -297,7 +298,9 @@ const setupHoverEffects = () => {
           </div>
         </div>
         <!-- center2 -->
-        <div class="center2">
+        <PluginCenter2 />
+
+        <div class="center2" style="display: none;">
           <div class="game-info-container">
             <div class="info-section">
               <div class="section-header">
@@ -376,116 +379,7 @@ const setupHoverEffects = () => {
 <style lang="scss">
 @import "../assets/css/game/gameLobby.scss";
 
-.game-info-container {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
 
-  .info-section {
-    background: linear-gradient(135deg, rgba(42, 3, 3, 0.1) 0%, rgba(177, 76, 74, 0.1) 100%);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid rgba(177, 76, 74, 0.2);
-
-    .section-header {
-      margin-bottom: 20px;
-
-      .setting-text {
-        color: #b14c4a;
-        font-size: 18px;
-        text-shadow: 0 0 10px rgba(177, 76, 74, 0.3);
-      }
-    }
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-
-    .stat-card {
-      background: linear-gradient(135deg, #2a0303 0%, #b14c4a 100%);
-      border-radius: 8px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(42, 3, 3, 0.2);
-
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 16px rgba(177, 76, 74, 0.3);
-      }
-
-      .stat-icon {
-        font-size: 24px;
-        color: #fff;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      }
-
-      .stat-content {
-        .stat-value {
-          font-size: 24px;
-          color: #fff;
-          font-weight: bold;
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .stat-label {
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.8);
-        }
-      }
-    }
-  }
-
-  .activity-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    .activity-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background: linear-gradient(135deg, rgba(42, 3, 3, 0.8) 0%, rgba(177, 76, 74, 0.8) 100%);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(177, 76, 74, 0.3);
-
-      &:hover {
-        transform: translateX(4px);
-        background: linear-gradient(135deg, rgba(42, 3, 3, 0.9) 0%, rgba(177, 76, 74, 0.9) 100%);
-        box-shadow: 0 4px 12px rgba(177, 76, 74, 0.2);
-      }
-
-      .activity-icon {
-        font-size: 20px;
-        color: #fff;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      }
-
-      .activity-content {
-        flex: 1;
-
-        .activity-title {
-          font-size: 16px;
-          color: #fff;
-          margin-bottom: 4px;
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
-
-        .activity-time {
-          font-size: 12px;
-          color: rgba(255, 255, 255, 0.6);
-        }
-      }
-    }
-  }
-}
 
 .gameboy-icon {
   position: fixed;
