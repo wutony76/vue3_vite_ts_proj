@@ -48,8 +48,19 @@ const handleAnimationEnd = (event: AnimationEvent) => {
         <path d="M11 21h-1l1-7h-4l6-11h1l-1 7h4l-6 11z" fill="currentColor" />
       </svg>
     </div>
+    <!-- 亮光效果 -->
+    <svg class="screen-glow" viewBox="0 0 100 100" width="100" height="100"
+      style="position:absolute;top:0;left:0;pointer-events:none;z-index:3;">
+      <defs>
+        <linearGradient id="glow-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.7" />
+          <stop offset="80%" stop-color="#fff" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <ellipse class="glow-ellipse" cx="50" cy="35" rx="32" ry="12" fill="url(#glow-gradient)" />
+      <rect class="glow-sweep" x="20" y="20" width="60" height="40" fill="url(#glow-gradient)" opacity="0.5" />
+    </svg>
     <GameBoyIcon class="self-icon" :size="props.size ?? 90" @click="handleClick" />
-
   </div>
 </template>
 
@@ -254,6 +265,63 @@ const handleAnimationEnd = (event: AnimationEvent) => {
 
   100% {
     transform: translateX(0);
+  }
+}
+
+// 亮光動畫樣式
+.screen-glow {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.glow-ellipse {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+.glow-sweep {
+  display: none;
+  animation: glowSweep 3.5s linear infinite;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes glowSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  10% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translateX(60px);
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100px);
   }
 }
 </style>

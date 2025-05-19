@@ -100,6 +100,12 @@ const clickListener = (actions: string) => {
     case GAME.ELECTRONIC.LOTTERY:
       changePath(STATIC.SPACE, PATH_NAME.LOTTERY)
       break
+
+    case ACTIONS.SCROLL_TOP:
+      console.log('ACTIONS.SCROLL_TOP')
+      const el = document.querySelector('.gameLobby');
+      if (el) el.scrollTo({ top: 0, behavior: 'smooth' });
+      break
   }
 }
 const changePath = (_target: string, _name: string) => {
@@ -359,8 +365,9 @@ const setupHoverEffects = () => {
       <!-- <div class="main-footer"></div> -->
       <MainFooter id="mainFooter" />
 
-      <div style="position: fixed; bottom: 200px; right: 50px; z-index: 90; border: 1px solid red;">
-        <PluginGameBoyAnim :size="90" :text="'HAPPY FAT YOYO'" @click="clickListener(ACTIONS.RELOAD)" />
+      <!-- GAMEBOYICON 回到頂端按鈕 -->
+      <div style="position: fixed; bottom: 20px; right: 25px; z-index: 90;">
+        <PluginGameBoyAnim :size="90" :text="'HAPPY FAT YOYO'" @click="clickListener(ACTIONS.SCROLL_TOP)" />
       </div>
     </div>
   </div>

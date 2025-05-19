@@ -78,7 +78,7 @@ onMounted(() => {
   position: absolute;
   width: 100%;
   bottom: 0;
-  z-index: 999;
+  z-index: 50;
 
   .top {
     height: 50px;

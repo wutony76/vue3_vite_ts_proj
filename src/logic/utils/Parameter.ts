@@ -28,6 +28,7 @@ export const ACTIONS = {
   START: 'game_start',
   REPLAY: 'game_replay',
   EXIT: 'game_exit',
+  SCROLL_TOP: 'scroll_top',
 }
 export const VIEWS = {
   WAIT: 'view_wait',
