@@ -144,13 +144,13 @@ watch(() => props.text, () => nextTick(updateScrollX));
     }
 
     .gameboy-body {
-      fill: #9bbc0f; // 原始 Game Boy 的淺綠色
-      stroke: #306230; // 深綠色邊框
+      fill: #ff6fe5; // 原始 Game Boy 的淺綠色
+      stroke: #ff0379; // 深綠色邊框
       stroke-width: 4;
     }
 
     .gameboy-screen {
-      fill: #0f380f; // 深綠色螢幕
+      fill: #ffa7a7; // 深綠色螢幕
       opacity: 0.9;
       stroke: #306230;
       stroke-width: 2;
@@ -189,7 +189,7 @@ watch(() => props.text, () => nextTick(updateScrollX));
     }
 
     .gameboy-button {
-      fill: #306230;
+      fill: #ac326c;
       opacity: 0.9;
       stroke: #0f380f;
       stroke-width: 1.5;
@@ -227,13 +227,13 @@ watch(() => props.text, () => nextTick(updateScrollX));
     }
 
     .indicator-light {
-      fill: #9bbc0f;
+      fill: #aaa;
       opacity: 0.5;
       transition: all 0.3s ease;
     }
 
     .vent-slot {
-      fill: #275d41;
+      fill: #ac326c;
       transition: fill 0.3s;
     }
 
@@ -442,5 +442,9 @@ watch(() => props.text, () => nextTick(updateScrollX));
   100% {
     fill: #9bbc0f;
   }
+}
+
+.gameboy-icon:hover .indicator-light {
+  fill: #ff1d1d;
 }
 </style>
