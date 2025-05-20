@@ -57,8 +57,7 @@ const clickListener = (status: typeof STATUS[keyof typeof STATUS]) => {
     '.block-1-right-2',
     '.block-1-right-main',
     '.video-billboard'
-  ];
-
+  ]
   elements.forEach(selector => {
     const el = document.querySelector(selector);
     if (el) {
@@ -67,8 +66,8 @@ const clickListener = (status: typeof STATUS[keyof typeof STATUS]) => {
         el.classList.remove('click-transition');
       }, 500);
     }
-  });
-  state.selected = status;
+  })
+  state.selected = status
 }
 const init = {
   timer: null as number | null,
@@ -93,15 +92,12 @@ const init = {
     // block hover effect
     const blockId = `#id-block-1-right-${state.key}`
     const hoverClass = 'right-title-hover'
-
-    console.log('TTT.get.', $(blockId).find(`[tag="title"]`))
-    $(blockId).find(`[tag="title"]`).on('mouseenter', function () {
-      console.log('hover', $(this).attr('class'))
-
-      if (!$(this).attr('class')?.split(' ').includes(hoverClass)) {
-        $(this).addClass(hoverClass)
-        setTimeout(() => $(this).removeClass(hoverClass), 1700)
-      }
+    const jqDome = $(blockId).find(`[tag="title"]`)
+    jqDome.on('mouseenter', function () {
+      if (!$(this).attr('class')?.split(' ').includes(hoverClass)) $(this).addClass(hoverClass)
+    })
+    jqDome.on('mouseleave', function () {
+      $(this).removeClass(hoverClass)
     })
   },
   run() {
