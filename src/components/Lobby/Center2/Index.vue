@@ -216,7 +216,7 @@ init.run()
 
     @keyframes electronic-hover {
       20% {
-        top: 25px;
+        top: 0px;
         transform: rotate(270deg) scaleX(1.5);
       }
 
