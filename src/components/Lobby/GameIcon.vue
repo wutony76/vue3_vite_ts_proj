@@ -59,6 +59,11 @@ const props = defineProps({
     color: #474747;
   }
 
+  &.alpha-1 {
+    transform: scale(1);
+    opacity: 1;
+  }
+
   &:hover {
     .content.ready {
       color: #383535;

@@ -1,0 +1,1 @@
+export function _uuid2(): string; 
