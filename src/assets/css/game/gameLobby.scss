@@ -44,6 +44,8 @@
     background: var(--nvbarColorBar);
     transform-origin: 50% 0%;
     // transform: translateY(0px);
+    position: relative;
+    z-index: 15;
 
     .nvbarContainer {
       width: 100%;

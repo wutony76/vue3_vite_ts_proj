@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted } from 'vue'
+import { nextTick, onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import Splitting from 'splitting'
 import Net from '@/logic/base/Net'
@@ -18,6 +18,13 @@ const router = useRouter()
 defineOptions({
   name: "GameLoddy",
   inheritAttrs: false,
+})
+
+const state = reactive({
+  mainDom: null as HTMLElement | null,
+  hasDom: false,
+  ticking: false,
+  lastScrollTop: 0,
 })
 
 // Animation timing constants
@@ -103,9 +110,8 @@ const clickListener = (actions: string) => {
       break
 
     case ACTIONS.SCROLL_TOP:
-      console.log('ACTIONS.SCROLL_TOP')
-      const el = document.querySelector('.gameLobby');
-      if (el) el.scrollTo({ top: 0, behavior: 'smooth' });
+      // console.log('ACTIONS.SCROLL_TOP')
+      if (state.hasDom) state.mainDom!.scrollTo({ top: 0, behavior: 'smooth' })
       break
   }
 }
@@ -118,49 +124,109 @@ const changePath = (_target: string, _name: string) => {
   }, ANIMATION_TIMING.PATH_CHANGE)
 }
 
-const init = () => {
-  Net.test({
-    title: 'TEST_這是標題',
-    body: 'TEST_這是身體',
-    userId: 'TEST_a1234567',
-  }).then((res: Object) => {
-    console.log('TEST.API.RES', res)
-  })
+const updateState = {
+  setMainDom() {
+    const dom = document.querySelector('.gameLobby')
+    if (dom) {
+      state.hasDom = true
+      state.mainDom = dom as HTMLElement
+    }
+  }
 }
+
+const init = {
+  test() {
+    Net.test({
+      title: 'TEST_這是標題',
+      body: 'TEST_這是身體',
+      userId: 'TEST_a1234567',
+    }).then((res: Object) => {
+      console.log('TEST.API.RES', res)
+    })
+  },
+  run() {
+    Splitting()
+    new Lobby()
+
+    // -state.settings-
+    updateState.setMainDom()
+    setup.hover_main_dom()
+  }
+}
+
+const scrollAnim = {
+  UP: 'up' as const,
+  DOWN: 'down' as const,
+  top35_show() {
+    $('.nvbarContainer').show(10, () => {
+      Animation.addClass('nvbarBlock', 'animation-block-down', 10)
+    })
+  },
+  top35_hidden() {
+    $('.nvbarContainer').hide(300, () => {
+      // 隱藏後的動作
+      $('#nvbarBlock').css({
+        'background-color': 'transparent',
+      })
+      Animation.removeClass('nvbarBlock', 'animation-block-down')
+    })
+  },
+  top35_show_after() {
+    $('.nvbarContainer').css({
+      'transform': 'translateY(0)',
+      'transition': 'transform 0.3s ease'
+    })
+  }
+}
+
+// -SETUP. SOMETHING-
+const setup = {
+  hover_note_effects() {
+    // Game list hover effect
+    $('#gameListBlock').find('[tag="GAMELIST"]').hover(() => {
+      const note = $('#gameListBlock').find('[tag="NOTE"]')
+      const hoverClass = 'note-gamelist-right'
+      if (!note.attr('class')?.split(' ').includes(hoverClass)) {
+        note.addClass(hoverClass)
+        setTimeout(() => note.removeClass(hoverClass), 1700)
+      }
+    })
+    // Contact list hover effect
+    $('#contactListBlock').hover(() => {
+      const note = $('#contactBlock').find('[tag="NOTE"]')
+      const hoverClass = 'note-contact-left'
+      if (!note.attr('class')?.split(' ').includes(hoverClass)) {
+        note.addClass(hoverClass)
+        setTimeout(() => note.removeClass(hoverClass), 1700)
+      }
+    })
+  },
+  hover_main_dom() {
+    state.mainDom!.addEventListener('scroll', function () {
+      console.log('scroll', state.mainDom!.scrollTop)
+      if (state.ticking) return
+      state.ticking = true
+      const scrollTop = state.mainDom!.scrollTop || 0
+      // const direction = scrollTop > state.lastScrollTop ? scrollAnim.DOWN : scrollAnim.UP
+
+      // run.something.start
+      if (scrollTop <= 25) scrollAnim.top35_show()
+      if (scrollTop > 35) scrollAnim.top35_hidden()
+      // run.something.end
+      state.ticking = false
+    })
+  }
+}
+
 onMounted(() => {
-  console.log('onMounted')
-  init()
-  Splitting()
-  new Lobby()
+  init.test()
+  init.run()
 
   nextTick(() => {
-    console.log('nextTick')
     initAnimations()
-    setupHoverEffects()
+    setup.hover_note_effects()
   })
 })
-
-const setupHoverEffects = () => {
-  // Game list hover effect
-  $('#gameListBlock').find('[tag="GAMELIST"]').hover(() => {
-    const note = $('#gameListBlock').find('[tag="NOTE"]')
-    const hoverClass = 'note-gamelist-right'
-    if (!note.attr('class')?.split(' ').includes(hoverClass)) {
-      note.addClass(hoverClass)
-      setTimeout(() => note.removeClass(hoverClass), 1700)
-    }
-  })
-  // Contact list hover effect
-  $('#contactListBlock').hover(() => {
-    const note = $('#contactBlock').find('[tag="NOTE"]')
-    const hoverClass = 'note-contact-left'
-    if (!note.attr('class')?.split(' ').includes(hoverClass)) {
-      note.addClass(hoverClass)
-      setTimeout(() => note.removeClass(hoverClass), 1700)
-    }
-  })
-}
-
 </script>
 
 <template>
@@ -379,8 +445,6 @@ const setupHoverEffects = () => {
 <style lang="scss">
 @import "../assets/css/game/gameLobby.scss";
 
-
-
 .gameboy-icon {
   position: fixed;
   bottom: 40px;
@@ -469,6 +533,17 @@ const setupHoverEffects = () => {
 
   50% {
     stroke-opacity: 0.7;
+  }
+}
+
+#nvbarBlock {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+
+  &.hidden {
+    opacity: 0;
+    visibility: visible;
   }
 }
 </style>
