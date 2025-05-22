@@ -4,7 +4,10 @@ const Tools = {
   },
   formatSorce: (score:number) => {
     return String(score).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  },
+  delay: (ms: number): Promise<void> => {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
-} 
+}
 
-export default Tools 
+export default Tools

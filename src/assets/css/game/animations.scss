@@ -42,8 +42,6 @@
     // transform: translateX(calc(0.01em * var(--char-index))); 位移
     // transform: scaleX(0.3);
   }
-
-
 }
 
 .animations {
@@ -75,7 +73,7 @@
     }
   }
 
-  // 跳動文字 
+  // 跳動文字
   .headline--self001 {
     .word {
       .char {
@@ -259,14 +257,12 @@
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
   }
-
   .animation-block-up {
     animation: jump_block_up;
     animation-duration: 0.4s; // 持續時間
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
   }
-
   .animation-scale-90-show-start {
     animation: scale_90_show;
     animation-duration: 0.3s; // 持續時間
@@ -291,7 +287,6 @@
     --tf: cubic-bezier(0.165, 0.44, 0.64, 1);
   }
 
-
   .animation-move-left {
     animation: move_left;
     animation-duration: 0.3s; // 持續時間
@@ -309,7 +304,6 @@
   .animation-scan-lights {
     animation: scan_lights 3s linear 1s infinite;
   }
-
 
   .animation-left-btn-move {
     animation: game_left_move;
@@ -346,7 +340,7 @@
     animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
   }
 
-  // note move. 
+  // note move.
   .note-gamelist-right {
     animation-name: note-right-move; // 動畫名稱
     animation-duration: 0.23s; // 持續時間
@@ -366,17 +360,14 @@
       right: 150px;
       transform: scaleX(1.5);
     }
-
     70% {
       letter-spacing: 12px;
     }
-
     100% {
       right: 3px;
       letter-spacing: -1px;
     }
   }
-
   @keyframes note-right-move {
     20% {
       left: 190px;
@@ -392,7 +383,6 @@
       letter-spacing: -1px;
     }
   }
-
   @keyframes rightBtn01 {
     0% {
       transform: scale(0);
@@ -404,7 +394,7 @@
     }
 
     80% {
-      transform: translateX(40px) rotateY(70deg) scale(1.2) scaleY(.5);
+      transform: translateX(40px) rotateY(70deg) scale(1.2) scaleY(0.5);
     }
 
     100% {
@@ -412,7 +402,6 @@
       opacity: 1;
     }
   }
-
   @keyframes leftBtn01 {
     0% {
       transform: scale(0);
@@ -424,7 +413,7 @@
     }
 
     80% {
-      transform: translateX(-40px) rotateY(-70deg) scale(1.2) scaleY(.5);
+      transform: translateX(-40px) rotateY(-70deg) scale(1.2) scaleY(0.5);
     }
 
     100% {
@@ -432,7 +421,6 @@
       opacity: 1;
     }
   }
-
   @keyframes settingsBtn {
     0% {
       transform: rotate(0deg);
@@ -442,7 +430,6 @@
       transform: rotate(360deg);
     }
   }
-
   // 淡入
   @keyframes alpha_in {
     0% {
@@ -453,7 +440,6 @@
       opacity: 1;
     }
   }
-
   // 淡出
   @keyframes alpha_out {
     0% {
@@ -464,36 +450,34 @@
       opacity: 0;
     }
   }
-
   // 彈窗效果
   @keyframes intro_box {
     0% {
       opacity: 0;
-      transform: scale(0)
+      transform: scale(0);
     }
 
     20% {
-      transform: scale(1.2)
+      transform: scale(1.2);
     }
 
     40% {
-      transform: scale(0.89)
+      transform: scale(0.89);
     }
 
     60% {
-      transform: scale(1.04)
+      transform: scale(1.04);
     }
 
     80% {
-      transform: scale(0.98)
+      transform: scale(0.98);
     }
 
     100% {
       opacity: 1;
-      transform: scale(1)
+      transform: scale(1);
     }
   }
-
   @keyframes anim_intro {
     0% {
       transform: scale(0.7);
@@ -548,7 +532,6 @@
       opacity: 1;
     }
   }
-
   @keyframes jump_down {
     0% {
       transform: translateY(-100px);
@@ -574,7 +557,6 @@
       transform: translateY(0px) scaleY(1);
     }
   }
-
   @keyframes jump_block_down {
     0% {
       transform: scaleY(0);
@@ -602,7 +584,6 @@
       opacity: 1;
     }
   }
-
   @keyframes jump_block_up {
     0% {
       transform: scaleY(0);
@@ -630,42 +611,34 @@
       opacity: 1;
     }
   }
-
   @keyframes jump_right {
     0% {
       transform: scaleX(0);
     }
-
     // 50% { transform: scaleX(0.2);}
     60% {
       transform: scaleX(1.5);
     }
-
     70% {
       transform: scaleX(0.89);
     }
-
     80% {
       transform: scaleX(1.2);
     }
-
     90% {
       transform: scaleX(0.98);
     }
-
     100% {
       transform: scaleX(1);
     }
   }
 
-
-  // 左邊移動 
+  // 左邊移動
   @keyframes move_left {
     100% {
       transform: translateX(1000px);
     }
   }
-
   // 放大
   @keyframes scale_zoom_in {
     30% {
@@ -682,19 +655,16 @@
       transform: scale(100);
     }
   }
-
   // 掃光
   @keyframes scan_lights {
     0% {
       transform: translate(-28%, -200%) rotate(-45deg);
     }
-
     100% {
       transform: translate(-28%, 900%) rotate(-45deg);
     }
   }
-
-  // game 
+  // game
   @keyframes game_left_move {
     0% {
       right: 500px;
@@ -729,7 +699,6 @@
       transform: scale(1);
     }
   }
-
   @keyframes game_right_move {
     0% {
       right: -500px;
@@ -752,7 +721,6 @@
       transform: scale(1);
     }
   }
-
   @keyframes loading_out {
     0% {
       opacity: 1;
@@ -766,6 +734,62 @@
     100% {
       opacity: 0;
       transform: scale(0);
+    }
+  }
+
+  // __SCROLL.SETTINGS__
+  .anim-banner-out {
+    animation: banner-out-a01;
+    animation-duration: 0.4s; // 持續時間
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+    @keyframes banner-out-a01 {
+      20% {
+        transform: scaleY(1) scaleX(2.3);
+        opacity: 1;
+      }
+      100% {
+        transform:scaleY(1) scaleX(0);
+        opacity: 0;
+      }
+    }
+  }
+  .anim-contact-out {
+    animation: contact-out-a01;
+    animation-duration: 0.4s; // 持續時間
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+    @keyframes contact-out-a01 {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      20%{
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+    }
+  }
+  .anim-gameBlock1-out {
+    animation: gameBlock1-out-a01;
+    animation-duration: 0.4s; // 持續時間
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+    @keyframes gameBlock1-out-a01 {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      20%{
+        transform: scale(2);
+      }
+      100% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
     }
   }
 }

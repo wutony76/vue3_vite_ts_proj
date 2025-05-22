@@ -21,5 +21,15 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['jquery']
-  }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 靜默來自相依套件的所有 deprecation 警告
+        quietDeps: true,
+        // 只靜默「@import」相關的 deprecation
+        silenceDeprecations: ['import'],
+      },
+    },
+  },
 })
