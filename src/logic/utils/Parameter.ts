@@ -1,4 +1,3 @@
-
 // CLICK事件狀態
 export const ACTIONS = {
   GAMEBACK: 'game_back_btn',
@@ -28,7 +27,7 @@ export const ACTIONS = {
   START: 'game_start',
   REPLAY: 'game_replay',
   EXIT: 'game_exit',
-  SCROLL_TOP: 'scroll_top',
+  SCROLL_TOP: 'scroll_top'
 }
 export const VIEWS = {
   WAIT: 'view_wait',
@@ -49,11 +48,11 @@ export const GAME = {
     SNAKE: 'electronic-snake',
     RACING: 'electronic-racing',
     TETRIMINOS: 'electronic-tetriminos',
-    LOTTERY: 'electronic-lottery',
+    LOTTERY: 'electronic-lottery'
   }
 }
 export const STATIC = {
-  SPACE: '',
+  SPACE: ''
 }
 export const PATH = {
   LOBBY: '/lobby',
@@ -61,6 +60,7 @@ export const PATH = {
   RACING: '/racing'
 }
 export const PATH_NAME = {
+  WELCOME: 'Welcome',
   LOBBY: 'Lobby',
   SNAKE: 'Snake',
   RACING: 'Racing',
@@ -69,7 +69,7 @@ export const PATH_NAME = {
 }
 export const UI = {
   CLICKLEFT: 'click-left',
-  CLICKRIGHT: 'click-right',
+  CLICKRIGHT: 'click-right'
 }
 
 /**

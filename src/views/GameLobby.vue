@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { nextTick, onMounted, reactive } from 'vue'
+  import { nextTick, onMounted, reactive, ref } from 'vue'
   import { useRouter } from 'vue-router'
   import Splitting from 'splitting'
   import Net from '@/logic/base/Net'
@@ -14,7 +14,6 @@
   import MainFooter from '@/components/Lobby/Footer.vue'
   import PluginGameBoyAnim from '@/components/SelfIcon/PluginGameBoyAnim.vue'
   import Tools from '@/logic/utils/Tools'
-  import { handleError } from 'vue'
 
   const router = useRouter()
   defineOptions({
@@ -31,7 +30,6 @@
     lastScrollTop: 0,
     lastScrollTimestamp: 0
   })
-
   // Animation timing constants
   const ANIMATION_TIMING = {
     NAVBAR: 10,
@@ -107,7 +105,8 @@
   const clickListener = (actions: string) => {
     switch (actions) {
       case ACTIONS.RELOAD:
-        window.location.reload()
+        // window.location.reload()
+        router.replace({ name: PATH_NAME.WELCOME })
         break
       case GAME.ELECTRONIC.SNAKE:
         changePath(STATIC.SPACE, PATH_NAME.SNAKE)
@@ -412,9 +411,10 @@
   }
 
   onMounted(() => {
+    // state.isReady = true
+    // if (!state.isReady) return
     init.test()
     init.run()
-
     nextTick(() => {
       initAnimations()
       setup.hover_note_effects()
