@@ -26,6 +26,7 @@
     mainDom: null as HTMLElement | null,
     hasDom: false,
     ticking: false,
+    isInit: false,
     timeCheck: false,
     lastScrollTop: 0,
     lastScrollTimestamp: 0
@@ -166,15 +167,19 @@
       // __process.nvbar animation__
       if (scrollTop <= 25 && direction === scrollAnim.UP) scrollAnim.top35_show()
       if (scrollTop > 35 && direction === scrollAnim.DOWN) scrollAnim.top35_hide()
-
+      // __banner__
       if (scrollTop <= 70 && direction === scrollAnim.UP) scrollAnim.top135_show()
       if (scrollTop > 135 && direction === scrollAnim.DOWN) scrollAnim.top135_hide()
-
+      // __contact__
       if (scrollTop <= 180 && direction === scrollAnim.UP) scrollAnim.top250_show()
       if (scrollTop > 250 && direction === scrollAnim.DOWN) scrollAnim.top250_hide()
+      // __gameList.1.block__
+      if (scrollTop <= 290 && direction === scrollAnim.UP) scrollAnim.top290_show()
+      if (scrollTop > 290 && direction === scrollAnim.DOWN) scrollAnim.top290_hide()
+      // __gameList.2.block__
+      if (scrollTop <= 500 && direction === scrollAnim.UP) scrollAnim.top500_show()
+      if (scrollTop > 500 && direction === scrollAnim.DOWN) scrollAnim.top500_hide()
 
-      if (scrollTop <= 315 && direction === scrollAnim.UP) scrollAnim.top350_show()
-      if (scrollTop > 350 && direction === scrollAnim.DOWN) scrollAnim.top350_hide()
       // __process.banner animation__
       // ***run.something.end
       state.ticking = false
@@ -182,9 +187,16 @@
     timerCheck() {
       const now = func.ts()
       const delta = now - state.lastScrollTimestamp
-      if (delta < 3000) return
-      if (now - state.lastScrollTimestamp > 3000 && !state.timeCheck) {
-      }
+      this.checkScroll(delta)
+      setTimeout(() => this.timerCheck(), 500)
+    },
+    checkScroll(delta: number) {
+      // if (state.lastScrollTimestamp <= 0) return
+      // if (!state.isInit) return
+      if (delta < 500) return
+      if (state.timeCheck) return
+      state.timeCheck = true
+      handle.scroll()
     }
   }
   const init = {
@@ -217,8 +229,10 @@
       top135_hide: false,
       top250_show: false,
       top250_hide: false,
-      top350_show: false,
-      top350_hide: false
+      top290_show: false,
+      top290_hide: false,
+      top500_show: false,
+      top500_hide: false
     },
 
     top35_show() {
@@ -293,36 +307,76 @@
       })
     },
 
-    top350_show() {
+    top290_show() {
+      if (scrollAnim.scrollRecode.top290_show) return
+      scrollAnim.scrollRecode.top290_show = true
       $('#gameBlock1').removeClass('anim-gameBlock1-out')
       Tools.delay(10).then(() => {
         Animation.addClass('gameBlock1', 'animation-block-right', 10)
+        setTimeout(() => {
+          const gameBlocks = ['block1GameList']
+          gameBlocks.forEach(block => {
+            Animation.addSubClass(block, 'animation-item-intro', 10)
+            Animation.removeSubClass(block, 'animation-item-intro', 1100)
+            Animation.addSubClass(block, 'alpha-1', 1100)
+          })
+          scrollAnim.scrollRecode.top290_hide = false
+        }, 450)
       })
     },
-    top350_hide() {
+    top290_hide() {
+      if (scrollAnim.scrollRecode.top290_hide) return
+      scrollAnim.scrollRecode.top290_hide = true
+
       const gameBlocks = ['block1GameList']
       gameBlocks.forEach(block => {
-        console.log('block', block)
-        Animation.addSubClass(block, 'animation-item-intro', 10)
-        Animation.removeSubClass(block, 'animation-item-intro', 450)
-
-        console.log('block', block)
-        $(`#${block}`)
-          .children()
-          .each(function (i, el) {
-            // console.log('child', element, $(element))
-            // $(el).hide()
-            // $(el).removeClass("alpha-1")
-          })
-
-        // Animation.addSubClass(block, "alpha-1", ANIMATION_TIMING.GAME_ITEM_ALPHA)
+        Animation.addSubClass(block, 'anim-icon-out', 10)
+        Animation.removeSubClass(block, 'anim-icon-out', 1100)
+        Animation.removeSubClass(block, 'alpha-1', 1100)
       })
+      setTimeout(() => {
+        $('#gameBlock1').addClass('anim-gameBlock1-out')
+        Tools.delay(450).then(() => {
+          Animation.removeClass('gameBlock1', 'animation-block-right')
+          scrollAnim.scrollRecode.top290_show = false
+        })
+      }, 700)
+    },
 
-      // $("#gameBlock1").addClass("anim-gameBlock1-out")
-      // Tools.delay(450).then(() => {
-      //   // $("#gameBlock1").addClass("animation-block-right")
-      //   Animation.removeClass( "gameBlock1", "animation-block-right")
-      // })
+    top500_show() {
+      if (scrollAnim.scrollRecode.top500_show) return
+      scrollAnim.scrollRecode.top500_show = true
+
+      Tools.delay(10).then(() => {
+        Animation.addClass('gameListBlock', 'animation-block-up', 10)
+
+        const gameBlocks = ['block1GameList2', 'block1GameList3']
+        gameBlocks.forEach(block => {
+          Animation.addSubClass(block, 'animation-item-intro', 100)
+          Animation.removeSubClass(block, 'animation-item-intro', 1000)
+          Animation.addSubClass(block, 'alpha-1', 900)
+        })
+
+        scrollAnim.scrollRecode.top500_hide = false
+      })
+    },
+    top500_hide() {
+      if (scrollAnim.scrollRecode.top500_hide) return
+      scrollAnim.scrollRecode.top500_hide = true
+      const gameBlocks = ['block1GameList2', 'block1GameList3']
+      gameBlocks.forEach(block => {
+        Animation.addSubClass(block, 'anim-icon-out', 10)
+        Animation.removeSubClass(block, 'anim-icon-out', 1100)
+        Animation.removeSubClass(block, 'alpha-1', 1100)
+      })
+      setTimeout(() => {
+        $('#gameListBlock').addClass('anim-gameListBlock-out')
+        Tools.delay(450).then(() => {
+          Animation.removeClass('gameListBlock', 'animation-block-up')
+          Animation.removeClass('gameListBlock', 'anim-gameListBlock-out')
+          scrollAnim.scrollRecode.top500_show = false
+        })
+      }, 1200)
     }
   }
   // -SETUP. SOMETHING-
@@ -350,7 +404,10 @@
       })
     },
     hover_main_dom() {
-      state.mainDom!.addEventListener('scroll', function () {})
+      state.mainDom!.addEventListener('scroll', function () {
+        handle.scroll()
+        state.timeCheck = false
+      })
     }
   }
 

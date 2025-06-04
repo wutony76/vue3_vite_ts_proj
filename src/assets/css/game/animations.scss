@@ -749,7 +749,7 @@
         opacity: 1;
       }
       100% {
-        transform:scaleY(1) scaleX(0);
+        transform: scaleY(1) scaleX(0);
         opacity: 0;
       }
     }
@@ -764,7 +764,7 @@
         transform: scale(1);
         opacity: 1;
       }
-      20%{
+      20% {
         transform: scale(1.5);
       }
       100% {
@@ -783,8 +783,69 @@
         transform: scale(1);
         opacity: 1;
       }
-      20%{
+      20% {
         transform: scale(2);
+      }
+      100% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+    }
+  }
+  .anim-gameListBlock-out {
+    animation: gameList-out-a01;
+    animation-duration: 0.4s; // 持續時間
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+
+    @keyframes gameList-out-a01 {
+      0% {
+        transform: translateY(100px) !important;
+        opacity: 1;
+      }
+      20% {
+        transform: translateY(200px) !important;
+        height: 100px;
+        width: 300px;
+      }
+      60% {
+        transform: translateY(250px) !important;
+        height: 780px;
+        width: 130px;
+      }
+      90% {
+        transform: translateY(230px) scaleY(1);
+        height: 300px;
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+  .anim-icon-out {
+    animation-name: icon-out-a01;
+    animation-duration: 1s;
+    animation-delay: calc(var(--item-index) * 0.075s);
+    animation-iteration-count: var(--it, infinite);
+    animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+
+    --it: 1;
+    animation-fill-mode: forwards;
+
+    @keyframes icon-out-a01 {
+      0% {
+        opacity: 1;
+        transform: scale(0.5);
+      }
+      20% {
+        transform: scale(1.2);
+      }
+      40% {
+        transform: scale(0.89);
+      }
+      60% {
+        transform: scale(1.04);
       }
       100% {
         transform: scale(0.3);
