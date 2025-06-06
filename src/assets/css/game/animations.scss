@@ -803,18 +803,13 @@
         transform: translateY(100px) !important;
         opacity: 1;
       }
-      20% {
-        transform: translateY(200px) !important;
-        height: 100px;
-        width: 300px;
-      }
       60% {
         transform: translateY(250px) !important;
         height: 780px;
         width: 130px;
       }
       90% {
-        transform: translateY(230px) scaleY(1);
+        transform: translateY(130px) scaleY(1);
         height: 300px;
         opacity: 0.6;
       }

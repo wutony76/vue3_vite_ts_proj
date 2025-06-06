@@ -286,6 +286,8 @@
         Animation.addClass('bannerBlock', 'animation-block-right', 10)
         Animation.addClass('contactBlock', 'animation-block-left', 400)
         Animation.addClass('contactListBlock', 'animation-block-down', 1000)
+        Animation.addClass('buttonFacebook', 'animation-scale-90-show-start', 1500)
+        Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 2000)
         scrollAnim.scrollRecode.top250_hide = false
       })
     },
