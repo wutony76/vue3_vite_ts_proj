@@ -1,6 +1,10 @@
 <template>
   <div class="sports-game">
     <div class="game-area">
+      <div class="tree">
+        <div class="trunk"></div>
+        <div class="leaves"></div>
+      </div>
       <div class="field">
         <div class="target" :style="targetStyle">
           <div class="target-ring" :class="{ scored: isThrowing && distance < 5 }"></div>
@@ -189,7 +193,7 @@
 
     const effect = document.createElement('div')
     effect.className = 'score-effect'
-    effect.textContent = '得分'
+    effect.textContent = 'SCORE'
     effect.style.position = 'absolute'
     effect.style.left = `${targetPosition.value.x}%`
     effect.style.top = `${targetPosition.value.y - 40}%`
@@ -254,6 +258,7 @@
           position: absolute;
           left: 10px;
           bottom: 45px;
+          width: 66px;
 
           color: #fff;
           font-size: 20px;
@@ -636,6 +641,49 @@
     .throw-button {
       padding: 12px 30px;
       font-size: 16px;
+    }
+  }
+
+  .tree {
+    position: absolute;
+    right: 5%;
+    top: -70px;
+    z-index: 1;
+    transform: scale(0.8);
+
+    .trunk {
+      width: 20px;
+      height: 80px;
+      background: #8b4513;
+      position: relative;
+      border-radius: 4px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .leaves {
+      position: absolute;
+      top: -40px;
+      left: -30px;
+      width: 80px;
+      height: 80px;
+      background: #2e8b57;
+      border-radius: 50%;
+      box-shadow:
+        -20px -20px 0 #2e8b57,
+        20px -20px 0 #2e8b57,
+        -20px 20px 0 #2e8b57,
+        20px 20px 0 #2e8b57;
+      animation: sway 3s ease-in-out infinite;
+    }
+  }
+
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(5deg);
     }
   }
 </style>
