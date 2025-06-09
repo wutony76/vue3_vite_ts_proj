@@ -49,6 +49,7 @@
         <GameVisualNovel />
       </div>
     </div>
+    <!-- 運動 -->
     <div v-else-if="selected.name === STATUS.SPORTS.name" class="main">
       <div class="left">
         <ul>
@@ -72,6 +73,34 @@
       </div>
       <div class="right">
         <GameSport />
+      </div>
+    </div>
+    <!-- 節奏 -->
+    <div v-else-if="selected.name === STATUS.MUSIC.name" class="main">
+      <div class="left">
+        <ul>
+          <li>操作簡單</li>
+          <li>各種曲風</li>
+          <li>節奏對應</li>
+        </ul>
+      </div>
+      <div class="center">
+        <p>
+          According to the rhythm, melody and beat of the music, you can operate at the right time
+          to get points or advance the plot. This kind of game combines vision, hearing and action
+          response, which is a perfect combination of music and interactive entertainment.
+        </p>
+
+        <!-- <div class="center-hover">
+          This type of game emphasizes immersion, imagination, and choice, and is also an important
+          source of inspiration for the development of narrative games. Whether you are a player,
+          creator, or narrative lover, text adventure is a classic path worth trying.
+        </div> -->
+      </div>
+      <div class="right">
+        <!-- <div class="light"></div>
+        <div class="light2"></div> -->
+        <GameMusic />
       </div>
     </div>
     <div v-else class="main">
@@ -112,6 +141,7 @@
   import { STATUS, GameStatusType } from './Scripts/config'
   import GameVisualNovel from './GameSample/VisualNovel.vue'
   import GameSport from './GameSample/Sport.vue'
+  import GameMusic from './GameSample/Music.vue'
 
   const props = defineProps<{
     selected: GameStatusType
@@ -255,7 +285,6 @@
         }
       }
     }
-
     &.bar-sports {
       .title {
         color: #ffa333;
@@ -300,20 +329,32 @@
       // background: #ffa333;
       // opacity: 0.99;
     }
-
     &.bar-music {
       .title {
+        position: relative;
         color: #f52b8c;
+        z-index: 2;
       }
       .main {
+        .left {
+          z-index: 1;
+          box-shadow: 0px 2px 10px #99888833;
+        }
         .center {
+          top: 10px;
           border-color: #f52b8c;
+          width: 50%;
+
+          display: flex;
+          align-items: center;
+        }
+        .right {
+          width: 78%;
+          height: 65%;
+          overflow: unset;
         }
       }
-      // background: #f52b8c;
-      // opacity: 0.99;
     }
-
     &.bar-adventure {
       .title {
         color: #48c96c;

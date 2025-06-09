@@ -173,10 +173,10 @@
       if (scrollTop <= 180 && direction === scrollAnim.UP) scrollAnim.top250_show()
       if (scrollTop > 250 && direction === scrollAnim.DOWN) scrollAnim.top250_hide()
       // __gameList.1.block__
-      if (scrollTop <= 290 && direction === scrollAnim.UP) scrollAnim.top290_show()
+      if (scrollTop <= 290) scrollAnim.top290_show()
       if (scrollTop > 290 && direction === scrollAnim.DOWN) scrollAnim.top290_hide()
       // __gameList.2.block__
-      if (scrollTop <= 500 && direction === scrollAnim.UP) scrollAnim.top500_show()
+      if (scrollTop <= 500) scrollAnim.top500_show()
       if (scrollTop > 500 && direction === scrollAnim.DOWN) scrollAnim.top500_hide()
 
       // __process.banner animation__
@@ -288,6 +288,10 @@
         Animation.addClass('contactListBlock', 'animation-block-down', 1000)
         Animation.addClass('buttonFacebook', 'animation-scale-90-show-start', 1500)
         Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 2000)
+        // Tools.delay(1500).then(() => {
+        //   Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
+        //   Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 10)
+        // })
         scrollAnim.scrollRecode.top250_hide = false
       })
     },
