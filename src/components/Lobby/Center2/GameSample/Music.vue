@@ -12,6 +12,10 @@
         <span class="key-label">{{ key.note }}</span>
       </div>
     </div>
+    <div class="controls">
+      <button @click="startAutoPlay" :disabled="isPlaying">Play Swan Lake</button>
+      <button @click="stopAutoPlay" :disabled="!isPlaying">Stop</button>
+    </div>
   </div>
 </template>
 
@@ -22,6 +26,11 @@
     note: string
     type: 'white' | 'black'
     isActive: boolean
+  }
+
+  interface Note {
+    note: string
+    duration: number
   }
 
   const keys = ref<PianoKey[]>([
@@ -66,6 +75,42 @@
     { note: 'B5', type: 'white', isActive: false }
   ])
 
+  // Swan Lake main theme notes
+  const swanLakeNotes: Note[] = [
+    { note: 'E4', duration: 500 },
+    { note: 'G4', duration: 500 },
+    { note: 'B4', duration: 500 },
+    { note: 'C5', duration: 1000 },
+    { note: 'B4', duration: 500 },
+    { note: 'G4', duration: 500 },
+    { note: 'E4', duration: 1000 },
+    { note: 'D4', duration: 500 },
+    { note: 'F4', duration: 500 },
+    { note: 'A4', duration: 500 },
+    { note: 'B4', duration: 1000 },
+    { note: 'A4', duration: 500 },
+    { note: 'F4', duration: 500 },
+    { note: 'D4', duration: 1000 },
+    { note: 'C4', duration: 500 },
+    { note: 'E4', duration: 500 },
+    { note: 'G4', duration: 500 },
+    { note: 'A4', duration: 1000 },
+    { note: 'G4', duration: 500 },
+    { note: 'E4', duration: 500 },
+    { note: 'C4', duration: 1000 },
+    { note: 'B3', duration: 500 },
+    { note: 'D4', duration: 500 },
+    { note: 'F4', duration: 500 },
+    { note: 'G4', duration: 1000 },
+    { note: 'F4', duration: 500 },
+    { note: 'D4', duration: 500 },
+    { note: 'B3', duration: 1000 }
+  ]
+
+  const isPlaying = ref(false)
+  let currentNoteIndex = 0
+  let playInterval: number | null = null
+
   const playNote = (key: PianoKey) => {
     key.isActive = true
     // Here you can add sound playback logic
@@ -73,6 +118,54 @@
 
   const stopNote = (key: PianoKey) => {
     key.isActive = false
+  }
+
+  const findKeyByNote = (note: string): PianoKey | undefined => {
+    return keys.value.find(key => key.note === note)
+  }
+
+  const playNextNote = () => {
+    if (currentNoteIndex >= swanLakeNotes.length) {
+      currentNoteIndex = 0
+    }
+
+    const note = swanLakeNotes[currentNoteIndex]
+    const key = findKeyByNote(note.note)
+
+    if (key) {
+      playNote(key)
+      setTimeout(() => {
+        stopNote(key)
+      }, note.duration)
+    }
+
+    currentNoteIndex++
+  }
+
+  const startAutoPlay = () => {
+    if (isPlaying.value) return
+
+    isPlaying.value = true
+    currentNoteIndex = 0
+
+    playInterval = window.setInterval(() => {
+      playNextNote()
+    }, 500)
+  }
+
+  const stopAutoPlay = () => {
+    if (!isPlaying.value) return
+
+    isPlaying.value = false
+    if (playInterval) {
+      clearInterval(playInterval)
+      playInterval = null
+    }
+
+    // Reset all keys
+    keys.value.forEach(key => {
+      key.isActive = false
+    })
   }
 </script>
 
@@ -85,6 +178,33 @@
       position: relative;
       height: 250px;
       min-width: max-content;
+    }
+
+    .controls {
+      position: absolute;
+      right: 10px;
+      top: -50px;
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background: #f978b2;
+        color: white;
+        cursor: pointer;
+        transition: opacity 0.3s;
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &:hover:not(:disabled) {
+          opacity: 0.8;
+        }
+      }
     }
   }
 
@@ -117,7 +237,10 @@
   }
 
   .key.active {
-    background: #e0e0e0;
+    background: #f52b8c;
+    .key-label {
+      color: #fff;
+    }
   }
 
   .black.active {
