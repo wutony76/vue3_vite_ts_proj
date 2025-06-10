@@ -171,13 +171,21 @@
 
 <style lang="scss" scoped>
   .piano-keyboard {
-    background: #f0f0f0;
+    background: linear-gradient(to bottom, #2c3e50, #1a1a1a);
+    padding: 30px;
+    border-radius: 15px 0 0 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
 
     .keyboard-container {
       display: flex;
       position: relative;
       height: 250px;
       min-width: max-content;
+      padding: 20px;
+      background: linear-gradient(to bottom, #1a1a1a, #2c3e50);
+      border-radius: 10px;
+      box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
     }
 
     .controls {
@@ -188,21 +196,32 @@
       gap: 10px;
 
       button {
-        padding: 8px 16px;
+        padding: 10px 20px;
         border: none;
-        border-radius: 4px;
-        background: #f978b2;
-        color: white;
+        border-radius: 8px;
+        background: linear-gradient(to bottom, #394856, #15191d);
+        color: #eb177e;
         cursor: pointer;
-        transition: opacity 0.3s;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 15px rgba(245, 43, 140, 0.3);
 
         &:disabled {
+          color: #fff;
           opacity: 0.5;
           cursor: not-allowed;
+          box-shadow: none;
         }
 
         &:hover:not(:disabled) {
-          opacity: 0.8;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(245, 43, 140, 0.4);
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(1px);
         }
       }
     }
@@ -213,46 +232,70 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     cursor: pointer;
     user-select: none;
+    transition: all 0.1s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .white {
     width: 60px;
     height: 100%;
-    background: white;
-    border: 1px solid #f978b2;
-    border-radius: 0 0 5px 5px;
+    background: linear-gradient(to bottom, #fff 0%, #f0f0f0 100%);
+    border: 1px solid #e0e0e0;
+    border-radius: 0 0 8px 8px;
     z-index: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background: linear-gradient(to bottom, #fff 0%, #f5f5f5 100%);
+    }
   }
 
   .black {
     width: 40px;
     height: 60%;
-    background: #333;
+    background: linear-gradient(to bottom, #333 0%, #1a1a1a 100%);
     margin: 0 -20px;
     z-index: 2;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      background: linear-gradient(to bottom, #404040 0%, #262626 100%);
+    }
   }
 
   .key.active {
     background: #f52b8c;
+    border-color: #e15093;
+    transform: translateY(2px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
     .key-label {
       color: #fff;
     }
   }
 
   .black.active {
-    background: #666;
+    background: #f52b8c;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 
   .key-label {
     font-size: 12px;
+    font-weight: bold;
     color: #666;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    transition: color 0.1s ease;
   }
 
   .black .key-label {
     color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   }
 </style>

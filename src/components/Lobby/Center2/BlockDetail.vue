@@ -103,6 +103,91 @@
         <GameMusic />
       </div>
     </div>
+    <!-- 冒險 -->
+    <div v-else-if="selected.name === STATUS.ADVENTURE.name" class="main">
+      <div class="left">
+        <ul>
+          <li>故事劇情</li>
+          <li>探索解謎</li>
+          <li>角色互動</li>
+        </ul>
+      </div>
+
+      <div class="center">
+        <div class="block">
+          <p>
+            Text-based Adventure is an interactive game type that uses text as the main interface
+            and content. Players interact with the game world, explore the story, solve puzzles, or
+            advance the plot by reading the narrative and entering commands or selecting options.
+            This type of game can be said to be one of the earliest narrative interactive forms in
+            the history of digital games, combining elements of novels, role-playing, and puzzle
+            solving.
+          </p>
+        </div>
+        <div class="block">
+          <p>
+            The game is based on logical reasoning, spatial thinking, mechanical manipulation, and
+            environmental observation. Players need to solve various puzzles while exploring the
+            world to advance the plot or unlock new scenes. This type of game combines intellectual
+            challenges with narrative elements, and often tests players' patience and creativity.
+          </p>
+        </div>
+        <div class="block">
+          <p>
+            The game is centered around creating a tense atmosphere, psychological pressure, and
+            fear of the unknown, and allows players to immerse themselves in the game through
+            limited resources, survival elements, and plot scares. It usually includes elements such
+            as exploration, puzzle solving, stealth, or escape. Some games include combat, and some
+            games have no ability to fight back.
+          </p>
+        </div>
+        <div class="block">
+          <p>
+            Horizontal adventures are horizontal games played in 2D or pseudo-2.5D perspectives,
+            where players explore levels from left to right, which may include platform jumping,
+            puzzle solving, plot interaction, and combat. Many titles emphasize art style and
+            narrative, and may also incorporate Metroidvania or Roguelike elements.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="right">
+        <div class="light"></div>
+        <div class="light2"></div>
+      </div> -->
+    </div>
+    <!-- 模擬 -->
+    <div v-else-if="selected.name === STATUS.SIMULATION.name" class="main">
+      <div class="left">
+        <ul>
+          <li>高自由度</li>
+          <li>策略耐心</li>
+          <li>過程導向</li>
+        </ul>
+      </div>
+      <div class="center">
+        <p>
+          This type of game simulates the operation process of a real or fictional system, allowing
+          players to play the role of controller or participant and experience an operation mode
+          similar to the real world. This type of game focuses on details, process and strategy, and
+          does not necessarily emphasize winning or losing, but emphasizes management, control, and
+          simulation experience.
+        </p>
+
+        <!-- <div class="shark"></div> -->
+
+        <div class="center-hover">
+          Simulation is a deep, varied, educational and creative game type. Whether you want to be
+          an architect, an airbus captain, a mayor, a farmer or a doctor, you can achieve it through
+          simulation games. This type of game is suitable for players who like to control details,
+          pursue high simulation or systematic gameplay, or those who want to play slowly and manage
+          slowly.
+        </div>
+      </div>
+      <div class="right">
+        <GameSimulation />
+      </div>
+    </div>
+
     <div v-else class="main">
       <div class="left">
         <ul>
@@ -142,6 +227,7 @@
   import GameVisualNovel from './GameSample/VisualNovel.vue'
   import GameSport from './GameSample/Sport.vue'
   import GameMusic from './GameSample/Music.vue'
+  import GameSimulation from './GameSample/Simulation.vue'
 
   const props = defineProps<{
     selected: GameStatusType
@@ -351,7 +437,14 @@
         .right {
           width: 78%;
           height: 65%;
+          bottom: -65px;
+
           overflow: unset;
+          background: unset;
+          border-top: unset;
+          border-left: unset;
+          border-bottom: unset;
+          border-radius: unset;
         }
       }
     }
@@ -361,7 +454,44 @@
       }
       .main {
         .center {
-          border-color: #48c96c;
+          display: flex;
+          border: unset;
+          width: 75%;
+          transform: translate(29%, -9%);
+
+          .block {
+            width: unset;
+            margin-right: 2%;
+            border: 2px solid #48c96c;
+            padding: 10px;
+            font-weight: 900;
+            flex: 1.5;
+
+            &:nth-child(2) {
+              flex: 1.2;
+              border: 4px solid #30c55a;
+              font-weight: 800;
+              position: relative;
+              top: 10px;
+            }
+            &:nth-child(3) {
+              flex: 1.4;
+              border: 6px solid #47af48;
+              font-weight: 700;
+              position: relative;
+              top: -30px;
+            }
+            &:nth-child(4) {
+              flex: 1.5;
+              border: 8px solid #48c98d;
+              font-weight: 600;
+              position: relative;
+              top: 15px;
+            }
+            &:last-child {
+              margin-right: unset;
+            }
+          }
         }
       }
       // background: #48c96c;
@@ -370,11 +500,30 @@
 
     &.bar-simulation {
       .title {
+        position: relative;
+        z-index: 1;
         color: #2dabff;
       }
       .main {
         .center {
           border-color: #2dabff;
+          border: unset;
+          p {
+            border: 4px solid #2dabff;
+            padding: 10px;
+            margin-bottom: 10px;
+          }
+          .center-hover {
+            color: #fff;
+            background: #51c8ef;
+            padding: 10px;
+          }
+        }
+        .right {
+          overflow: unset;
+          border-top: 5px solid #ccc;
+          border-bottom: 30px solid #ccc;
+          border-radius: 0 0 0 30px;
         }
       }
       // background: #2dabff;

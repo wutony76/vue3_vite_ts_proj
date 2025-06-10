@@ -1,11 +1,13 @@
 <script setup lang="ts">
+  import { reactive, onMounted, onUnmounted } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
   import Animation from '@/logic/utils/Animation'
   import BlockDetail from './BlockDetail.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import Card from './Card.vue'
-  import { reactive, onMounted, onUnmounted } from 'vue'
+  // import BubbleMachine from '@/components/SelfIcon/BubbleMachine.vue'
   import { STATUS, GameStatusType } from './Scripts/config'
+  import Tools from '@/logic/utils/Tools'
 
   const state = reactive({
     key: _uuid2(),
@@ -18,6 +20,10 @@
       rotate: 0
     }
   })
+  const IDS = {
+    BLOCK_1: 'id-center2-block-1',
+    BLOCK_1_BTN_GROUP: 'id-block1-grid'
+  }
 
   const clickListener = (status: GameStatusType) => {
     // 停止自動切換計時器
@@ -122,56 +128,116 @@
   })
 
   init.run()
+
+  const actions = {
+    scrollAnim: {
+      isBlock1Show: false,
+      isBlock1Hide: false
+    },
+    idBlock1Show: () => {
+      // console.log('CENTER2.run.idBlock1Show', actions.scrollAnim.isBlock1Show)
+      let _a = actions.scrollAnim
+      if (_a.isBlock1Show) return
+      _a.isBlock1Show = true
+
+      const blocks = [IDS.BLOCK_1_BTN_GROUP]
+      Animation.removeClass(IDS.BLOCK_1, 'anim-banner-out')
+      blocks.forEach(block => {
+        Animation.removeSubClass(block, 'alpha-1', 10)
+      })
+      Animation.addClass(IDS.BLOCK_1, 'animation-block-right', 50)
+
+      Tools.delay(450).then(() => {
+        _a.isBlock1Hide = false
+        blocks.forEach(block => {
+          Animation.addSubClass(block, 'animation-item-up', 500)
+          Animation.removeSubClass(block, 'animation-item-up', 2300)
+          Animation.addSubClass(block, 'alpha-1', 2300)
+        })
+      })
+    },
+    idBlock1Hide: () => {
+      // console.log('CENTER2.run.idBlock1Hide')
+      let _a = actions.scrollAnim
+      if (_a.isBlock1Hide) return
+      _a.isBlock1Hide = true
+
+      Animation.addClass(IDS.BLOCK_1, 'anim-banner-out', 10)
+      const blocks = [IDS.BLOCK_1_BTN_GROUP]
+      blocks.forEach(block => {
+        Animation.removeSubClass(block, 'alpha-1', 50)
+      })
+      Tools.delay(450).then(() => {
+        Animation.removeClass(IDS.BLOCK_1, 'animation-block-right')
+        _a.isBlock1Show = false
+      })
+    }
+  }
+
+  defineExpose({
+    test: () => console.log('CENTER2.test'),
+    actions
+  })
 </script>
 
 <template>
   <div class="center2" :class="`center-${state.key}`">
     <div class="game-info-container">
-      <div class="block-1">
+      <div id="id-center2-block-1" class="block-1">
         <div class="section-header">
-          <span class="item setting-text">GAME STATS</span>
+          <span class="item setting-text"></span>
         </div>
-        <div class="stats-grid">
+        <div id="id-block1-grid" class="stats-grid">
+          <!-- 文字冒險 game-icon 用來設定動畫 -->
           <Card
+            class="game-icon"
             :index="1"
-            :height="330"
+            :height="430"
             :isActive="state.selected.name === STATUS.VISUAL_NOVEL.name"
             :text="STATUS.VISUAL_NOVEL.name"
             @click="clickListener(STATUS.VISUAL_NOVEL)"
-          />
-          <!-- 文字冒險 -->
-          <Card
-            :index="2"
-            :height="230"
-            :isActive="state.selected.name === STATUS.SPORTS.name"
-            :text="STATUS.SPORTS.name"
-            @click="clickListener(STATUS.SPORTS)"
+            style="--item-index: 0"
           />
           <!-- 角色扮演 -->
           <Card
-            :index="3"
-            :height="280"
-            :isActive="state.selected.name === STATUS.MUSIC.name"
-            :text="STATUS.MUSIC.name"
-            @click="clickListener(STATUS.MUSIC)"
+            class="game-icon"
+            :index="2"
+            :height="330"
+            :isActive="state.selected.name === STATUS.SPORTS.name"
+            :text="STATUS.SPORTS.name"
+            @click="clickListener(STATUS.SPORTS)"
+            style="--item-index: 1"
           />
           <!-- 音樂 -->
           <Card
+            class="game-icon"
+            :index="3"
+            :height="380"
+            :isActive="state.selected.name === STATUS.MUSIC.name"
+            :text="STATUS.MUSIC.name"
+            @click="clickListener(STATUS.MUSIC)"
+            style="--item-index: 2"
+          />
+          <!-- 冒險 -->
+          <Card
+            class="game-icon"
             :index="4"
             :height="273"
             :isActive="state.selected.name === STATUS.ADVENTURE.name"
             :text="STATUS.ADVENTURE.name"
             @click="clickListener(STATUS.ADVENTURE)"
+            style="--item-index: 3"
           />
-          <!-- 冒險 -->
+          <!-- 模擬 -->
           <Card
+            class="game-icon"
             :index="5"
-            :height="320"
+            :height="420"
             :isActive="state.selected.name === STATUS.SIMULATION.name"
             :text="STATUS.SIMULATION.name"
             @click="clickListener(STATUS.SIMULATION)"
+            style="--item-index: 4"
           />
-          <!-- 模擬 -->
         </div>
       </div>
 
@@ -183,6 +249,7 @@
       >
         <div class="item setting-text" tag="title">LIFESTYLE</div>
       </div>
+      <!-- <BubbleMachine /> -->
       <!-- BAR.ICON SETTINGS -->
       <div id="id-block1-right-bar" class="block-1-right-2" :class="state.selected.class">
         <GameIcon style="--item-index: 0" />
@@ -273,7 +340,7 @@
 <style lang="scss" scoped>
   .center2 {
     border: 1px solid #2600ff;
-    min-height: 1500px;
+    min-height: 1510px;
     margin-top: 0px;
 
     .right-title-hover {
@@ -378,8 +445,12 @@
       height: 410px;
       overflow: hidden;
 
-      // overflow: hidden;
-
+      transform: scaleX(0);
+      position: relative;
+      transform-origin: left 50%;
+      .section-header {
+        height: 24px;
+      }
       .stats-grid {
         display: flex;
         flex-direction: row;

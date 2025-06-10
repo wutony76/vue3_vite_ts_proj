@@ -30,6 +30,15 @@
     lastScrollTop: 0,
     lastScrollTimestamp: 0
   })
+
+  const selfRefs = reactive({
+    pluginCenter2: null
+  })
+  // 用於綁定 ref 的函式
+  const setRef = (el: any) => {
+    if (el) selfRefs.pluginCenter2 = el
+  }
+
   // Animation timing constants
   const ANIMATION_TIMING = {
     NAVBAR: 10,
@@ -179,6 +188,13 @@
       if (scrollTop <= 500) scrollAnim.top500_show()
       if (scrollTop > 500 && direction === scrollAnim.DOWN) scrollAnim.top500_hide()
 
+      // __START-CENTER2__
+      if (scrollTop >= 420 && scrollTop <= 880) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1Show()
+      }
+      if ((scrollTop >= 1050 && direction === scrollAnim.DOWN) || scrollTop < 300) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1Hide()
+      }
       // __process.banner animation__
       // ***run.something.end
       state.ticking = false
@@ -240,6 +256,12 @@
 
       $('.nvbarContainer').show(10, () => {
         Animation.addClass('nvbarBlock', 'animation-block-down', 10)
+
+        Animation.addClass('logoBox', 'page--alphaIn', ANIMATION_TIMING.LOGO)
+        Animation.addClass('appyWord', 'headline--self001', ANIMATION_TIMING.APPY_WORD)
+        Animation.addClass('yoyoWord', 'headline--self001', ANIMATION_TIMING.YOYO_WORD)
+        Animation.addClass('fatWord', 'page--alphaIn', ANIMATION_TIMING.FAT_WORD)
+
         scrollAnim.scrollRecode.top35_hide = false
       })
     },
@@ -252,6 +274,11 @@
           'background-color': 'transparent'
         })
         Animation.removeClass('nvbarBlock', 'animation-block-down')
+
+        Animation.removeClass('logoBox', 'page--alphaIn')
+        Animation.removeClass('appyWord', 'headline--self001')
+        Animation.removeClass('yoyoWord', 'headline--self001')
+        Animation.removeClass('fatWord', 'page--alphaIn')
         scrollAnim.scrollRecode.top35_show = false
       })
     },
@@ -292,7 +319,9 @@
         //   Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
         //   Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 10)
         // })
-        scrollAnim.scrollRecode.top250_hide = false
+        Tools.delay(2000).then(() => {
+          scrollAnim.scrollRecode.top250_hide = false
+        })
       })
     },
     top250_hide() {
@@ -424,6 +453,11 @@
     nextTick(() => {
       initAnimations()
       setup.hover_note_effects()
+
+      console.log('selfRefs', selfRefs.pluginCenter2)
+      if (selfRefs.pluginCenter2) {
+        selfRefs.pluginCenter2.test()
+      }
     })
   })
 </script>
@@ -581,7 +615,8 @@
           </div>
         </div>
         <!-- center2 -->
-        <PluginCenter2 />
+        <!-- <PluginCenter2 ref="refPluginCenter2" /> -->
+        <PluginCenter2 :ref="el => setRef(el)" />
 
         <div class="center2" style="display: none">
           <div class="game-info-container">

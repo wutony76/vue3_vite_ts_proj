@@ -10,7 +10,7 @@
 <template>
   <div
     class="card"
-    :class="`card-${props.index} ${props.isActive ? 'active' : ''}`"
+    :class="`card-${props.index} alpha-1 ${props.isActive ? 'active' : ''}`"
     :style="{ height: props.height + 'px' }"
   >
     <div class="content">
@@ -31,8 +31,12 @@
 
     width: 20%;
     height: 330px;
+    // border: 1px solid rgb(1, 255, 225);
     align-items: flex-start;
     position: relative;
+    transform-origin: 50% bottom;
+    opacity: 0;
+    // transform: scaleX(0);
 
     .content {
       width: 100%;
@@ -46,6 +50,10 @@
       }
     }
 
+    &.alpha-1 {
+      opacity: 1;
+    }
+
     // card hover
     &.active,
     &:hover {
@@ -54,12 +62,12 @@
 
       &::after {
         content: '';
-        background: #a7a7a7;
+        background: #fff;
         position: absolute;
         left: 0;
-        bottom: -50px;
+        bottom: 79px;
         width: 100%;
-        height: 30px;
+        height: 25px;
         z-index: 10;
       }
     }
@@ -88,9 +96,9 @@
           letter-spacing: -1px;
         }
 
-        &::after {
-          background: #f4284a;
-        }
+        // &::after {
+        //   background: #f4284a;
+        // }
       }
     }
 
@@ -119,9 +127,9 @@
           letter-spacing: -1px;
         }
 
-        &::after {
-          background: #ffa333;
-        }
+        // &::after {
+        //   background: #ffa333;
+        // }
       }
     }
 
@@ -153,9 +161,9 @@
           letter-spacing: -1px;
         }
 
-        &::after {
-          background: #f52b8c;
-        }
+        // &::after {
+        //   background: #f52b8c;
+        // }
       }
     }
 
@@ -184,9 +192,9 @@
           letter-spacing: -1px;
         }
 
-        &::after {
-          background: #2ad841;
-        }
+        // &::after {
+        //   background: #2ad841;
+        // }
       }
     }
 
@@ -217,9 +225,9 @@
           letter-spacing: -1px;
         }
 
-        &::after {
-          background: #2dabff;
-        }
+        // &::after {
+        //   background: #2dabff;
+        // }
       }
     }
 
