@@ -22,7 +22,9 @@
   })
   const IDS = {
     BLOCK_1: 'id-center2-block-1',
-    BLOCK_1_BTN_GROUP: 'id-block1-grid'
+    BLOCK_1_BTN_GROUP: 'id-block1-grid',
+    BLOCK_1_RIGHT: `id-block-1-right-${state.key}`,
+    BLOCK_1_RIGHT_BAR: 'id-block1-right-bar'
   }
 
   const clickListener = (status: GameStatusType) => {
@@ -43,6 +45,11 @@
         el.classList.add('click-transition')
         setTimeout(() => {
           el.classList.remove('click-transition')
+          console.log('selector', selector)
+
+          if (selector === '.block-1-right-2') {
+            Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1', 10)
+          }
         }, 500)
       }
     })
@@ -81,13 +88,12 @@
     },
     run() {
       state.isClick = false
-
-      const rightBarBlocks = ['id-block1-right-bar']
-      rightBarBlocks.forEach(block => {
-        Animation.addSubClass(block, 'animation-item-intro', 2100)
-        Animation.removeSubClass(block, 'animation-item-intro', 3000)
-        Animation.addSubClass(block, 'alpha-1', 2900)
-      })
+      // const rightBarBlocks = ['id-block1-right-bar']
+      // rightBarBlocks.forEach(block => {
+      //   Animation.addSubClass(block, 'animation-item-intro', 2100)
+      //   Animation.removeSubClass(block, 'animation-item-intro', 3000)
+      //   Animation.addSubClass(block, 'alpha-1', 2900)
+      // })
 
       // 啟動隨機選擇計時器
       // this.startRandomTimer()
@@ -132,7 +138,9 @@
   const actions = {
     scrollAnim: {
       isBlock1Show: false,
-      isBlock1Hide: false
+      isBlock1Hide: false,
+      isBlock1BarShow: false,
+      isBlock1BarHide: false
     },
     idBlock1Show: () => {
       // console.log('CENTER2.run.idBlock1Show', actions.scrollAnim.isBlock1Show)
@@ -170,6 +178,62 @@
       Tools.delay(450).then(() => {
         Animation.removeClass(IDS.BLOCK_1, 'animation-block-right')
         _a.isBlock1Show = false
+      })
+    },
+
+    idBlock1BarShow: () => {
+      let _a = actions.scrollAnim
+      if (_a.isBlock1BarShow) return
+      _a.isBlock1BarShow = true
+
+      Animation.removeClass(IDS.BLOCK_1_RIGHT_BAR, 'anim-gameBlock1-out')
+      Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'animation-block-left', 100)
+
+      const blocks = [IDS.BLOCK_1_RIGHT_BAR]
+      blocks.forEach(block => {
+        Animation.removeSubClass(block, 'alpha-1', 500)
+      })
+
+      Tools.delay(450).then(() => {
+        _a.isBlock1BarHide = false
+
+        blocks.forEach(block => {
+          Animation.addSubClass(block, 'animation-item-intro', 10)
+          Animation.removeSubClass(block, 'animation-item-intro', 900)
+          Animation.addSubClass(block, 'alpha-1', 800)
+        })
+      })
+
+      Tools.delay(700).then(() => {
+        Animation.removeClass(IDS.BLOCK_1_RIGHT, 'anim-gameBlock1-out')
+        Animation.addClass(IDS.BLOCK_1_RIGHT, 'click-transition', 50)
+        // Animation.addClass(IDS.BLOCK_1_RIGHT, 'anim-gameBlock1-out', 50)
+      })
+    },
+    idBlock1BarHide: () => {
+      let _a = actions.scrollAnim
+      if (_a.isBlock1BarHide) return
+      _a.isBlock1BarHide = true
+
+      const blocks = [IDS.BLOCK_1_RIGHT_BAR]
+      blocks.forEach(block => {
+        Animation.addSubClass(block, 'anim-icon-out', 10)
+        Animation.removeSubClass(block, 'anim-icon-out', 1100)
+        Animation.removeSubClass(block, 'alpha-1', 1100)
+      })
+
+      Tools.delay(1000).then(() => {
+        Animation.removeClass(IDS.BLOCK_1_RIGHT_BAR, 'animation-block-left')
+        Animation.removeClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1')
+        Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'anim-gameBlock1-out', 50)
+        Tools.delay(450).then(() => {
+          _a.isBlock1BarShow = false
+        })
+      })
+
+      Tools.delay(1300).then(() => {
+        Animation.removeClass(IDS.BLOCK_1_RIGHT, 'click-transition')
+        Animation.addClass(IDS.BLOCK_1_RIGHT, 'anim-gameBlock1-out', 50)
       })
     }
   }
@@ -500,8 +564,43 @@
       z-index: 2;
       padding-left: 3%;
 
+      transform-origin: right 50%;
+      transform: scaleX(0);
+
+      transition: all 0.3s cubic-bezier(0.165, 0.44, 0.64, 1);
+
       > div {
         margin-left: 2.5%;
+      }
+
+      &.scale1 {
+        animation-name: scale-anim-a01;
+        animation-duration: 0.2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+        // transform: scaleX(1);
+
+        @keyframes scale-anim-a01 {
+          0% {
+            transform: scaleX(0);
+          }
+          // 50% { transform: scaleX(0.2);}
+          60% {
+            transform: scaleX(1.5);
+          }
+          70% {
+            transform: scaleX(0.89);
+          }
+          80% {
+            transform: scaleX(1.5);
+          }
+          90% {
+            transform: scaleX(0.98);
+          }
+          100% {
+            transform: scaleX(1);
+          }
+        }
       }
 
       // background color 設定

@@ -195,6 +195,12 @@
       if ((scrollTop >= 1050 && direction === scrollAnim.DOWN) || scrollTop < 300) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1Hide()
       }
+      if (scrollTop >= 700 && scrollTop <= 880) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1BarShow()
+      }
+      if ((scrollTop >= 1200 && direction === scrollAnim.DOWN) || scrollTop < 600) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1BarHide()
+      }
       // __process.banner animation__
       // ***run.something.end
       state.ticking = false
