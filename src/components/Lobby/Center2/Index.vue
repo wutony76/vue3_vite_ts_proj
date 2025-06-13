@@ -1,30 +1,86 @@
 <script setup lang="ts">
-  import { reactive, onMounted, onUnmounted } from 'vue'
+  import { reactive, onMounted, onUnmounted, computed } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
   import Animation from '@/logic/utils/Animation'
   import BlockDetail from './BlockDetail.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import Card from './Card.vue'
   // import BubbleMachine from '@/components/SelfIcon/BubbleMachine.vue'
+  import { STATUS_ICON } from '@/logic/utils/Parameter'
   import { STATUS, GameStatusType } from './Scripts/config'
   import Tools from '@/logic/utils/Tools'
+  import SampleCave from '@/assets/images/game_cave.png'
+  // import Cave from '@/components/SelfIcon/Cave.vue'
+
+  interface IntroduceItem {
+    title: string
+    img: {
+      background: string
+      note: string
+    }
+    content: string[]
+    note: string
+  }
 
   const state = reactive({
     key: _uuid2(),
     isClick: false,
     selected: STATUS.VISUAL_NOVEL as GameStatusType,
+    selectedIntroduce: 0,
+
     block1RightWidth: '50px',
     scrollY: 0,
     transform: {
       translateY: 0,
       rotate: 0
+    },
+    main: {
+      [STATUS.VISUAL_NOVEL.name]: {
+        title: '純文字冒險',
+        content: [
+          '只以文字作主要介面和遊戲內容。用閱讀敘事，輸入指示或選擇選項來與遊戲世界互動，探索故事、解謎或推進劇情。主題內容更是多樣，再融合了小說、角色扮演和解謎，更是大大的增加既有的遊戲性、自由度，深深地吸引著自由度與喜歡自己想像的玩家們。玩起來彷彿自己親身經歷了一段故事。'
+        ],
+        introduce: [
+          {
+            title: '巨洞冒險',
+            img: {
+              background: SampleCave,
+              note: '巨洞冒險-畫面參考'
+            },
+            content: [
+              '由於當時電腦性能限制，此遊戲沒有圖像、音樂及音效，只有純粹的文字。有如閱讀小說，玩家須閱讀畫面出現的文章，並輸入關鍵字以進行遊戲。',
+              '玩法類似《龍與地下城》，不過是由電腦擔任地下城主（即遊戲管理者）的角色。電腦會以文字敘述遊戲的背景、玩家遭遇的事件、敵人、物品之類事物。',
+              '玩家輸入「看」（look）的指令，電腦會敘述遊戲中玩家所在位置的背景。輸入「拿取」（take），則可拿取物品。輸入「往西走」（go west），玩家就會在遊戲中的虛擬世界中往西方前進。遊戲背景為玩家一開始位於被森林包圍的紅磚建築旁，並進入一處神秘的洞穴探險，玩家會在途中與敵人進行戰鬥，並試圖取得隱藏的寶藏。'
+            ],
+            note: '資料來源: wiki.巨洞冒險'
+          }
+        ]
+      },
+      [STATUS.SPORTS.name]: {
+        title: 'SPORTS',
+        content: []
+      },
+      [STATUS.MUSIC.name]: {
+        title: 'MUSIC',
+        content: []
+      },
+      [STATUS.ADVENTURE.name]: {
+        title: 'ADVENTURE',
+        content: []
+      },
+      [STATUS.SIMULATION.name]: {
+        title: 'SIMULATION',
+        content: []
+      }
     }
   })
   const IDS = {
     BLOCK_1: 'id-center2-block-1',
     BLOCK_1_BTN_GROUP: 'id-block1-grid',
     BLOCK_1_RIGHT: `id-block-1-right-${state.key}`,
-    BLOCK_1_RIGHT_BAR: 'id-block1-right-bar'
+    BLOCK_1_RIGHT_BAR: 'id-block1-right-bar',
+    BLOCK_1_RIGHT_MAIN: 'id-block1-right-main',
+    BLOCK_1_VIDEO_BILLBOARD: 'id-video-billboard'
   }
 
   const clickListener = (status: GameStatusType) => {
@@ -45,11 +101,16 @@
         el.classList.add('click-transition')
         setTimeout(() => {
           el.classList.remove('click-transition')
-          console.log('selector', selector)
+          // console.log('selector', selector)
 
-          if (selector === '.block-1-right-2') {
+          if (['.block-1-right-2'].includes(selector))
             Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1', 10)
-          }
+
+          if (['.block-1-right-main'].includes(selector))
+            Animation.addClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left', 10)
+
+          if (['.video-billboard'].includes(selector))
+            Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 10)
         }, 500)
       }
     })
@@ -115,6 +176,16 @@
     if (!el) return
     state.scrollY = el.scrollTop
   }
+  const currIntroduce = computed<IntroduceItem>(() => {
+    return (
+      state.main[state.selected.name]?.introduce?.[state.selectedIntroduce] ?? {
+        title: 'TEST',
+        img: { background: '', note: 'NOTE.TEST' },
+        content: [],
+        note: 'NOTE.TEST'
+      }
+    )
+  })
 
   onMounted(() => {
     updateWidth()
@@ -140,7 +211,9 @@
       isBlock1Show: false,
       isBlock1Hide: false,
       isBlock1BarShow: false,
-      isBlock1BarHide: false
+      isBlock1BarHide: false,
+      isBlock1MainShow: false,
+      isBlock1MainHide: false
     },
     idBlock1Show: () => {
       // console.log('CENTER2.run.idBlock1Show', actions.scrollAnim.isBlock1Show)
@@ -235,9 +308,29 @@
         Animation.removeClass(IDS.BLOCK_1_RIGHT, 'click-transition')
         Animation.addClass(IDS.BLOCK_1_RIGHT, 'anim-gameBlock1-out', 50)
       })
+    },
+
+    idBlock1MainShow: () => {
+      let _a = actions.scrollAnim
+      if (_a.isBlock1MainShow) return
+      _a.isBlock1MainShow = true
+
+      Animation.addClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left', 100)
+      Tools.delay(1300).then(() => {
+        Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 100)
+        _a.isBlock1MainHide = false
+      })
+    },
+    idBlock1MainHide: () => {
+      let _a = actions.scrollAnim
+      if (_a.isBlock1MainHide) return
+      _a.isBlock1MainHide = true
+
+      Animation.removeClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left')
+      Animation.removeClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition')
+      _a.isBlock1MainShow = false
     }
   }
-
   defineExpose({
     test: () => console.log('CENTER2.test'),
     actions
@@ -316,7 +409,13 @@
       <!-- <BubbleMachine /> -->
       <!-- BAR.ICON SETTINGS -->
       <div id="id-block1-right-bar" class="block-1-right-2" :class="state.selected.class">
-        <GameIcon style="--item-index: 0" />
+        <GameIcon
+          style="--item-index: 0"
+          :title="'CAVE'"
+          :status="STATUS_ICON.CAVE"
+          :selectedTag="0"
+          v-model="state.selectedTag"
+        />
         <GameIcon style="--item-index: 1" />
         <GameIcon style="--item-index: 2" />
         <GameIcon style="--item-index: 3" />
@@ -325,6 +424,7 @@
       </div>
       <!-- VIDEO.大的廣告看板 SETTINGS -->
       <div
+        id="id-block1-right-main"
         class="block-1-right-main"
         :class="state.selected.class"
         :style="{
@@ -333,6 +433,7 @@
       >
         <div class="item-left-1" :class="state.selected.class"></div>
         <div
+          id="id-video-billboard"
           class="video-billboard"
           :class="state.selected.class"
           :style="{
@@ -340,7 +441,28 @@
             transition: 'transform 0.2s ease-out'
           }"
         >
-          <div class="billboard-corner-triangle"></div>
+          <div class="title">{{ state.main[state.selected.name].title }}</div>
+          <div class="content">
+            <div class="left">
+              <p v-for="(text, index) in state.main[state.selected.name].content" :key="index">
+                {{ text }}
+              </p>
+            </div>
+            <div class="right">
+              <div class="title">{{ currIntroduce.title }}</div>
+              <div class="content-img">
+                <div class="img-1">
+                  <img :src="currIntroduce.img.background" />
+                  <div class="note">{{ currIntroduce.img.note }}</div>
+                </div>
+              </div>
+              <div class="content-text">
+                <p v-for="(text, index) in currIntroduce.content" :key="index">{{ text }}</p>
+                <div class="auto"></div>
+                <div class="note">{{ currIntroduce.note }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- detail -->
@@ -608,24 +730,20 @@
         background: linear-gradient(to right, #f4284a, #9469e3dd);
         opacity: 0.99;
       }
-
       &.bar-sports {
         background: linear-gradient(to right, #ffac30, #ff7b47dd);
         opacity: 0.99;
       }
-
       &.bar-music {
         background: #ff79dd;
         background: linear-gradient(to right, #f52b8c, #9469e3dd);
         opacity: 0.99;
       }
-
       &.bar-adventure {
         background: #71de95;
         background: linear-gradient(to right, #48c96c, rgb(130 207 80 / 87%));
         opacity: 0.99;
       }
-
       &.bar-simulation {
         background: #4ccae0;
         background: linear-gradient(to right, #2dabff, #9469e3dd);
@@ -640,6 +758,9 @@
       background: #fff;
       min-height: 500px;
       transition: background-color 0.5s ease;
+
+      transform-origin: left 50%;
+      transform: scaleX(0);
 
       // 左邊的區域.裝飾
       .item-left-1,
@@ -691,42 +812,138 @@
         will-change: transform;
         backface-visibility: hidden;
         perspective: 1000px;
-        overflow: hidden;
-        .billboard-corner-triangle {
+        // overflow: hidden;
+        opacity: 0;
+
+        .title {
           position: absolute;
-          top: 10%;
-          right: 20%;
-          width: 0;
-          height: 0;
-          border-top: 700px solid #ffffff14; /* 三角形顏色 */
-          border-left: 700px solid transparent;
-          transform: rotate(50deg);
+          left: 10px;
+          top: -40px;
+          font-size: 50px;
+          font-weight: 900;
+          letter-spacing: -10px;
+        }
+        .content {
+          position: relative;
           z-index: 1;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+
+          .left {
+            width: 30%;
+            height: 100%;
+            display: flex;
+            align-items: end;
+
+            p {
+              padding: 10px;
+              text-align: left;
+              font-weight: 500;
+            }
+          }
+          .right {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            // align-items: center;
+            .title {
+              position: absolute;
+              transform-origin: 0 0;
+              transform: rotate(90deg);
+              left: unset;
+              right: -195px;
+              top: -3px;
+
+              font-size: 50px;
+              font-weight: 900;
+              letter-spacing: -5px;
+              color: #202020;
+            }
+            .content-img {
+              width: 50%;
+              padding: 10px;
+              .img-1 {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border: 1px solid #fff;
+                background: #f22b4e;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+                .note {
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  background-color: #202020;
+                  color: #fff;
+                  padding-left: 2px;
+                  padding-right: 2px;
+
+                  font-size: 11px;
+                  font-weight: 500;
+                }
+              }
+            }
+            .content-text {
+              width: calc(50% - 100px);
+              padding-top: 20px;
+              padding-bottom: 10px;
+
+              display: flex;
+              flex-direction: column;
+              margin-left: 2%;
+
+              font-weight: 500;
+              color: #202020;
+              font-size: 14px;
+              font-weight: 500;
+
+              p {
+                text-align: left;
+                margin-bottom: 10px;
+                border-left: 1px solid #202020;
+                padding-left: 10px;
+              }
+              .auto {
+                flex: 1;
+              }
+              .note {
+                text-align: right;
+                font-size: 11px;
+                font-weight: 500;
+                margin-right: 7%;
+              }
+            }
+          }
         }
 
         &.bar-visual-novel {
           background: #f22b4e;
-          opacity: 0.99;
+          .title {
+            color: #f22b4e;
+          }
+          // opacity: 0.99;
         }
-
         &.bar-sports {
           background: #ffa333;
-          opacity: 0.99;
+          // opacity: 0.99;
         }
-
         &.bar-music {
           background: #f52b8c;
-          opacity: 0.99;
+          // opacity: 0.99;
         }
-
         &.bar-adventure {
           background: #48c96c;
-          opacity: 0.99;
+          // opacity: 0.99;
         }
-
         &.bar-simulation {
           background: #2dabff;
-          opacity: 0.99;
+          // opacity: 0.99;
         }
       }
     }
@@ -740,6 +957,7 @@
 
     &.click-transition {
       animation: clickEffect 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      animation-fill-mode: forwards;
       @keyframes clickEffect {
         0% {
           transform: scale(0.95);
@@ -757,6 +975,12 @@
         }
       }
     }
+    // &.scale1 {
+    //   animation-name: scale-anim-a01;
+    //   animation-duration: 0.2s;
+    //   animation-fill-mode: forwards;
+    //   animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
+    // }
   }
 
   .block-1-detail {

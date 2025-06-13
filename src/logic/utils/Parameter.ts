@@ -81,5 +81,7 @@ export const STATUS_ICON = {
   DEFAULT: 'default',
   COMINGSOON: 'coming_soon',
   SNAKE: 'snake',
-  RACING: 'racing'
+  RACING: 'racing',
+
+  CAVE: 'cave'
 }

@@ -195,12 +195,29 @@
       if ((scrollTop >= 1050 && direction === scrollAnim.DOWN) || scrollTop < 300) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1Hide()
       }
-      if (scrollTop >= 700 && scrollTop <= 880) {
+      if (
+        (scrollTop >= 700 && scrollTop <= 880) ||
+        (scrollTop <= 1300 && scrollTop >= 880 && direction === scrollAnim.UP)
+      ) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1BarShow()
       }
-      if ((scrollTop >= 1200 && direction === scrollAnim.DOWN) || scrollTop < 600) {
+      if ((scrollTop >= 1350 && direction === scrollAnim.DOWN) || scrollTop < 600) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1BarHide()
       }
+      if (
+        scrollTop >= 1000
+        // && scrollTop <= 880
+      ) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1MainShow()
+      }
+
+      if (
+        // (scrollTop >= 1350 && direction === scrollAnim.DOWN) ||
+        scrollTop < 600
+      ) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1MainHide()
+      }
+
       // __process.banner animation__
       // ***run.something.end
       state.ticking = false
