@@ -5,6 +5,7 @@
   import BlockDetail from './BlockDetail.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import Card from './Card.vue'
+  import TypewriterText from './TypewriterText.vue'
   // import BubbleMachine from '@/components/SelfIcon/BubbleMachine.vue'
   import { STATUS_ICON } from '@/logic/utils/Parameter'
   import { STATUS, GameStatusType } from './Scripts/config'
@@ -27,6 +28,8 @@
     isClick: false,
     selected: STATUS.VISUAL_NOVEL as GameStatusType,
     selectedIntroduce: 0,
+    typewriterRefs: [] as any[],
+    isPlaying: false,
 
     block1RightWidth: '50px',
     scrollY: 0,
@@ -74,6 +77,10 @@
       }
     }
   })
+  const selfDom = reactive({
+    videoBillboard: null as any
+  })
+
   const IDS = {
     BLOCK_1: 'id-center2-block-1',
     BLOCK_1_BTN_GROUP: 'id-block1-grid',
@@ -83,39 +90,75 @@
     BLOCK_1_VIDEO_BILLBOARD: 'id-video-billboard'
   }
 
-  const clickListener = (status: GameStatusType) => {
-    // 停止自動切換計時器
-    init.stopRandomTimer()
-    state.isClick = true
+  const click = {
+    changeCard(status: GameStatusType) {
+      // 停止自動切換計時器
+      init.stopRandomTimer()
+      state.isClick = true
 
-    // 添加點擊動畫類
-    const elements = [
-      '.block-1-right',
-      '.block-1-right-2',
-      '.block-1-right-main',
-      '.video-billboard'
-    ]
-    elements.forEach(selector => {
-      const el = document.querySelector(selector)
-      if (el) {
-        el.classList.add('click-transition')
-        setTimeout(() => {
-          el.classList.remove('click-transition')
-          // console.log('selector', selector)
+      // 添加點擊動畫類
+      const elements = [
+        '.block-1-right',
+        '.block-1-right-2',
+        '.block-1-right-main',
+        '.video-billboard'
+      ]
+      elements.forEach(selector => {
+        const el = document.querySelector(selector)
+        if (el) {
+          el.classList.add('click-transition')
+          setTimeout(() => {
+            el.classList.remove('click-transition')
+            // console.log('selector', selector)
 
-          if (['.block-1-right-2'].includes(selector))
-            Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1', 10)
+            if (['.block-1-right-2'].includes(selector))
+              Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1', 10)
 
-          if (['.block-1-right-main'].includes(selector))
-            Animation.addClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left', 10)
+            if (['.block-1-right-main'].includes(selector))
+              Animation.addClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left', 10)
 
-          if (['.video-billboard'].includes(selector))
-            Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 10)
-        }, 500)
-      }
-    })
-    state.selected = status
+            if (['.video-billboard'].includes(selector))
+              Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 10)
+          }, 500)
+        }
+      })
+      state.selected = status
+    },
+    changeIntroduce(index: number = -1) {
+      if (index < 0) return
+      state.selectedIntroduce = index
+
+      Tools.delay(10).then(() => {
+        if (!selfDom.videoBillboard) return
+        // __clear.actions__
+        selfDom.videoBillboard.find('[tag="content-img"]').removeClass('anim-img-show')
+        selfDom.videoBillboard.find('[tag="selected-title"]').removeClass('anim-img-show')
+        selfDom.videoBillboard.find('[tag="selected-note"]').removeClass('anim-img-show')
+        selfDom.videoBillboard
+          .find('[tag="content-text"]')
+          .children('p')
+          .removeClass('anim-content-show')
+
+        Tools.delay(100).then(() => {
+          // __add.actions__
+          selfDom.videoBillboard.find('[tag="content-img"]').addClass('anim-img-show')
+          selfDom.videoBillboard
+            .find('[tag="content-text"]')
+            .children('p')
+            .each(function (this: HTMLElement, index: number) {
+              setTimeout(() => {
+                $(this).addClass('anim-content-show')
+              }, index * 300)
+            })
+          setTimeout(() => {
+            selfDom.videoBillboard.find('[tag="selected-title"]').addClass('anim-img-show')
+            selfDom.videoBillboard.find('[tag="selected-note"]').addClass('anim-img-show')
+          }, 900)
+        })
+      })
+    }
   }
+
   const init = {
     timer: null as number | null,
     playRandomSelected() {
@@ -186,6 +229,22 @@
       }
     )
   })
+  const setup = {
+    hover() {
+      const domTag = IDS.BLOCK_1_VIDEO_BILLBOARD
+      const dom = $(`#${domTag}`) as any
+      selfDom.videoBillboard = dom
+
+      dom.on('mouseenter', function () {
+        dom.find('[tag="title"]').addClass('hover-show')
+        if (state.isPlaying) return
+        replayTypewriter()
+      })
+      dom.on('mouseleave', function () {
+        dom.find('[tag="title"]').removeClass('hover-show')
+      })
+    }
+  }
 
   onMounted(() => {
     updateWidth()
@@ -194,6 +253,7 @@
     if (el) el.addEventListener('scroll', handleScroll)
 
     init.setupHoverEffects()
+    setup.hover()
   })
   onUnmounted(() => {
     window.removeEventListener('resize', updateWidth)
@@ -319,22 +379,84 @@
       Tools.delay(1300).then(() => {
         Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 100)
         _a.isBlock1MainHide = false
+
+        // __SHOW-ANIMATIONS__
+        Tools.delay(1300).then(() => {
+          if (!selfDom.videoBillboard) return
+          // __add.actions__
+          selfDom.videoBillboard.find('[tag="content-img"]').addClass('anim-img-show')
+          selfDom.videoBillboard
+            .find('[tag="content-text"]')
+            .children('p')
+            .each(function (this: HTMLElement, index: number) {
+              setTimeout(() => {
+                $(this).addClass('anim-content-show')
+              }, index * 300)
+            })
+          setTimeout(() => {
+            selfDom.videoBillboard.find('[tag="selected-title"]').addClass('anim-img-show')
+            selfDom.videoBillboard.find('[tag="selected-note"]').addClass('anim-img-show')
+          }, 900)
+        })
       })
     },
     idBlock1MainHide: () => {
       let _a = actions.scrollAnim
       if (_a.isBlock1MainHide) return
       _a.isBlock1MainHide = true
+      state.isPlaying = false
+      clearTypewriter()
 
       Animation.removeClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left')
       Animation.removeClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition')
       _a.isBlock1MainShow = false
+
+      Tools.delay(10).then(() => {
+        if (!selfDom.videoBillboard) return
+        // __clear.actions__
+        selfDom.videoBillboard.find('[tag="content-img"]').removeClass('anim-img-show')
+        selfDom.videoBillboard.find('[tag="selected-title"]').removeClass('anim-img-show')
+        selfDom.videoBillboard.find('[tag="selected-note"]').removeClass('anim-img-show')
+        selfDom.videoBillboard
+          .find('[tag="content-text"]')
+          .children('p')
+          .removeClass('anim-content-show')
+      })
     }
   }
   defineExpose({
     test: () => console.log('CENTER2.test'),
     actions
   })
+
+  const handleTypewriterStatus = (status: 'playing' | 'paused' | 'completed') => {
+    console.log('Typewriter status:', status)
+  }
+
+  // __打字機.ACTIONS__
+  const toggleTypewriter = (flag: boolean) => {
+    state.isPlaying = flag
+    state.typewriterRefs.forEach(ref => {
+      if (state.isPlaying) {
+        ref.play()
+      } else {
+        ref.pause()
+      }
+    })
+  }
+  const replayTypewriter = () => {
+    state.typewriterRefs.forEach(ref => {
+      ref.reset()
+    })
+    state.isPlaying = true
+    toggleTypewriter(true)
+  }
+  const clearTypewriter = () => {
+    state.typewriterRefs.forEach(ref => {
+      ref.clear()
+    })
+    state.isPlaying = false
+  }
 </script>
 
 <template>
@@ -352,7 +474,7 @@
             :height="430"
             :isActive="state.selected.name === STATUS.VISUAL_NOVEL.name"
             :text="STATUS.VISUAL_NOVEL.name"
-            @click="clickListener(STATUS.VISUAL_NOVEL)"
+            @click="click.changeCard(STATUS.VISUAL_NOVEL)"
             style="--item-index: 0"
           />
           <!-- 角色扮演 -->
@@ -362,7 +484,7 @@
             :height="330"
             :isActive="state.selected.name === STATUS.SPORTS.name"
             :text="STATUS.SPORTS.name"
-            @click="clickListener(STATUS.SPORTS)"
+            @click="click.changeCard(STATUS.SPORTS)"
             style="--item-index: 1"
           />
           <!-- 音樂 -->
@@ -372,7 +494,7 @@
             :height="380"
             :isActive="state.selected.name === STATUS.MUSIC.name"
             :text="STATUS.MUSIC.name"
-            @click="clickListener(STATUS.MUSIC)"
+            @click="click.changeCard(STATUS.MUSIC)"
             style="--item-index: 2"
           />
           <!-- 冒險 -->
@@ -382,7 +504,7 @@
             :height="273"
             :isActive="state.selected.name === STATUS.ADVENTURE.name"
             :text="STATUS.ADVENTURE.name"
-            @click="clickListener(STATUS.ADVENTURE)"
+            @click="click.changeCard(STATUS.ADVENTURE)"
             style="--item-index: 3"
           />
           <!-- 模擬 -->
@@ -392,7 +514,7 @@
             :height="420"
             :isActive="state.selected.name === STATUS.SIMULATION.name"
             :text="STATUS.SIMULATION.name"
-            @click="clickListener(STATUS.SIMULATION)"
+            @click="click.changeCard(STATUS.SIMULATION)"
             style="--item-index: 4"
           />
         </div>
@@ -408,15 +530,18 @@
       </div>
       <!-- <BubbleMachine /> -->
       <!-- BAR.ICON SETTINGS -->
+      selectedIntroduce
+      {{ state.selectedIntroduce }}
       <div id="id-block1-right-bar" class="block-1-right-2" :class="state.selected.class">
         <GameIcon
           style="--item-index: 0"
           :title="'CAVE'"
           :status="STATUS_ICON.CAVE"
           :selectedTag="0"
-          v-model="state.selectedTag"
+          v-model="state.selectedIntroduce"
+          @click="click.changeIntroduce(0)"
         />
-        <GameIcon style="--item-index: 1" />
+        <GameIcon style="--item-index: 1" @click="click.changeIntroduce(1)" />
         <GameIcon style="--item-index: 2" />
         <GameIcon style="--item-index: 3" />
         <GameIcon style="--item-index: 4" />
@@ -441,25 +566,35 @@
             transition: 'transform 0.2s ease-out'
           }"
         >
-          <div class="title">{{ state.main[state.selected.name].title }}</div>
+          <div class="title" tag="title">{{ state.main[state.selected.name].title }}</div>
           <div class="content">
             <div class="left">
               <p v-for="(text, index) in state.main[state.selected.name].content" :key="index">
-                {{ text }}
+                <TypewriterText
+                  :text="text"
+                  :speed="70"
+                  :autoPlay="state.isPlaying"
+                  @statusChange="handleTypewriterStatus"
+                  :ref="
+                    el => {
+                      if (el) state.typewriterRefs[index] = el
+                    }
+                  "
+                />
               </p>
             </div>
             <div class="right">
-              <div class="title">{{ currIntroduce.title }}</div>
-              <div class="content-img">
+              <div class="title" tag="selected-title">{{ currIntroduce.title }}</div>
+              <div class="content-img" tag="content-img">
                 <div class="img-1">
                   <img :src="currIntroduce.img.background" />
                   <div class="note">{{ currIntroduce.img.note }}</div>
                 </div>
               </div>
-              <div class="content-text">
+              <div class="content-text" tag="content-text">
                 <p v-for="(text, index) in currIntroduce.content" :key="index">{{ text }}</p>
                 <div class="auto"></div>
-                <div class="note">{{ currIntroduce.note }}</div>
+                <div class="note" tag="selected-note">{{ currIntroduce.note }}</div>
               </div>
             </div>
           </div>
@@ -519,6 +654,14 @@
         </div>
         <div class="footer"></div>
       </div>
+
+      <!-- Add control button -->
+      <!-- <button class="typewriter-control" @click="toggleTypewriter">
+        {{ state.isPlaying ? '暫停' : '播放' }}
+      </button> -->
+
+      <!-- Add replay button -->
+      <!-- <button class="typewriter-control replay" @click="replayTypewriter">重新播放</button> -->
     </div>
   </div>
 </template>
@@ -817,11 +960,35 @@
 
         .title {
           position: absolute;
-          left: 10px;
+          left: 7px;
           top: -40px;
           font-size: 50px;
           font-weight: 900;
           letter-spacing: -10px;
+          transform-origin: 50% bottom;
+
+          &.hover-show {
+            animation: title-hover 0.35s ease-out;
+            animation-fill-mode: forwards;
+            @keyframes title-hover {
+              0% {
+                transform: scaleY(0.3);
+                top: -40px;
+              }
+              80% {
+                top: -60px;
+                transform: scaleY(1.5);
+              }
+              90% {
+                top: -50px;
+                transform: scaleY(1.7);
+              }
+              100% {
+                transform: scaleY(1);
+                top: -60px;
+              }
+            }
+          }
         }
         .content {
           position: relative;
@@ -860,10 +1027,14 @@
               font-weight: 900;
               letter-spacing: -5px;
               color: #202020;
+
+              opacity: 0;
             }
             .content-img {
               width: 50%;
               padding: 10px;
+              opacity: 0;
+
               .img-1 {
                 position: relative;
                 width: 100%;
@@ -908,6 +1079,9 @@
                 margin-bottom: 10px;
                 border-left: 1px solid #202020;
                 padding-left: 10px;
+
+                transform-origin: 50% top;
+                transform: scaleY(0);
               }
               .auto {
                 flex: 1;
@@ -917,6 +1091,7 @@
                 font-size: 11px;
                 font-weight: 500;
                 margin-right: 7%;
+                opacity: 0;
               }
             }
           }
@@ -1139,6 +1314,27 @@
       }
       // background: #2dabff;
       // opacity: 0.99;
+    }
+  }
+
+  .typewriter-control {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    &.replay {
+      right: 120px;
     }
   }
 </style>

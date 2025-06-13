@@ -889,4 +889,33 @@
       }
     }
   }
+  .anim-img-show {
+    animation: img-show-a01;
+    animation-duration: 1.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    @keyframes img-show-a01 {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  .anim-content-show {
+    animation: content-p-show-a01;
+    animation-duration: 1.3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    @keyframes content-p-show-a01 {
+      0% {
+        transform: scaleY(0);
+      }
+      100% {
+        transform: scaleY(1);
+      }
+    }
+  }
 }

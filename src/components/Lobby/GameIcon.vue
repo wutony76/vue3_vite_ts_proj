@@ -11,8 +11,8 @@
     selectedTag: { default: -1 } // 設定TAG
   })
 
-  // const model = defineModel('selectedTag')
-  // console.log('-created.SELECT.', model.value)
+  const model = defineModel()
+  console.log('-created.SELECT.', model.value)
 
   // defineEmits({ ICON })
 </script>
@@ -54,14 +54,17 @@
     <!-- sample -->
     <div
       v-else-if="props.status === STATUS_ICON.CAVE"
-      class="game-icon"
-      :class="[STATUS.VISUAL_NOVEL.class]"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.VISUAL_NOVEL.class]: true,
+        selected: model === props.selectedTag
+      }"
     >
       <div class="content">
         <div class="light l-01"></div>
         <div class="light l-02"></div>
       </div>
-      <span class="name">{{ props.title }}</span>
+      <span class="name">{{ props.title }} </span>
     </div>
 
     <div v-else class="game-icon">{{ props.status }}</div>

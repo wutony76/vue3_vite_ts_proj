@@ -223,6 +223,7 @@
 </template>
 
 <script setup lang="ts">
+  import { onMounted } from 'vue'
   import { STATUS, GameStatusType } from './Scripts/config'
   import GameVisualNovel from './GameSample/VisualNovel.vue'
   import GameSport from './GameSample/Sport.vue'
