@@ -10,7 +10,20 @@
   import { STATUS_ICON } from '@/logic/utils/Parameter'
   import { STATUS, GameStatusType } from './Scripts/config'
   import Tools from '@/logic/utils/Tools'
+
   import SampleCave from '@/assets/images/game_cave.png'
+  import SampleMemories from '@/assets/images/game_memories.png'
+  import SampleWord from '@/assets/images/game_word.jpeg'
+  import SampleAnchorhead from '@/assets/images/game_anchorhead.jpg'
+  import Sample99spirits from '@/assets/images/game_99spirits.jpg'
+  import SamplePyramid from '@/assets/images/game_pyramid.png'
+
+  import SampleFIFA from '@/assets/images/game_fifa.jpg'
+  import SamplePowerPros from '@/assets/images/game_powerpros.webp'
+  import SampleTennis from '@/assets/images/game_tennis2.png'
+  import SampleSnowCraft from '@/assets/images/game_snowcraft.jpeg'
+  import SampleSki from '@/assets/images/game_ski.gif'
+  import SampleVolleyball from '@/assets/images/game_volleyball.jpg'
   // import Cave from '@/components/SelfIcon/Cave.vue'
 
   interface IntroduceItem {
@@ -21,6 +34,7 @@
     }
     content: string[]
     note: string
+    tag?: string
   }
 
   const state = reactive({
@@ -45,6 +59,7 @@
         ],
         introduce: [
           {
+            tag: 'cave',
             title: '巨洞冒險',
             img: {
               background: SampleCave,
@@ -56,15 +71,161 @@
               '玩家輸入「看」（look）的指令，電腦會敘述遊戲中玩家所在位置的背景。輸入「拿取」（take），則可拿取物品。輸入「往西走」（go west），玩家就會在遊戲中的虛擬世界中往西方前進。遊戲背景為玩家一開始位於被森林包圍的紅磚建築旁，並進入一處神秘的洞穴探險，玩家會在途中與敵人進行戰鬥，並試圖取得隱藏的寶藏。'
             ],
             note: '資料來源: wiki.巨洞冒險'
+          },
+          {
+            tag: 'memories',
+            title: '記憶重構',
+            img: {
+              background: SampleMemories,
+              note: 'AI示意圖'
+            },
+            content: [
+              '你醒來時身處陌生房間，一段記憶被抹除。你必須靠一支手機、一段監控錄像與你腦中的閃回，拼湊出真相。隨著劇情推進，你會發現背後的謎團遠比表面複雜，每個角色都有不可告人的秘密……',
+              '採用分章節敘事，每章都像一部懸疑短劇。玩家扮演的主角會捲入一連串神秘案件中，從蛛絲馬跡中找出真相。結合 文字敘述、語音對話、實景照片、監控錄影 等多種表現手法，遊戲過程中需查閱資料、破解密碼、拼圖、監控回放推理，提升沉浸感與參與感。',
+              '每一個選擇都可能導致劇情走向不同的方向，根據玩家的選擇，角色生死、案件結局都會改變。'
+            ],
+            note: '資料來源: gpt.記憶重構'
+          },
+          {
+            tag: 'word',
+            title: '文字遊戲',
+            img: {
+              background: SampleWord,
+              note: 'gpt示意圖'
+            },
+            content: [
+              '由Team9開發的獨特解謎遊戲，其核心概念是將文字本身作為遊戲元素，不僅是敘述和介面，同時也是物件、人物和場景。 玩家需要透過刪除、移動、拆解、組合文字，來影響遊戲劇情，解決各種文字謎題。',
+              '遊戲的世界由中文字構成，每個字都有其獨特的功能和意義，玩家必須靈活運用這些特性來解開謎題。玩家可以自由地操作文字，改變句子的意義，甚至改寫事實，從而影響遊戲的進程，這種高自由度是遊戲的一大亮點。',
+              '需要玩家跳脫傳統思維，從文字的字形、字義、語法等層面去思考，才能找到解決方案。遊戲的故事劇情引人入勝，玩家在解謎的同時，也能體驗到一段精彩的故事。'
+            ],
+            note: '資料來源: google.文字遊戲'
+          },
+          {
+            tag: 'anchorhead',
+            title: 'ANCHORHEAD',
+            img: {
+              background: SampleAnchorhead,
+              note: 'Anchorhead-畫面參考'
+            },
+            content: [
+              '遊戲以恐怖和心理為主題，玩家將扮演一名調查記者，在一個被稱為Anchorhead的精神病院中展開調查。遊戲採用了非線性敘事方式，玩家可以根據自己的選擇和決策來推進故事的發展。遊戲中也穿插了許多謎題和解密元素，增加了遊戲的趣味性和挑戰性。',
+              '你與丈夫剛搬到一座位於海岸邊的神秘小鎮「Anchorhead」，準備開始新生活。但當你探索這個鎮上的歷史時，你會發現你們家族的過去藏有令人毛骨悚然的秘密，而一場古老的邪教儀式正悄悄重啟……'
+            ],
+            note: '資料來源: google.Anchorhead'
+          },
+          {
+            tag: '99spirits',
+            title: '九十九神',
+            img: {
+              background: Sample99spirits,
+              note: '九十九神-畫面參考'
+            },
+            content: [
+              '九十九神是日本獨立遊戲製作人TORaIKI的首款日式RPG遊戲。其故事圍繞著日本民間傳說展開，畫面為典型日系動漫風格，遊戲中的式神在日系遊戲中較為常見。遊戲操作簡單，基本靠滑鼠就能完成全部操作。',
+              '以 女劍客 Hanabusa 為主角，她為母之仇踏上討伐九十九神道路，途中結識白狐妖 Komiya 等多位同伴與 NPC 。 每位角色都有鮮明性格，互動性強，劇情豐富。'
+            ],
+            note: '資料來源: google.九十九神'
+          },
+          {
+            tag: 'pyramid',
+            title: '神奇金字塔',
+            img: {
+              background: SamplePyramid,
+              note: 'gpt示意圖'
+            },
+            content: [
+              '在神秘的埃及沙漠深處，一座失落已久的金字塔重現於世。你是一名年輕的語言學家，應邀加入一支國際探險隊，目的是解開金字塔內部的遠古機關與失落文明的秘密。',
+              '但在踏入金字塔後，團隊逐漸失聯，神秘的文字與詭異聲音開始出現。你必須運用對語言與符號的理解，在古老謎語、機關陷阱與潛伏危機中找到出口──或者，成為這場千年詛咒的下一位犧牲者……'
+            ],
+            note: '資料來源: gpt.神奇金字塔'
           }
         ]
       },
       [STATUS.SPORTS.name]: {
-        title: 'SPORTS',
-        content: []
+        title: '競技運動',
+        content: [
+          '模擬體育運動為主的內容、一般會以真實世界的運動賽事為藍本，涵蓋足球、籃球、棒球、網球、高爾夫、賽車等眾多項目。玩家可以選擇扮演運動員，賽車手，體驗競技刺激的樂趣，身臨其境體驗一些極限運動的刺激與速度感。'
+        ],
+        introduce: [
+          {
+            tag: 'fifa',
+            title: 'FIFA',
+            img: {
+              background: SampleFIFA,
+              note: 'FIFA-畫面參考'
+            },
+            content: [
+              '遊戲以逼真的方式呈現足球運動，讓玩家可以操作世界各地的球員和球隊，在大型聯賽中爭奪勝利。 遊戲包含了多種模式，例如FIFA Ultimate Team、職業生涯模式、EA SPORTS VOLTA FOOTBALL等，讓玩家可以體驗不同層面的足球魅力。',
+              '擁有超過17,000名球員、700支球隊、90座球場以及30多個聯盟的授權，每年都會推出新的版本，加入新的功能和改進，讓玩家保持新鮮感，以精細的畫面和細節，呈現真實的足球比賽，讓玩家仿佛置身於賽場之中。'
+            ],
+            note: '資料來源: google.FIFA'
+          },
+          {
+            tag: 'power-pros',
+            title: '實況野球',
+            img: {
+              background: SamplePowerPros,
+              note: 'Power Pros-畫面參考'
+            },
+            content: [
+              '以原創球員高中或大學棒球生涯的基礎訓練與隨機事件組成，可藉由這些事件與訓練增加經驗值，玩家可將這些經驗值自由分配到想學的技能與能力點上，從而創造出一位玩家心中理想的原創球員，進而打造出一隻原創球隊，該原創球隊可併入其他模式依同遊玩。'
+            ],
+            note: '資料來源: wiki.實況野球'
+          },
+          {
+            tag: 'tennis',
+            title: '網球王子',
+            img: {
+              background: SampleTennis,
+              note: '網球王子-畫面參考'
+            },
+            content: [
+              '在GB平台，遊戲通常角色扮演和網球對戰元素，讓玩家可以操作網球王子中的角色，體驗不同的故事劇情，並在比賽中一較高下。 此外，遊戲中也常會有收集和育成角色的要素，讓玩家更深入地了解網球王子的世界觀和角色魅力。',
+              '可以通過遊戲中的各種方式來提升角色的能力，例如訓練、升級等，讓玩家的角色在對戰中更具優勢。可以收集卡片、角色模型等要素，讓玩家可以收集自己喜歡的角色和道具，增加遊戲的收藏價值。可以操作自己喜歡的角色，進行網球對戰，遊戲中通常會有不同的技巧和必殺技，讓對戰更具策略性和娛樂性。'
+            ],
+            note: '資料來源: google.網球王子'
+          },
+          {
+            tag: 'snowcraft',
+            title: '打雪仗',
+            img: {
+              background: SampleSnowCraft,
+              note: '打雪仗-畫面參考'
+            },
+            content: [
+              '玩法上非常的簡單，在每個關卡中，玩家都會有三個穿紅衣的小朋友可以控制，並透過閃躲與丟雪球攻擊，將對面穿著綠色外套的小朋友全部擊倒即可過關並獲得分數，但可別小看這些穿著綠色外套的小朋友們啊，因為關卡越到後面，玩家的紅色小朋友數量並不會增加唷，會增加的只有綠色小朋友的數量，所以到了越後面的關卡，很有可能會出現十幾個打3個的局面喔，非常的有挑戰性。'
+            ],
+            note: '資料來源: google.打雪仗'
+          },
+          {
+            tag: 'ski-free',
+            title: '滑雪冒險',
+            img: {
+              background: SampleSki,
+              note: '滑雪-畫面參考'
+            },
+            content: [
+              '背景Chris Pirih於1991年創作，遊戲目標簡單，飛下斜坡略過障礙。Pirih因為個人興趣編寫的SkiFree（使用C語言）。',
+              '復古經典小遊戲，滑雪要躲避障礙物，一路往下滑過關，當滑行距離超過2000m的時候，就會有雪怪跑出來追你!'
+            ],
+            note: '資料來源: google.滑雪'
+          },
+          {
+            tag: 'volleyball',
+            title: '沙灘排球',
+            img: {
+              background: SampleVolleyball,
+              note: '熱血沙灘排球-畫面參考'
+            },
+            content: [
+              ' 熱血沙灘排球是一款休閒益智的像素風體育排球競技遊戲，玩家在遊戲中可以收集解鎖不同的角色，組成自己的排球隊伍，挑戰越來越強的對手，不斷獲得勝利，升級自己的能力，戰勝對手和獲得獎勵！有超過120個角色和35個排球可供選擇，你也可以改變場上的位置。'
+            ],
+            note: '資料來源: google.熱血沙灘排球'
+          }
+        ]
       },
       [STATUS.MUSIC.name]: {
-        title: 'MUSIC',
+        title: '韻律節奏',
         content: []
       },
       [STATUS.ADVENTURE.name]: {
@@ -123,6 +284,16 @@
         }
       })
       state.selected = status
+
+      // __切換遊戲類型，設定selectedIntroduce__
+      state.selectedIntroduce = 0
+      // if (status.name === STATUS.VISUAL_NOVEL.name) state.selectedIntroduce = 0
+      // else if (status.name === STATUS.SPORTS.name) state.selectedIntroduce = 6
+
+      //__DETAIL.ANIM更新__
+      setTimeout(() => {
+        click.changeIntroduce(state.selectedIntroduce)
+      }, 10)
     },
     changeIntroduce(index: number = -1) {
       if (index < 0) return
@@ -222,6 +393,7 @@
   const currIntroduce = computed<IntroduceItem>(() => {
     return (
       state.main[state.selected.name]?.introduce?.[state.selectedIntroduce] ?? {
+        tag: 'test',
         title: 'TEST',
         img: { background: '', note: 'NOTE.TEST' },
         content: [],
@@ -530,22 +702,109 @@
       </div>
       <!-- <BubbleMachine /> -->
       <!-- BAR.ICON SETTINGS -->
-      selectedIntroduce
-      {{ state.selectedIntroduce }}
+      <!-- selected {{ state.selected.name }} -->
       <div id="id-block1-right-bar" class="block-1-right-2" :class="state.selected.class">
-        <GameIcon
-          style="--item-index: 0"
-          :title="'CAVE'"
-          :status="STATUS_ICON.CAVE"
-          :selectedTag="0"
-          v-model="state.selectedIntroduce"
-          @click="click.changeIntroduce(0)"
-        />
-        <GameIcon style="--item-index: 1" @click="click.changeIntroduce(1)" />
-        <GameIcon style="--item-index: 2" />
-        <GameIcon style="--item-index: 3" />
-        <GameIcon style="--item-index: 4" />
-        <GameIcon style="--item-index: 5" />
+        <div v-if="state.selected.name === STATUS.VISUAL_NOVEL.name" class="list">
+          <GameIcon
+            style="--item-index: 0"
+            :title="'CAVE'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="0"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(0)"
+          />
+          <GameIcon
+            style="--item-index: 1"
+            :title="'MEMORIES'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="1"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(1)"
+          />
+          <GameIcon
+            style="--item-index: 2"
+            :title="'WORDS'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="2"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(2)"
+          />
+          <GameIcon
+            style="--item-index: 3"
+            :title="'ANCHORHEAD'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="3"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(3)"
+          />
+          <GameIcon
+            style="--item-index: 4"
+            :title="'99SPIRITS'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="4"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(4)"
+          />
+          <GameIcon
+            style="--item-index: 5"
+            :title="'PYRAMID'"
+            :status="STATUS_ICON.CAVE"
+            :selectedTag="5"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(5)"
+          />
+        </div>
+        <div v-if="state.selected.name === STATUS.SPORTS.name" class="list">
+          <GameIcon
+            style="--item-index: 0"
+            :title="'FIFA'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="0"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(0)"
+          />
+          <GameIcon
+            style="--item-index: 1"
+            :title="'POWERPROS'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="1"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(1)"
+          />
+          <GameIcon
+            style="--item-index: 2"
+            :title="'TENNIS'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="2"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(2)"
+          />
+          <GameIcon
+            style="--item-index: 3"
+            :title="'SNOWCRAFT'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="3"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(3)"
+          />
+          <GameIcon
+            style="--item-index: 4"
+            :title="'SKI'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="4"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(4)"
+          />
+          <GameIcon
+            style="--item-index: 5"
+            :title="'VOLLEYBALL'"
+            :status="STATUS_ICON.FIFA"
+            :selectedTag="5"
+            v-model="state.selectedIntroduce"
+            @click="click.changeIntroduce(5)"
+          />
+        </div>
+        <div v-if="state.selected.name === STATUS.MUSIC.name" class="list"></div>
       </div>
       <!-- VIDEO.大的廣告看板 SETTINGS -->
       <div
@@ -584,9 +843,11 @@
               </p>
             </div>
             <div class="right">
-              <div class="title" tag="selected-title">{{ currIntroduce.title }}</div>
+              <div class="title" :class="[`${currIntroduce.tag}`]" tag="selected-title">
+                {{ currIntroduce.title }}
+              </div>
               <div class="content-img" tag="content-img">
-                <div class="img-1">
+                <div class="img-1" :class="[`${currIntroduce.tag}`]">
                   <img :src="currIntroduce.img.background" />
                   <div class="note">{{ currIntroduce.img.note }}</div>
                 </div>
@@ -831,11 +1092,16 @@
 
       transform-origin: right 50%;
       transform: scaleX(0);
-
       transition: all 0.3s cubic-bezier(0.165, 0.44, 0.64, 1);
 
       > div {
         margin-left: 2.5%;
+      }
+      .list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
       }
 
       &.scale1 {
@@ -1029,6 +1295,21 @@
               color: #202020;
 
               opacity: 0;
+
+              &.pyramid {
+                right: -240px;
+              }
+              &.anchorhead {
+                right: -332px;
+                top: 0px;
+              }
+
+              &.fifa {
+                right: -108px;
+              }
+              &.snowcraft {
+                right: -150px;
+              }
             }
             .content-img {
               width: 50%;
@@ -1039,17 +1320,31 @@
                 position: relative;
                 width: 100%;
                 height: 100%;
-                border: 1px solid #fff;
-                background: #f22b4e;
+                background: #959595;
+                border-radius: 10px;
+                overflow: hidden;
                 img {
                   width: 100%;
                   height: 100%;
                   object-fit: cover;
+                  border-radius: 10px;
+                  filter: contrast(120%) brightness(110%) saturate(130%)
+                    drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3));
+                  transition: all 0.3s ease;
+
+                  &:hover {
+                    filter: contrast(130%) brightness(120%) saturate(150%)
+                      drop-shadow(4px 8px 12px rgba(0, 0, 0, 0.4)) hue-rotate(2deg);
+                    transform: scale(1.02);
+                    & + ::after {
+                      animation: blink 0.75s ease-in-out infinite;
+                    }
+                  }
                 }
                 .note {
                   position: absolute;
-                  bottom: 0;
-                  right: 0;
+                  bottom: 10px;
+                  right: 10px;
                   background-color: #202020;
                   color: #fff;
                   padding-left: 2px;
@@ -1057,6 +1352,15 @@
 
                   font-size: 11px;
                   font-weight: 500;
+                }
+
+                &.snowcraft,
+                &.memories,
+                &.power-pros,
+                &.tennis {
+                  img {
+                    filter: unset;
+                  }
                 }
               }
             }
@@ -1097,28 +1401,36 @@
           }
         }
 
+        // __DETAILS.TITLE__
         &.bar-visual-novel {
           background: #f22b4e;
           .title {
             color: #f22b4e;
           }
-          // opacity: 0.99;
         }
         &.bar-sports {
           background: #ffa333;
-          // opacity: 0.99;
+          .title {
+            color: #ffa333;
+          }
         }
         &.bar-music {
           background: #f52b8c;
-          // opacity: 0.99;
+          .title {
+            color: #f52b8c;
+          }
         }
         &.bar-adventure {
           background: #48c96c;
-          // opacity: 0.99;
+          .title {
+            color: #48c96c;
+          }
         }
         &.bar-simulation {
           background: #2dabff;
-          // opacity: 0.99;
+          .title {
+            color: #2dabff;
+          }
         }
       }
     }

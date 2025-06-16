@@ -7,7 +7,7 @@
       type: String,
       default: 'default'
     },
-    title: { default: null },
+    title: { default: '' },
     selectedTag: { default: -1 } // 設定TAG
   })
 
@@ -64,7 +64,28 @@
         <div class="light l-01"></div>
         <div class="light l-02"></div>
       </div>
-      <span class="name">{{ props.title }} </span>
+      <span class="name" :class="{ size23: props.title.length === 10 }">{{ props.title }} </span>
+    </div>
+    <div
+      v-else-if="props.status === STATUS_ICON.FIFA"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.SPORTS.class]: true,
+        selected: model === props.selectedTag
+      }"
+    >
+      <div class="content">
+        <div class="light l-01"></div>
+        <div class="light l-02"></div>
+      </div>
+      <span
+        class="name"
+        :class="{
+          'size26-9': props.title.length === 9,
+          'size25-10': props.title.length === 10
+        }"
+        >{{ props.title }}
+      </span>
     </div>
 
     <div v-else class="game-icon">{{ props.status }}</div>
@@ -334,9 +355,11 @@
     }
     .name {
       color: #541515;
+      &.size23 {
+        font-size: 23px;
+      }
     }
 
-    &.selected,
     &:hover {
       .content {
         border: 4px solid #22d59f;
@@ -345,6 +368,176 @@
       }
       .name {
         color: #f5ff60;
+      }
+    }
+    &.selected {
+      .content {
+        position: relative;
+        border: 4px solid #1158e1;
+        background: rgb(195 252 137 / 91%);
+        box-shadow: 0 0 20px #e8ee82;
+
+        .light {
+          &.l-01 {
+            // background: #79ccddde;
+            background: rgb(125 234 165 / 87%);
+          }
+          &.l-02 {
+            // background: #79ccddde;
+            background: rgb(125 234 165 / 87%);
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 5px;
+          height: 5px;
+          background: red;
+          animation: blink-a01 1.5s ease-in-out infinite;
+
+          @keyframes blink-a01 {
+            0%,
+            100% {
+              opacity: 0.3;
+              transform: scale(0.8);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .name {
+        color: #0eeaa4;
+      }
+    }
+  }
+  // __SPORTS`__
+  .game-icon.bar-sports {
+    background: #ffcd57;
+    border: unset;
+    display: flow-root;
+    cursor: pointer;
+
+    .content {
+      width: 105px;
+      height: 90px;
+      margin-top: 15px;
+      margin-left: 18px;
+      border: 4px solid #561617;
+      border-radius: 5px;
+      background: #5a60638a;
+      overflow: hidden;
+
+      .light {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+
+        &.l-01 {
+          width: 100%;
+          height: 12px;
+        }
+        &.l-02 {
+          width: 150%;
+          height: 30px;
+        }
+      }
+
+      .light-1 {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+      .light-2 {
+        width: 150%;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+    }
+    .name {
+      color: #541515;
+      &.size23 {
+        font-size: 23px;
+      }
+      &.size25 {
+        font-size: 25px;
+      }
+      &.size26-9 {
+        font-size: 26px;
+      }
+      &.size25-10 {
+        font-size: 25.5px;
+      }
+    }
+
+    &:hover {
+      .content {
+        border: 4px solid #22d59f;
+        background: #fcdd89c9;
+        box-shadow: 0 0 20px #e8ee82;
+      }
+      .name {
+        color: #f5ff60;
+      }
+    }
+    &.selected {
+      .content {
+        position: relative;
+        border: 4px solid #ff4a4a;
+        background: rgb(246 137 252 / 90%);
+        box-shadow: 0 0 20px #e8ee82;
+
+        .light {
+          &.l-01 {
+            background: rgb(145 223 248 / 80%);
+          }
+          &.l-02 {
+            background: rgb(145 223 248 / 95%);
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 5px;
+          height: 5px;
+          background: red;
+          animation: blink-a01 1.5s ease-in-out infinite;
+
+          @keyframes blink-a01 {
+            0%,
+            100% {
+              opacity: 0.3;
+              transform: scale(0.8);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .name {
+        color: #07c5f6;
       }
     }
   }

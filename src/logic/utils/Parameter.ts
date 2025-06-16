@@ -83,5 +83,8 @@ export const STATUS_ICON = {
   SNAKE: 'snake',
   RACING: 'racing',
 
-  CAVE: 'cave'
+  CAVE: 'cave',
+  MEMORIES: 'memories',
+  WORDS: 'words',
+  FIFA: 'fifa'
 }
