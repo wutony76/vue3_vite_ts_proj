@@ -9,7 +9,7 @@ const ANIMATIONS = {
 
   // 設定子節點CSS-CLASS
   addSubClass: (parentIdName: string, className: string, timeout: number) => {
-    console.log('parentIdName ', parentIdName)
+    // console.log('parentIdName ', parentIdName)
     setTimeout(() => {
       const nd = document.getElementById(parentIdName)
       // const items = nd?.getElementsByClassName('game-block')
@@ -23,7 +23,7 @@ const ANIMATIONS = {
   },
 
   removeSubClass: (parentIdName: string, className: string, timeout: number) => {
-    console.log('parentIdName ', parentIdName)
+    // console.log('parentIdName ', parentIdName)
     setTimeout(() => {
       const nd = document.getElementById(parentIdName)
       const items = nd?.getElementsByClassName('game-icon')

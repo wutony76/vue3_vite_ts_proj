@@ -24,10 +24,18 @@
   import SampleSnowCraft from '@/assets/images/game_snowcraft.jpeg'
   import SampleSki from '@/assets/images/game_ski.gif'
   import SampleVolleyball from '@/assets/images/game_volleyball.jpg'
+
+  import SamplePatapon from '@/assets/images/game_patapon.png'
+  import SampleTaiko from '@/assets/images/game_taikonotatsujin.jpg'
+  import SamplePiano from '@/assets/images/game_piano.webp'
+  import SampleDtxmainia from '@/assets/images/game_dtxmania.jpg'
+  import SampleStepmania from '@/assets/images/game_stepmania.jpeg'
+  import SampleCytus from '@/assets/images/game_cytus.png'
   // import Cave from '@/components/SelfIcon/Cave.vue'
 
   interface IntroduceItem {
     title: string
+    icon: string
     img: {
       background: string
       note: string
@@ -60,6 +68,7 @@
         introduce: [
           {
             tag: 'cave',
+            icon: 'CAVE',
             title: '巨洞冒險',
             img: {
               background: SampleCave,
@@ -74,6 +83,7 @@
           },
           {
             tag: 'memories',
+            icon: 'MEMORIES',
             title: '記憶重構',
             img: {
               background: SampleMemories,
@@ -88,6 +98,7 @@
           },
           {
             tag: 'word',
+            icon: 'WORD',
             title: '文字遊戲',
             img: {
               background: SampleWord,
@@ -102,6 +113,7 @@
           },
           {
             tag: 'anchorhead',
+            icon: 'ANCHORHEAD',
             title: 'ANCHORHEAD',
             img: {
               background: SampleAnchorhead,
@@ -115,6 +127,7 @@
           },
           {
             tag: '99spirits',
+            icon: '99SPIRITS',
             title: '九十九神',
             img: {
               background: Sample99spirits,
@@ -128,6 +141,7 @@
           },
           {
             tag: 'pyramid',
+            icon: 'PYRAMID',
             title: '神奇金字塔',
             img: {
               background: SamplePyramid,
@@ -149,6 +163,7 @@
         introduce: [
           {
             tag: 'fifa',
+            icon: 'FIFA',
             title: 'FIFA',
             img: {
               background: SampleFIFA,
@@ -162,6 +177,7 @@
           },
           {
             tag: 'power-pros',
+            icon: 'POWERPROS',
             title: '實況野球',
             img: {
               background: SamplePowerPros,
@@ -174,6 +190,7 @@
           },
           {
             tag: 'tennis',
+            icon: 'TENNIS',
             title: '網球王子',
             img: {
               background: SampleTennis,
@@ -187,6 +204,7 @@
           },
           {
             tag: 'snowcraft',
+            icon: 'SNOWCRAFT',
             title: '打雪仗',
             img: {
               background: SampleSnowCraft,
@@ -199,6 +217,7 @@
           },
           {
             tag: 'ski-free',
+            icon: 'SKI',
             title: '滑雪冒險',
             img: {
               background: SampleSki,
@@ -212,6 +231,7 @@
           },
           {
             tag: 'volleyball',
+            icon: 'VOLLEYBALL',
             title: '沙灘排球',
             img: {
               background: SampleVolleyball,
@@ -226,7 +246,95 @@
       },
       [STATUS.MUSIC.name]: {
         title: '韻律節奏',
-        content: []
+        content: [
+          '提供了另一種獨特的娛樂體驗，考驗玩家的節奏感和反應速度，讓玩家配合音樂節奏進行操作，通常包含按鍵、舞蹈或歌唱等玩法。讓玩家在享受音樂的同時，也能訓練反應能力和節奏感。隨著科技的進步，這類遊戲的玩法和呈現方式也越來越豐富，吸引了越來越多的玩家參與。'
+        ],
+        introduce: [
+          {
+            tag: 'patapon',
+            icon: 'PATAPON',
+            title: '戰鼓啪打碰',
+            img: {
+              background: SamplePatapon,
+              note: '戰鼓啪打碰-畫面參考'
+            },
+            content: [
+              '玩家將扮演神明，指揮像眼球般的生物「PATAPON」進行冒險。 遊戲的核心玩法是透過敲擊四種不同節奏的太鼓，來下達指令，引導PATAPON 部隊前進、攻擊、防禦等....',
+              '以其獨特的節奏指令系統、豐富的PATAPON 兵種、以及兼具策略性和操作性的遊戲性，吸引了許多玩家的喜愛。'
+            ],
+            note: '資料來源: google.patapon'
+          },
+          {
+            tag: 'taiko-no-tatsujin',
+            icon: 'TAIKO',
+            title: '太鼓達人',
+            img: {
+              background: SampleTaiko,
+              note: '太鼓達人-畫面參考'
+            },
+            content: [
+              '是一款跟著音樂節奏敲打太鼓的節奏遊戲。 玩家需要根據螢幕上顯示的音符，配合音樂節奏，敲擊太鼓的鼓面或邊緣，準確地完成演奏。 遊戲有多種模式，包括單人演奏、雙人對戰、線上對戰，以及收錄了各種不同類型樂曲的歌曲庫，讓玩家可以盡情享受打鼓的樂趣。',
+              '遊戲收錄了各種不同類型的樂曲，包括流行音樂、動畫歌曲、古典音樂、原創歌曲等，且每首樂曲都有不同的難度和節奏。是一款操作簡單、樂趣十足的節奏遊戲，無論是新手還是老玩家，都能在遊戲中找到樂趣。 多樣化的遊玩模式和豐富的樂曲庫，讓玩家可以盡情享受打鼓的樂趣。'
+            ],
+            note: '資料來源: google.太鼓達人'
+          },
+          {
+            tag: 'piano',
+            icon: 'PIANO',
+            title: '鋼琴大師',
+            img: {
+              background: SamplePiano,
+              note: '鋼琴大師-畫面參考'
+            },
+            content: [
+              '是一款結合了音樂和節奏元素的單機遊戲。玩家需要根據音樂節奏點擊螢幕上的音符，完成關卡挑戰，體驗音樂與遊戲的完美結合。 遊戲提供多種音樂選擇和難度設置，適合不同程度的玩家。',
+              '玩家需要跟著音樂節奏點擊螢幕上的音符，體驗指尖跳躍的快感。內包含大量經典鋼琴曲和流行歌曲，滿足不同玩家的音樂喜好。提供不同難度和挑戰模式，讓玩家根據自身等級選擇。搭配音樂節奏，帶來視聽享受。'
+            ],
+            note: '資料來源: google.鋼琴大師'
+          },
+          {
+            tag: 'dtxmania',
+            icon: 'DTXMANIA',
+            title: 'DTXMANIA',
+            img: {
+              background: SampleDtxmainia,
+              note: 'dtxmania-畫面參考'
+            },
+            content: [
+              '是一款電玩模擬器，是一種讓玩家使用電子鼓模擬打鼓的音樂遊戲。 玩家可以搭配遊戲軟體，透過敲擊電子鼓的鼓面，來跟著遊戲中的節奏軌跡進行演奏，享受打鼓的樂趣。 許多電子鼓遊戲還提供豐富的歌曲庫和譜面，讓玩家可以挑戰不同風格的音樂，並練習打鼓技巧。',
+              '遊戲可以採用"中斷遊戲"，失血過多就會進入"FAIL"，那可是相當令人相當惋惜的；相對的，過關後所得到的成就感也是相當的令人滿足。最大的特色允許玩家自行編排和創作，也就是說，你能把你手中的鼓譜編進遊戲中，並加入歌曲或節拍器，就能做到專屬於自己的遊戲資料。'
+            ],
+            note: '資料來源: google.dtxmania'
+          },
+          {
+            tag: 'step-mania',
+            icon: 'STEPMANIA',
+            title: 'STEPMANIA',
+            img: {
+              background: SampleStepmania,
+              note: 'StepMania-畫面參考'
+            },
+            content: [
+              '是一款免費且開放原始碼的舞蹈和節奏遊戲，讓玩家透過鍵盤或跳舞毯來進行遊戲，模擬跳舞機的體驗。 玩家需要在音樂節拍對應的時間點，按下對應方向的按鍵或跳上跳舞毯上的對應區域，遊戲會根據準確度給予評價。',
+              '遊戲畫面中，箭頭會從螢幕下方向上滾動，玩家需要在箭頭到達上方指定區域時，按下對應的按鍵或跳上跳舞毯上的對應位置。對齊目標時，玩家要在鍵盤或跳舞毯上按下相應按鍵。箭頭遇到目標的時刻取決於音樂的節拍。遊戲的積分取決於玩家能夠多準確地在歌曲節拍的時間點觸發箭頭。玩家的努力通過字母成績和量化的分數來評價。 '
+            ],
+            note: '資料來源: google.StepMania'
+          },
+          {
+            tag: 'cytus',
+            icon: 'CYTUS',
+            title: 'CYTUS',
+            img: {
+              background: SampleCytus,
+              note: 'Cytus-畫面參考'
+            },
+            content: [
+              '由雷亞遊戲開發的音樂節奏遊戲，以獨特的動態掃描線和手繪風格的畫面聞名。 玩家需要根據音樂節奏，在掃描線經過時，準確地觸擊螢幕上的拍點。 遊戲收錄了多樣化的音樂，並邀請了多位知名音樂遊戲樂師參與製作，例如Tsukasa、Naotyu-和Sta。',
+              '需要隨著遊戲介面中，上下移動的掃描線來適時演奏對應音符。遊戲中有三種拍點按鈕，點擊音符Click Note，長按音符Hold Note和拖動音符Drag Note。根據CAPCOM的Cytus Omega官方網站，Cytus Omega將會有一種新的拍點按鈕。遊戲中的音符分為藍紫色與藍綠色兩種，掃描線自上而下與自下而上移動時，音符將展現出不同的顏色。'
+            ],
+            note: '資料來源: cytus.Cytus'
+          }
+        ]
       },
       [STATUS.ADVENTURE.name]: {
         title: 'ADVENTURE',
@@ -401,6 +509,27 @@
       }
     )
   })
+  const currGameArrInfo = computed(() => {
+    const _main = state.main
+    let _status = ''
+    let _item: IntroduceItem[] | null = null
+    // let out: { key: number; icon: string; title: string; status: string; tag: number }[] = []
+
+    if (state.selected.name === STATUS.VISUAL_NOVEL.name) _status = STATUS_ICON.CAVE
+    else if (state.selected.name === STATUS.SPORTS.name) _status = STATUS_ICON.FIFA
+    else if (state.selected.name === STATUS.MUSIC.name) _status = STATUS_ICON.PATAPON
+
+    _item = _main[state.selected.name]?.introduce ?? []
+    return [
+      { key: 0, status: _status, tag: 0, title: _item?.[0]?.icon ?? 'NONE' },
+      { key: 1, status: _status, tag: 1, title: _item?.[1]?.icon ?? 'NONE' },
+      { key: 2, status: _status, tag: 2, title: _item?.[2]?.icon ?? 'NONE' },
+      { key: 3, status: _status, tag: 3, title: _item?.[3]?.icon ?? 'NONE' },
+      { key: 4, status: _status, tag: 4, title: _item?.[4]?.icon ?? 'NONE' },
+      { key: 5, status: _status, tag: 5, title: _item?.[5]?.icon ?? 'NONE' }
+    ]
+  })
+
   const setup = {
     hover() {
       const domTag = IDS.BLOCK_1_VIDEO_BILLBOARD
@@ -602,7 +731,7 @@
   })
 
   const handleTypewriterStatus = (status: 'playing' | 'paused' | 'completed') => {
-    console.log('Typewriter status:', status)
+    // console.log('Typewriter status:', status)
   }
 
   // __打字機.ACTIONS__
@@ -701,111 +830,24 @@
         <div class="item setting-text" tag="title">LIFESTYLE</div>
       </div>
       <!-- <BubbleMachine /> -->
+
       <!-- BAR.ICON SETTINGS -->
       <!-- selected {{ state.selected.name }} -->
       <div id="id-block1-right-bar" class="block-1-right-2" :class="state.selected.class">
-        <div v-if="state.selected.name === STATUS.VISUAL_NOVEL.name" class="list">
+        <div class="list">
           <GameIcon
-            style="--item-index: 0"
-            :title="'CAVE'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="0"
+            v-for="(item, index) in currGameArrInfo"
+            :key="index"
+            :style="`--item-index: ${item.key}`"
+            :title="item.title"
+            :status="item.status"
+            :selectedTag="item.tag"
             v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(0)"
-          />
-          <GameIcon
-            style="--item-index: 1"
-            :title="'MEMORIES'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="1"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(1)"
-          />
-          <GameIcon
-            style="--item-index: 2"
-            :title="'WORDS'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="2"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(2)"
-          />
-          <GameIcon
-            style="--item-index: 3"
-            :title="'ANCHORHEAD'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="3"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(3)"
-          />
-          <GameIcon
-            style="--item-index: 4"
-            :title="'99SPIRITS'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="4"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(4)"
-          />
-          <GameIcon
-            style="--item-index: 5"
-            :title="'PYRAMID'"
-            :status="STATUS_ICON.CAVE"
-            :selectedTag="5"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(5)"
+            @click="click.changeIntroduce(index)"
           />
         </div>
-        <div v-if="state.selected.name === STATUS.SPORTS.name" class="list">
-          <GameIcon
-            style="--item-index: 0"
-            :title="'FIFA'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="0"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(0)"
-          />
-          <GameIcon
-            style="--item-index: 1"
-            :title="'POWERPROS'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="1"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(1)"
-          />
-          <GameIcon
-            style="--item-index: 2"
-            :title="'TENNIS'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="2"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(2)"
-          />
-          <GameIcon
-            style="--item-index: 3"
-            :title="'SNOWCRAFT'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="3"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(3)"
-          />
-          <GameIcon
-            style="--item-index: 4"
-            :title="'SKI'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="4"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(4)"
-          />
-          <GameIcon
-            style="--item-index: 5"
-            :title="'VOLLEYBALL'"
-            :status="STATUS_ICON.FIFA"
-            :selectedTag="5"
-            v-model="state.selectedIntroduce"
-            @click="click.changeIntroduce(5)"
-          />
-        </div>
-        <div v-if="state.selected.name === STATUS.MUSIC.name" class="list"></div>
       </div>
+
       <!-- VIDEO.大的廣告看板 SETTINGS -->
       <div
         id="id-block1-right-main"
@@ -1303,12 +1345,23 @@
                 right: -332px;
                 top: 0px;
               }
-
               &.fifa {
                 right: -108px;
               }
               &.snowcraft {
                 right: -150px;
+              }
+              &.patapon {
+                right: -242px;
+              }
+              &.dtxmania {
+                right: -253px;
+              }
+              &.step-mania {
+                right: -271px;
+              }
+              &.cytus {
+                right: -168px;
               }
             }
             .content-img {
@@ -1354,6 +1407,12 @@
                   font-weight: 500;
                 }
 
+                //__IMG.FILTER__
+                &.cytus,
+                &.step-mania,
+                &.dtxmania,
+                &.piano,
+                &.taiko-no-tatsujin,
                 &.snowcraft,
                 &.memories,
                 &.power-pros,

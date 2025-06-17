@@ -12,9 +12,8 @@
   })
 
   const model = defineModel()
-  console.log('-created.SELECT.', model.value)
-
-  // defineEmits({ ICON })
+  // console.log('-created.SELECT.', model.value)
+  // console.log('-created.SELECT.', props.status)
 </script>
 
 <template>
@@ -82,6 +81,48 @@
         class="name"
         :class="{
           'size26-9': props.title.length === 9,
+          'size25-10': props.title.length === 10
+        }"
+        >{{ props.title }}
+      </span>
+    </div>
+    <div
+      v-else-if="props.status === STATUS_ICON.FIFA"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.SPORTS.class]: true,
+        selected: model === props.selectedTag
+      }"
+    >
+      <div class="content">
+        <div class="light l-01"></div>
+        <div class="light l-02"></div>
+      </div>
+      <span
+        class="name"
+        :class="{
+          'size26-9': props.title.length === 9,
+          'size25-10': props.title.length === 10
+        }"
+        >{{ props.title }}
+      </span>
+    </div>
+    <div
+      v-else-if="props.status === STATUS_ICON.PATAPON"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.MUSIC.class]: true,
+        selected: model === props.selectedTag
+      }"
+    >
+      <div class="content">
+        <div class="light l-01"></div>
+        <div class="light l-02"></div>
+      </div>
+      <span
+        class="name"
+        :class="{
+          'size28-9': props.title.length === 9,
           'size25-10': props.title.length === 10
         }"
         >{{ props.title }}
@@ -416,7 +457,7 @@
       }
     }
   }
-  // __SPORTS`__
+  // __SPORTS__
   .game-icon.bar-sports {
     background: #ffcd57;
     border: unset;
@@ -490,11 +531,11 @@
     &:hover {
       .content {
         border: 4px solid #22d59f;
-        background: #fcdd89c9;
-        box-shadow: 0 0 20px #e8ee82;
+        background: rgb(250 195 195);
+        box-shadow: 0 0 20px #09ee1387;
       }
       .name {
-        color: #f5ff60;
+        color: #ff3676c7;
       }
     }
     &.selected {
@@ -538,6 +579,131 @@
       }
       .name {
         color: #07c5f6;
+      }
+    }
+  }
+  // __MUSIC__
+  .game-icon.bar-music {
+    background: #f971d7;
+    border: unset;
+    display: flow-root;
+    cursor: pointer;
+
+    .content {
+      width: 105px;
+      height: 90px;
+      margin-top: 15px;
+      margin-left: 18px;
+      border: 4px solid #561617;
+      border-radius: 5px;
+      background: #5a60638a;
+      overflow: hidden;
+
+      .light {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+
+        &.l-01 {
+          width: 100%;
+          height: 12px;
+        }
+        &.l-02 {
+          width: 150%;
+          height: 30px;
+        }
+      }
+
+      .light-1 {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+      .light-2 {
+        width: 150%;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+    }
+    .name {
+      color: #541515;
+      &.size23 {
+        font-size: 23px;
+      }
+      &.size25 {
+        font-size: 25px;
+      }
+      &.size28-9 {
+        font-size: 28px;
+      }
+      &.size25-10 {
+        font-size: 25.5px;
+      }
+    }
+
+    &:hover {
+      .content {
+        border: 4px solid #22d59f;
+        background: #fcdd89c9;
+        box-shadow: 0 0 20px #e8ee82;
+      }
+      .name {
+        color: #f5ff60;
+      }
+    }
+    &.selected {
+      .content {
+        position: relative;
+        border: 4px solid #c5e8ea;
+        background: rgb(43 144 245);
+        box-shadow: 0 0 20px #a867dd87;
+
+        .light {
+          &.l-01 {
+            background: rgb(145 223 248 / 80%);
+          }
+          &.l-02 {
+            background: rgb(145 223 248 / 95%);
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 5px;
+          height: 5px;
+          background: red;
+          animation: blink-a01 1.5s ease-in-out infinite;
+
+          @keyframes blink-a01 {
+            0%,
+            100% {
+              opacity: 0.3;
+              transform: scale(0.8);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .name {
+        color: #09eeaa;
       }
     }
   }

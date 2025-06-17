@@ -86,5 +86,6 @@ export const STATUS_ICON = {
   CAVE: 'cave',
   MEMORIES: 'memories',
   WORDS: 'words',
-  FIFA: 'fifa'
+  FIFA: 'fifa',
+  PATAPON: 'patapon'
 }
