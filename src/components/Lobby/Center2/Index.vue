@@ -1,12 +1,14 @@
 <script setup lang="ts">
-  import { reactive, onMounted, onUnmounted, computed, ref } from 'vue'
+  import { reactive, onMounted, onUnmounted, computed, ref, createApp } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
   import Animation from '@/logic/utils/Animation'
   import BlockDetail from './BlockDetail.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import Card from './Card.vue'
   import TypewriterText from './TypewriterText.vue'
+  import Balloon from '@/components/SelfIcon/Balloon.vue'
   // import BubbleMachine from '@/components/SelfIcon/BubbleMachine.vue'
+
   import { STATUS_ICON } from '@/logic/utils/Parameter'
   import { STATUS, GameStatusType } from './Scripts/config'
   import Tools from '@/logic/utils/Tools'
@@ -65,6 +67,12 @@
     selectedIntroduce: 0,
     typewriterRefs: [] as any[],
     isPlaying: false,
+    mouseX: 0,
+    mouseY: 0,
+    followerVisible: false,
+    lastMouseX: 0, // 用於計算旋轉角度
+    lastMouseY: 0,
+    rotation: 0,
 
     block1RightWidth: '50px',
     scrollY: 0,
@@ -731,7 +739,7 @@
   })
 
   const setup = {
-    hover() {
+    add_video_billboard() {
       const domTag = IDS.BLOCK_1_VIDEO_BILLBOARD
       const dom = $(`#${domTag}`) as any
       selfDom.videoBillboard = dom
@@ -744,6 +752,103 @@
       dom.on('mouseleave', function () {
         dom.find('[tag="title"]').removeClass('hover-show')
       })
+    },
+    add_center2_effect() {
+      console.log('add_center2_effect')
+      // 創建跟隨元素
+      const follower = document.createElement('div')
+      follower.className = 'mouse-follower'
+
+      // 創建 Balloon 組件實例
+      const balloonApp = createApp(Balloon, {
+        size: 55,
+        color: '#fe2974',
+        stringColor: '#723030',
+        // stringColor: 'rgba(255, 255, 255, 0.8)',
+        // animate: false
+        animate: true
+      })
+
+      const balloonContainer = document.createElement('div')
+      balloonContainer.style.cssText = `
+        transform-origin: center bottom;
+        animation: gentle-float 3s ease-in-out infinite;
+      `
+      balloonApp.mount(balloonContainer)
+      follower.appendChild(balloonContainer)
+
+      follower.style.cssText = `
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transform: translate(${state.mouseX}px, ${state.mouseY}px);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      `
+      document.body.appendChild(follower)
+
+      // 添加動畫樣式
+      const style = document.createElement('style')
+      style.textContent = `
+        @keyframes gentle-float {
+          0% { transform: translateY(0px) rotate(-2deg); }
+          25% { transform: translateY(-3px) rotate(2deg); }
+          50% { transform: translateY(-5px) rotate(-1deg); }
+          75% { transform: translateY(-3px) rotate(1deg); }
+          100% { transform: translateY(0px) rotate(-2deg); }
+        }
+      `
+      document.head.appendChild(style)
+
+      // 監聽滑鼠移動
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!state.followerVisible) {
+          state.followerVisible = true
+          follower.style.opacity = '1'
+        }
+
+        // 計算旋轉角度
+        const dx = e.clientX - state.lastMouseX
+        const dy = e.clientY - state.lastMouseY
+        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
+          state.rotation = Math.atan2(dy, dx) * (180 / Math.PI)
+        }
+
+        // 更新位置 - 調整偏移量使氣球中心對準鼠標
+        state.mouseX = e.clientX + 10 // 27 是氣球寬度的一半 (55/2)
+        state.mouseY = e.clientY - 220 // 增加垂直偏移，讓氣球更高
+
+        state.lastMouseX = e.clientX
+        state.lastMouseY = e.clientY
+
+        follower.style.transform = `translate(${state.mouseX}px, ${state.mouseY}px)`
+      }
+
+      // 監聽滑鼠離開視窗
+      const handleMouseLeave = () => {
+        state.followerVisible = false
+        follower.style.opacity = '0'
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      document.body.addEventListener('mouseleave', handleMouseLeave)
+
+      // 在組件卸載時清理
+      onUnmounted(() => {
+        window.removeEventListener('mousemove', handleMouseMove)
+        document.body.removeEventListener('mouseleave', handleMouseLeave)
+        if (follower && follower.parentNode) {
+          balloonApp.unmount()
+          follower.parentNode.removeChild(follower)
+        }
+        if (style && style.parentNode) {
+          style.parentNode.removeChild(style)
+        }
+      })
+    },
+    hover() {
+      setup.add_video_billboard()
+      setup.add_center2_effect()
     }
   }
 
@@ -1977,6 +2082,17 @@
 
     &.replay {
       right: 120px;
+    }
+  }
+
+  .mouse-follower {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+
+    svg {
+      width: 100%;
+      height: 100%;
     }
   }
 </style>

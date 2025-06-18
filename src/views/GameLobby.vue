@@ -170,7 +170,7 @@
       const direction = scrollTop > state.lastScrollTop ? scrollAnim.DOWN : scrollAnim.UP
       state.lastScrollTop = scrollTop
       state.lastScrollTimestamp = func.ts()
-      console.log('scroll', state.mainDom!.scrollTop, direction)
+      // console.log('scroll', state.mainDom!.scrollTop, direction)
 
       // ***run.something.start
       // __process.nvbar animation__
