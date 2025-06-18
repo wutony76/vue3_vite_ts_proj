@@ -155,7 +155,28 @@
         <div class="w2">MANSIONS</div>
       </span>
     </div>
-
+    <div
+      v-else-if="props.status === STATUS_ICON.MOONLIGHTER"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.SIMULATION.class]: true,
+        selected: model === props.selectedTag
+      }"
+    >
+      <div class="content">
+        <div class="light l-01"></div>
+        <div class="light l-02"></div>
+      </div>
+      <span
+        class="name"
+        :class="{
+          'size26-9': props.title.length === 9,
+          'size24-10': props.title.length === 10,
+          'size23-11': props.title.length === 11
+        }"
+        >{{ props.title }}
+      </span>
+    </div>
     <div v-else class="game-icon">{{ props.status }}</div>
   </div>
 </template>
@@ -873,6 +894,132 @@
       }
       .name {
         color: #ec3c79;
+      }
+    }
+  }
+  // __SIMULATION__
+  .game-icon.bar-simulation {
+    background: #74dcee;
+    border: unset;
+    display: flow-root;
+    cursor: pointer;
+
+    .content {
+      width: 105px;
+      height: 90px;
+      margin-top: 15px;
+      margin-left: 18px;
+      border: 4px solid #0f4e2a;
+      border-radius: 5px;
+      background: #5a60638a;
+      overflow: hidden;
+
+      .light {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+
+        &.l-01 {
+          width: 100%;
+          height: 12px;
+        }
+        &.l-02 {
+          width: 150%;
+          height: 30px;
+        }
+      }
+
+      .light-1 {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+      .light-2 {
+        width: 150%;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+    }
+    .name {
+      color: #405a6c;
+      position: relative;
+
+      &.size26-9 {
+        font-size: 26px;
+      }
+      &.size24-10 {
+        font-size: 24px;
+      }
+      &.size23-11 {
+        font-size: 23px;
+      }
+    }
+
+    &:hover {
+      .content {
+        border: 4px solid #22d59f;
+        background: #fcdd89c9;
+        box-shadow: 0 0 20px #e8ee82;
+      }
+      .name {
+        color: #f5ff60;
+      }
+    }
+    &.selected {
+      .content {
+        position: relative;
+        border: 4px solid #f54ff4;
+        background: rgb(70 234 125);
+        box-shadow: 0 0 20px #eecda6;
+
+        .light {
+          &.l-01 {
+            // background: #79ccddde;
+            background: rgb(211 234 125 / 70%);
+          }
+          &.l-02 {
+            // background: #79ccddde;
+            background: rgb(211 234 125 / 70%);
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 5px;
+          height: 5px;
+          background: red;
+          animation: blink-a01 1.5s ease-in-out infinite;
+
+          @keyframes blink-a01 {
+            0%,
+            100% {
+              opacity: 0.3;
+              transform: scale(0.8);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .name {
+        color: #705ae6;
       }
     }
   }

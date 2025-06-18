@@ -88,5 +88,6 @@ export const STATUS_ICON = {
   WORDS: 'words',
   FIFA: 'fifa',
   PATAPON: 'patapon',
-  METALSLUG: 'metal_slug'
+  METALSLUG: 'metal_slug',
+  MOONLIGHTER: 'moonlighter'
 }

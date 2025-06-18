@@ -38,7 +38,13 @@
   import SampleLostEpic from '@/assets/images/game_lostepic.webp'
   import SampleDukeNukem from '@/assets/images/game_dukenukem.jpg'
   import SampleMonsterKingdom from '@/assets/images/game_monsterkingdom.jpeg'
-  // import Cave from '@/components/SelfIcon/Cave.vue'
+
+  import SampleMoonlighter from '@/assets/images/game_moonlighter.webp'
+  import SampleOvercooked from '@/assets/images/game_overcooked.jpg'
+  import SampleGameDevTycoon from '@/assets/images/game_gamedevtycoon.jpeg'
+  import SampleAnimalCrossing from '@/assets/images/game_animalcrossing.jpeg'
+  import SampleTheSims from '@/assets/images/game_sims.webp'
+  import SampleSimCity from '@/assets/images/game_simcity.jpeg'
 
   interface IntroduceItem {
     title: string
@@ -438,8 +444,99 @@
         ]
       },
       [STATUS.SIMULATION.name]: {
-        title: 'SIMULATION',
-        content: []
+        title: '經營模擬',
+        content: [
+          '模擬類的種類繁多，涵蓋了從生活、社會到自然等各個方面。 這類遊戲通常讓玩家扮演特定角色，體驗不同情境下的生活或工作，並在其中做出決策，影響遊戲的進展和結果。讓玩家扮演管理者，在遊戲中對虛擬的城市、國家、公司等進行管理。一部分的類型通常模擬現實世界的商業運作，讓玩家體驗決策、資源管理、規劃等過程，並設法達成遊戲目標，例如壟斷市場或發展到一定程度。'
+        ],
+        introduce: [
+          {
+            tag: 'moonlighter',
+            icon: 'MOONLIGHTER',
+            title: '夜勤人',
+            img: {
+              background: SampleMoonlighter,
+              note: 'Moonlighter-畫面參考'
+            },
+            content: [
+              '是一款結合了經營和roguelike元素的動作角色扮演遊戲。 玩家扮演一位名叫威爾的店主，在一個名叫尼羅卡的村莊裡經營一家商店，同時也需要在隨機生成的地下城中探險，與怪物戰鬥，獲取材料來出售，並用賺來的錢來升級自己的商店和裝備。',
+              '玩家扮演一名夢想成為英雄的冒險店主，透過進入Gates（遊戲中的地牢）來獲取寶物，遊戲的特色在於玩家可以將寶物拿來販售並親自定價，在遊戲世界中享受開店當奸商的快感。',
+              '透過與村民交談能接受委託以取得可觀的報酬，將賺來的資源升級店鋪與雇用助手。在介紹中有提到店裡的商品是有可能會被小偷偷走的。遊戲中也有鍛造系統，玩家能透過鍛造與附魔來創造與強化武裝或者升級它們，遊戲也在簡單的幾個結構來來去去，讓玩家體驗其豐富的內容與爽感。'
+            ],
+            note: '資料來源: google.Moonlighter'
+          },
+          {
+            tag: 'overcooked',
+            icon: 'OVERCOOKED',
+            title: '胡鬧廚房',
+            img: {
+              background: SampleOvercooked,
+              note: 'Overcooked-畫面參考'
+            },
+            content: [
+              '是由鬼鎮遊戲（Ghost Town Games）公司開發，Team17發行的烹飪模擬遊戲。玩家通過多人合作或多角控制，控制多個遊戲角色挑戰各種廚房裡的機關，在儘可能短的時間內完成客人的點單，烹飪菜品進行交付。',
+              '在遊戲中，玩家需要控制遊戲角色，在儘可能短的時間內，接受訂單後，完成全套烹飪過程，包括提取食材、切備、烹調、裝碟、出菜、清洗回收餐碟（部分關卡回收的餐碟已清洗）。每輪遊戲過程中，系統會不斷提交訂單，每張訂單都有一個時限，如果能在限時結束前儘早送出菜餚的話， 則可以收到小費分數，小費分數隨著訂單完成的延遲而減少；如果在限時內無法完成訂單，會記錄相應扣分但不會取消訂單，限時重新計算。玩家通過操縱角色相互合作來完成訂單，賺取金幣分數。'
+            ],
+            note: '資料來源: google.Overcooked'
+          },
+          {
+            tag: 'game-dev-tycoon',
+            icon: 'GAMEDEV',
+            title: '遊戲開發大亨',
+            img: {
+              background: SampleGameDevTycoon,
+              note: 'Game Dev Tycoon-畫面參考'
+            },
+            content: [
+              '是一款模擬經營遊戲，讓玩家扮演遊戲開發公司的老闆，從1980年代開始，在遊戲中創造和出版電子遊戲。 玩家需要負責遊戲開發的各個環節，包括選擇主題和類型、設計引擎、雇用員工、進行市場營銷等，目標是讓公司發展壯大，成為業界的領導者。',
+              '設計師刻意將現實生活中盜版氾濫的現象應用在遊戲當中。熟知在遊戲發行不久後便會面臨被盜版的命運，因此故意將設計過的盜版在遊戲開賣當天發布於知名盜版網站上。這個版本和正版有個相當細微的不同，遊玩官方所發布盜版版本的玩家最終都會面臨同樣不可避免的事件和結局：整個市場上充斥著盜版遊戲，玩家不會從中得到任何獲利，最後在接連虧損下面臨破產。',
+              '意料之中，不久後官方部落格上哀嚎遍野，官方也統計出在遊戲開賣第一天購買正版和盜版的玩家比例。'
+            ],
+            note: '資料來源: google.Game Dev Tycoon'
+          },
+          {
+            tag: 'animal-crossing',
+            icon: 'ANIMALS',
+            title: '動物森友會',
+            img: {
+              background: SampleAnimalCrossing,
+              note: '動物森友會-畫面參考'
+            },
+            content: [
+              '生活模擬遊戲，玩家將參與Nook Inc.的「無人島移居計劃」，展開全新的生活。 遊戲的核心是自由探索和收集，玩家可以在無人島上自由活動，收集資源、製作道具、布置家園，並與島上的動物居民互動。 遊戲還支援多人連線，可以和朋友一起在島上遊玩或互相拜訪。',
+              '在遊戲中，玩家可以蒐集樹枝、石頭、罐子等材料做出許多道具，使用方程式可以學習更多道具的製作。這些道具都有各自的功能，例如釣竿可以釣魚，玩家可以透過道具來捕捉各式魚類、海洋生物、昆蟲和採集化石，捕獲到的物品可以選擇販賣、製作傢俱/料理、用以裝飾或是捐贈給博物館。',
+              '遊戲的魅力在於慢節奏的生活，與可愛的動物互動，打造獨一無二的個人空間。沒有明確的破關目標，玩家可以按照自己的步調，享受悠閒的遊戲時光，並在與其他玩家的互動中，體驗到更多樂趣。'
+            ],
+            note: '資料來源: google.動物森友會'
+          },
+          {
+            tag: 'sims',
+            icon: 'THESIMS',
+            title: '模擬市民',
+            img: {
+              background: SampleTheSims,
+              note: '模擬市民-畫面參考'
+            },
+            content: [
+              '玩家可以操控模擬人物進行日常生活、社區交流以及建造房屋。在一個模擬的世界中，仿造真實的情境，控制生理和精神的需求。人物不會衰老，除了意外（意外包括火災，溺水、飢餓等），人物不會自然地死亡。同時，人物並不會成長（嬰兒除外），除了使用魔法世界內的魔法外，兒童永遠不會成長。',
+              '核心玩法是讓玩家創造模擬市民，並引導他們在遊戲世界中生活。 玩家可以自由地設計模擬市民的外觀、個性，並控制他們的情緒和需求。 遊戲的核心目標是讓模擬市民過上充實的生活，玩家可以讓他們追求事業、建立人際關係、建造房屋，甚至可以體驗各種不同的生活情境，例如結婚生子、旅行冒險等等。 '
+            ],
+            note: '資料來源: google.模擬市民'
+          },
+          {
+            tag: 'simcity',
+            icon: 'SIMCITY',
+            title: '模擬城市',
+            img: {
+              background: SampleSimCity,
+              note: '模擬城市-畫面參考'
+            },
+            content: [
+              '以建造經營城市為主題的遊戲類型，開啟嶄新風潮。《模擬城市》系列遊戲讓玩家從無到有建造、管理自己的都市，從住宅和商業區的劃分、能源設施的選擇、道路交通的規劃...等等，透過諸多細節的模擬，營造出玩家的沉浸感受和樂趣。',
+              '讓玩家扮演的是自由、且權力極大的建設者或所謂的市長，排除掉現實世界中市政會遭遇的各種困難與折衝。在這樣的操作邏輯之下，玩家可以隨心所欲地控制城市，並且透過遊戲目標的推動，不斷地擴張城市規模，玩家們似乎越來越能進入某種思考情境：追求城市擴張的發展主義、認同技術專家的官僚體系。'
+            ],
+            note: '資料來源: google.模擬城市'
+          }
+        ]
       }
     }
   })
@@ -616,7 +713,7 @@
     else if (state.selected.name === STATUS.SPORTS.name) _status = STATUS_ICON.FIFA
     else if (state.selected.name === STATUS.MUSIC.name) _status = STATUS_ICON.PATAPON
     else if (state.selected.name === STATUS.ADVENTURE.name) _status = STATUS_ICON.METALSLUG
-    else if (state.selected.name === STATUS.SIMULATION.name) _status = STATUS_ICON.CAVE
+    else if (state.selected.name === STATUS.SIMULATION.name) _status = STATUS_ICON.MOONLIGHTER
 
     _item = _main[state.selected.name]?.introduce ?? []
     return [
@@ -1484,6 +1581,15 @@
                   white-space: nowrap;
                 }
               }
+              &.moonlighter {
+                right: -150px;
+              }
+              &.game-dev-tycoon {
+                right: -285px;
+              }
+              &.animal-crossing {
+                right: -240px;
+              }
             }
             .content-img {
               width: 50%;
@@ -1529,6 +1635,12 @@
                 }
 
                 //__IMG.FILTER__
+                &.simcity,
+                &.sims,
+                &.animal-crossing,
+                &.game-dev-tycoon,
+                &.overcooked,
+                &.moonlighter,
                 &.monster-kingdom,
                 &.duke-nukem,
                 &.lost-epic,
