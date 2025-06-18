@@ -70,10 +70,16 @@
     mouseX: 0,
     mouseY: 0,
     followerVisible: false,
-    lastMouseX: 0, // 用於計算旋轉角度
+    lastMouseX: 0,
     lastMouseY: 0,
     rotation: 0,
-
+    targetX: 0,
+    targetY: 0,
+    currentX: 0,
+    currentY: 0,
+    velocityX: 0,
+    velocityY: 0,
+    currentRotation: 0, // 添加當前旋轉角度
     block1RightWidth: '50px',
     scrollY: 0,
     transform: {
@@ -762,10 +768,8 @@
       // 創建 Balloon 組件實例
       const balloonApp = createApp(Balloon, {
         size: 55,
-        color: '#fe2974',
+        color: '#fe2974de',
         stringColor: '#723030',
-        // stringColor: 'rgba(255, 255, 255, 0.8)',
-        // animate: false
         animate: true
       })
 
@@ -782,8 +786,8 @@
         pointer-events: none;
         z-index: 9999;
         opacity: 0;
-        transform: translate(${state.mouseX}px, ${state.mouseY}px);
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        transform: translate(${state.currentX}px, ${state.currentY}px) rotate(0deg);
+        transition: opacity 0.3s ease-out;
       `
       document.body.appendChild(follower)
 
@@ -800,6 +804,69 @@
       `
       document.head.appendChild(style)
 
+      let animationFrameId: number | null = null
+
+      // 更新氣球位置的動畫函數
+      const updateBalloonPosition = () => {
+        const baseSpring = 0.02 // 基礎彈簧係數
+        const friction = 0.95 // 摩擦係數
+        const maxVelocity = 15 // 最大速度限制
+        const trailDistance = 50 // 跟隨距離
+        const rotationSpring = 0.1 // 旋轉的彈簧係數
+
+        // 計算目標位置（在鼠標後方）
+        const mouseDirection = state.targetX > state.lastMouseX ? 1 : -1
+        const idealX = state.targetX - trailDistance * mouseDirection
+
+        // 計算目標位置和當前位置的差距
+        const dx = idealX - state.currentX
+        const dy = state.targetY - state.currentY
+
+        // 計算與目標的距離
+        const distance = Math.sqrt(dx * dx + dy * dy)
+
+        // 計算目標旋轉角度（基於移動方向）
+        const targetRotation = Math.atan2(dy, dx) * (180 / Math.PI)
+        // 限制旋轉範圍在 -30 到 30 度之間
+        const clampedTargetRotation = Math.max(Math.min(targetRotation * 0.3, 30), -30)
+
+        // 平滑過渡到目標旋轉角度
+        const rotationDiff = clampedTargetRotation - state.currentRotation
+        state.currentRotation += rotationDiff * rotationSpring
+
+        // 根據距離動態調整彈簧係數
+        const distanceScale = Math.min(distance / 200, 1)
+        const spring = baseSpring * (0.5 + distanceScale * 0.5)
+
+        // 更新速度
+        state.velocityX = state.velocityX * friction + dx * spring
+        state.velocityY = state.velocityY * friction + dy * spring
+
+        // 限制最大速度
+        const currentMaxVelocity = maxVelocity * distanceScale
+        state.velocityX = Math.max(
+          Math.min(state.velocityX, currentMaxVelocity),
+          -currentMaxVelocity
+        )
+        state.velocityY = Math.max(
+          Math.min(state.velocityY, currentMaxVelocity),
+          -currentMaxVelocity
+        )
+
+        // 更新當前位置
+        state.currentX += state.velocityX
+        state.currentY += state.velocityY
+
+        // 應用新位置和旋轉
+        follower.style.transform = `translate(${state.currentX}px, ${state.currentY}px) rotate(${state.currentRotation}deg)`
+
+        // 繼續動畫循環
+        animationFrameId = requestAnimationFrame(updateBalloonPosition)
+      }
+
+      // 開始動畫
+      updateBalloonPosition()
+
       // 監聽滑鼠移動
       const handleMouseMove = (e: MouseEvent) => {
         if (!state.followerVisible) {
@@ -807,21 +874,12 @@
           follower.style.opacity = '1'
         }
 
-        // 計算旋轉角度
-        const dx = e.clientX - state.lastMouseX
-        const dy = e.clientY - state.lastMouseY
-        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-          state.rotation = Math.atan2(dy, dx) * (180 / Math.PI)
-        }
+        // 更新目標位置
+        state.targetX = e.clientX - 40
+        state.targetY = e.clientY - 300
 
-        // 更新位置 - 調整偏移量使氣球中心對準鼠標
-        state.mouseX = e.clientX + 10 // 27 是氣球寬度的一半 (55/2)
-        state.mouseY = e.clientY - 220 // 增加垂直偏移，讓氣球更高
-
-        state.lastMouseX = e.clientX
-        state.lastMouseY = e.clientY
-
-        follower.style.transform = `translate(${state.mouseX}px, ${state.mouseY}px)`
+        state.lastMouseX = state.targetX // 記錄上一次的目標位置，而不是鼠標位置
+        state.lastMouseY = state.targetY
       }
 
       // 監聽滑鼠離開視窗
@@ -837,6 +895,9 @@
       onUnmounted(() => {
         window.removeEventListener('mousemove', handleMouseMove)
         document.body.removeEventListener('mouseleave', handleMouseLeave)
+        if (animationFrameId !== null) {
+          cancelAnimationFrame(animationFrameId)
+        }
         if (follower && follower.parentNode) {
           balloonApp.unmount()
           follower.parentNode.removeChild(follower)
