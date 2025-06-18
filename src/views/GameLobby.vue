@@ -11,6 +11,7 @@
   import Nvbar from '@/components/Ui/NvbarList.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import PluginCenter2 from '@/components/Lobby/Center2/Index.vue'
+  import PluginCenter3 from '@/components/Lobby/Center3/Index.vue'
   import MainFooter from '@/components/Lobby/Footer.vue'
   import PluginGameBoyAnim from '@/components/SelfIcon/PluginGameBoyAnim.vue'
   import Tools from '@/logic/utils/Tools'
@@ -169,7 +170,7 @@
       const direction = scrollTop > state.lastScrollTop ? scrollAnim.DOWN : scrollAnim.UP
       state.lastScrollTop = scrollTop
       state.lastScrollTimestamp = func.ts()
-      // console.log('scroll', state.mainDom!.scrollTop, direction)
+      console.log('scroll', state.mainDom!.scrollTop, direction)
 
       // ***run.something.start
       // __process.nvbar animation__
@@ -204,19 +205,20 @@
       if ((scrollTop >= 1350 && direction === scrollAnim.DOWN) || scrollTop < 600) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1BarHide()
       }
-      if (
-        scrollTop >= 1000
-        // && scrollTop <= 880
-      ) {
+      if (scrollTop >= 1000 && scrollTop < 1700) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1MainShow()
       }
-
-      if (
-        // (scrollTop >= 1350 && direction === scrollAnim.DOWN) ||
-        scrollTop < 600
-      ) {
+      if (scrollTop < 600 || (scrollTop >= 1750 && direction === scrollAnim.DOWN)) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1MainHide()
       }
+      if (scrollTop >= 1200 && scrollTop < 2200) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1DetailShow()
+      }
+      if (scrollTop >= 2250) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1DetailHide()
+      }
+
+      // __START-CENTER3__
 
       // __process.banner animation__
       // ***run.something.end
@@ -638,71 +640,9 @@
           </div>
         </div>
         <!-- center2 -->
-        <!-- <PluginCenter2 ref="refPluginCenter2" /> -->
         <PluginCenter2 :ref="el => setRef(el)" />
-
-        <div class="center2" style="display: none">
-          <div class="game-info-container">
-            <div class="info-section">
-              <div class="section-header">
-                <span class="item setting-text">GAME STATS</span>
-              </div>
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-icon">🎮</div>
-                  <div class="stat-content">
-                    <div class="stat-value">3</div>
-                    <div class="stat-label">Active Games</div>
-                  </div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-icon">🏆</div>
-                  <div class="stat-content">
-                    <div class="stat-value">12</div>
-                    <div class="stat-label">Total Wins</div>
-                  </div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-icon">⭐</div>
-                  <div class="stat-content">
-                    <div class="stat-value">4.8</div>
-                    <div class="stat-label">Average Rating</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="info-section">
-              <div class="section-header">
-                <span class="item setting-text">RECENT ACTIVITY</span>
-              </div>
-              <div class="activity-list">
-                <div class="activity-item">
-                  <div class="activity-icon">🎯</div>
-                  <div class="activity-content">
-                    <div class="activity-title">Snake Game High Score</div>
-                    <div class="activity-time">2 hours ago</div>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon">🏎️</div>
-                  <div class="activity-content">
-                    <div class="activity-title">New Racing Record</div>
-                    <div class="activity-time">5 hours ago</div>
-                  </div>
-                </div>
-                <div class="activity-item">
-                  <div class="activity-icon">🎲</div>
-                  <div class="activity-content">
-                    <div class="activity-title">Tetriminos Level Up</div>
-                    <div class="activity-time">1 day ago</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- center2.end -->
+        <!-- center3 -->
+        <PluginCenter3 />
         <div class="center end"></div>
       </div>
       <!-- <div class="main-footer"></div> -->

@@ -470,23 +470,18 @@
       opacity: 0;
       transform: scale(0);
     }
-
     20% {
       transform: scale(1.2);
     }
-
     40% {
       transform: scale(0.89);
     }
-
     60% {
       transform: scale(1.04);
     }
-
     80% {
       transform: scale(0.98);
     }
-
     100% {
       opacity: 1;
       transform: scale(1);

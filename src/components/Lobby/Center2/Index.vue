@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { reactive, onMounted, onUnmounted, computed } from 'vue'
+  import { reactive, onMounted, onUnmounted, computed, ref } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
   import Animation from '@/logic/utils/Animation'
   import BlockDetail from './BlockDetail.vue'
@@ -543,6 +543,7 @@
   const selfDom = reactive({
     videoBillboard: null as any
   })
+  const refDetail = ref(null)
 
   const IDS = {
     BLOCK_1: 'id-center2-block-1',
@@ -576,12 +577,15 @@
 
             if (['.block-1-right-2'].includes(selector))
               Animation.addClass(IDS.BLOCK_1_RIGHT_BAR, 'scale1', 10)
-
             if (['.block-1-right-main'].includes(selector))
               Animation.addClass(IDS.BLOCK_1_RIGHT_MAIN, 'animation-block-left', 10)
-
             if (['.video-billboard'].includes(selector))
               Animation.addClass(IDS.BLOCK_1_VIDEO_BILLBOARD, 'click-transition', 10)
+
+            actions.idBlock1DetailHide()
+            Tools.delay(1000).then(() => {
+              actions.idBlock1DetailShow()
+            })
           }, 500)
         }
       })
@@ -770,7 +774,9 @@
       isBlock1BarShow: false,
       isBlock1BarHide: false,
       isBlock1MainShow: false,
-      isBlock1MainHide: false
+      isBlock1MainHide: false,
+      isBlock1DetailShow: false,
+      isBlock1DetailHide: false
     },
     idBlock1Show: () => {
       // console.log('CENTER2.run.idBlock1Show', actions.scrollAnim.isBlock1Show)
@@ -918,6 +924,25 @@
           .find('[tag="content-text"]')
           .children('p')
           .removeClass('anim-content-show')
+      })
+    },
+
+    idBlock1DetailShow: () => {
+      if (!refDetail.value) return
+      let _a = actions.scrollAnim
+      if (_a.isBlock1DetailShow) return
+      _a.isBlock1DetailShow = true
+      refDetail.value.actions.titleShow(() => {
+        _a.isBlock1DetailHide = false
+      })
+    },
+    idBlock1DetailHide: () => {
+      if (!refDetail.value) return
+      let _a = actions.scrollAnim
+      if (_a.isBlock1DetailHide) return
+      _a.isBlock1DetailHide = true
+      refDetail.value.actions.titleHide(() => {
+        _a.isBlock1DetailShow = false
       })
     }
   }
@@ -1110,7 +1135,7 @@
         </div>
       </div>
       <!-- detail -->
-      <BlockDetail :selected="state.selected" />
+      <BlockDetail ref="refDetail" :selected="state.selected" />
       <div class="block-1-detail" :class="state.selected.class" style="display: none">
         <div class="title">
           <div class="W1">{{ handle.selectedTitle()[0] }}</div>
