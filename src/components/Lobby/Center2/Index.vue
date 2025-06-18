@@ -31,6 +31,13 @@
   import SampleDtxmainia from '@/assets/images/game_dtxmania.jpg'
   import SampleStepmania from '@/assets/images/game_stepmania.jpeg'
   import SampleCytus from '@/assets/images/game_cytus.png'
+
+  import SampleMetalSlug from '@/assets/images/game_metalslug.png'
+  import SampleJiuli from '@/assets/images/game_jiuli.webp'
+  import SampleBrickMansions from '@/assets/images/game_brickmansions.jpeg'
+  import SampleLostEpic from '@/assets/images/game_lostepic.webp'
+  import SampleDukeNukem from '@/assets/images/game_dukenukem.jpg'
+  import SampleMonsterKingdom from '@/assets/images/game_monsterkingdom.jpeg'
   // import Cave from '@/components/SelfIcon/Cave.vue'
 
   interface IntroduceItem {
@@ -337,8 +344,98 @@
         ]
       },
       [STATUS.ADVENTURE.name]: {
-        title: 'ADVENTURE',
-        content: []
+        title: '動作冒險',
+        content: [
+          '融合了動作、冒險、解謎等多種元素，遊戲過程中玩家除了需要探索找到遊戲過關的關鍵物品，通過各種各樣的險要的地形之外，還可能需要與遊戲中的其他角色進行戰鬥。大部分這類型，具體有即時戰鬥、跳躍、閃避，同時伴隨故事推進、場景探索、道具收集、任務解謎與角色成長。是一種跨越類型限制的綜合體驗，它不只讓你動手戰鬥，也讓你動腦解謎、動心投入故事。這類遊戲的核心魅力在於平衡，在刺激與沉思間，在操作與情感間，找到最打動玩家的那條路。'
+        ],
+        introduce: [
+          {
+            tag: 'metal-slug',
+            icon: 'METALSLUG',
+            title: '越南大戰',
+            img: {
+              background: SampleMetalSlug,
+              note: '越南大戰-畫面參考'
+            },
+            content: [
+              '是一款由SNK公司開發的橫向捲軸射擊遊戲系列，以其獨特的卡通風格、激烈的戰鬥和豐富的武器道具而聞名。 玩家通常扮演正規軍士兵，駕駛著名為「Metal Slug」的小型多功能戰車，與反叛軍或外星生物作戰。 遊戲以其爽快的戰鬥節奏、搞笑的場景和豐富的關卡設計吸引了大量玩家。',
+              '遊戲最初在大型電玩上推出，後來被移植到多個家用遊戲機和模擬器平台，是一款經典的橫向捲軸射擊遊戲，以其獨特的風格、爽快的戰鬥和豐富的內容深受玩家喜愛。如果你喜歡射擊遊戲，並且追求刺激和娛樂性，那麼絕對是一款值得一試的遊戲。'
+            ],
+            note: '資料來源: google.越南大戰'
+          },
+          {
+            tag: 'jiuli',
+            icon: 'JIULI',
+            title: '九黎',
+            img: {
+              background: SampleJiuli,
+              note: '九黎-畫面參考'
+            },
+            content: [
+              '是一款水墨風格的橫向卷軸動作遊戲，以《山海經》為背景，玩家將扮演主角九黎，在與上古魔神如共工、夸父、刑天、饕餮和蚩尤等對抗的過程中，揭開自己的身世之謎 GNN 新聞網。 遊戲特色包括獨特的水墨畫風、豐富的劇情、以及充滿挑戰性的戰鬥。',
+              '遊戲中，玩家將與多位上古魔神進行對決，每個魔神都有獨特的攻擊方式和技能，需要玩家運用不同的策略才能戰勝。可以使用不同的技能和招式來對抗敵人，並通過升級角色來提升戰鬥能力。玩家在遊戲中將扮演九黎，隨著劇情的發展，逐步揭開自己身世的秘密，增加遊戲的神秘感和吸引力。'
+            ],
+            note: '資料來源: gpt.九黎'
+          },
+          {
+            tag: 'brick-mansions',
+            icon: 'BRICKMANSIONS',
+            title: '暴力街區',
+            img: {
+              background: SampleBrickMansions,
+              note: '暴力街區-畫面參考'
+            },
+            content: [
+              '是一款以黑幫鬥爭為主題的動作遊戲，主打街機風格的打鬥和自由的技能搭配。玩家可以選擇不同的黑幫成員，學習各種技能，搭配裝備，打造出屬於自己最強的隊伍。 遊戲特色包括：拳拳到肉的打擊感，豐富的技能係統，以及自由度極高的天賦加點。',
+              '是一款充滿街機風格和黑幫元素的動作遊戲，具有自由的搭配、豐富的技能、精美的畫面和音效等特點， 適合喜歡動作格鬥和黑幫題材的玩家。',
+              '玩家可以自由選擇黑幫成員，搭配技能和裝備，打造出獨特的角色。提供數百種技能供玩家學習，包括主動技能和被動技能，以及獨創的武器必殺系統。自由分配天賦點，培養出不同戰鬥風格的角色。包含多種模式，如人質模式、生存挑戰、限時任務等，增加遊戲樂趣。'
+            ],
+            note: '資料來源: gpt.暴力街區'
+          },
+          {
+            tag: 'lost-epic',
+            icon: 'LOSTEPIC',
+            title: '失落史詩',
+            img: {
+              background: SampleLostEpic,
+              note: '失落史詩-畫面參考'
+            },
+            content: [
+              '是是一款描繪人神之戰的2D橫向卷軸動作遊戲。玩家將扮演一位「騎士」，在被神支配的「神域」中冒險，目標是討伐六尊神明。遊戲還提供豐富的角色和武器成長元素，玩家可以自由配置技能點，並通過合成素材來強化或進化武器。',
+              '目標是打倒六尊兇神。遊戲最大的特色是驚心動魄的戰鬥，要打出不給敵人機會反擊的連招，因此剎那間的判斷十分重要。與此同時，還能使用武器的必殺技將敵人一網打盡，能夠享受緊張感與爽快感共存的戰鬥，可以和夥伴攜手挑戰強敵。',
+              '是一款充滿挑戰和樂趣的動作遊戲，其爽快的戰鬥、豐富的成長要素以及多人連線合作模式，都為玩家帶來了獨特的遊戲體驗。 '
+            ],
+            note: '資料來源: google.失落史詩'
+          },
+          {
+            tag: 'duke-nukem',
+            icon: 'DUKENUKEM',
+            title: '毀滅公爵',
+            img: {
+              background: SampleDukeNukem,
+              note: '毀滅公爵-畫面參考'
+            },
+            content: [
+              '是一款由Apogee Software開發並在1991年發行的第一人稱射擊遊戲。 遊戲以其自由的關卡設計和容易上手的操作方式而聞名，玩家可以射擊螢幕內的所有物品，包括障礙物。 玩家扮演主角毀滅公爵，任務是阻止瘋狂科學家Dr. Proton用機器人征服世界的計劃，在遊戲中探索不同的關卡，使用各種武器消滅敵人，並收集道具。',
+              '故事的背景設定在不久的未來。主人公Duke Nukem（毀滅公爵）是以電影明星阿諾德·施瓦辛格為原型設計出的遊戲角色。Duke公爵的任務就是阻止Dr.Proton，一個用全世界來作為他高科技機器人的賭注的瘋子的行為。遊戲中公爵離開了城市，和Proton戰鬥在空間站以及其他幻想中的地點。'
+            ],
+            note: '資料來源: google.毀滅公爵'
+          },
+          {
+            tag: 'monster-kingdom',
+            icon: 'MONSTERKING',
+            title: '怪物男孩與被詛咒的王國',
+            img: {
+              background: SampleMonsterKingdom,
+              note: '怪物男孩與被詛咒的王國-畫面參考'
+            },
+            content: [
+              '玩家可以變身為多種動物，利用各自的能力來探索世界、解謎和戰鬥。遊戲特色包括手繪風格的2D圖像、豐富的變身系統、以及超過15小時的遊戲時間。是一款富有創意的動作冒險遊戲，以其獨特的遊戲系統和精緻的畫面，為玩家帶來豐富的遊戲體驗。',
+              '玩家需要運用不同動物的能力來探索世界，發現隱藏的道路、解開謎題，並尋找新的武器和道具。可以變身為豬、蛇、青蛙、獅子、龍等多種動物，每種動物都有獨特的能力，例如豬的嗅覺、蛇的爬牆、青蛙的跳躍、獅子的攻擊、龍的飛行等，運用動物的能力來對付敵人。'
+            ],
+            note: '資料來源: google.怪物男孩與被詛咒的王國'
+          }
+        ]
       },
       [STATUS.SIMULATION.name]: {
         title: 'SIMULATION',
@@ -518,6 +615,8 @@
     if (state.selected.name === STATUS.VISUAL_NOVEL.name) _status = STATUS_ICON.CAVE
     else if (state.selected.name === STATUS.SPORTS.name) _status = STATUS_ICON.FIFA
     else if (state.selected.name === STATUS.MUSIC.name) _status = STATUS_ICON.PATAPON
+    else if (state.selected.name === STATUS.ADVENTURE.name) _status = STATUS_ICON.METALSLUG
+    else if (state.selected.name === STATUS.SIMULATION.name) _status = STATUS_ICON.CAVE
 
     _item = _main[state.selected.name]?.introduce ?? []
     return [
@@ -884,10 +983,20 @@
                 />
               </p>
             </div>
-            <div class="right">
-              <div class="title" :class="[`${currIntroduce.tag}`]" tag="selected-title">
+            <div class="right" :class="[`${currIntroduce.tag}`]">
+              <div
+                v-if="currIntroduce.tag === 'monster-kingdom'"
+                class="title"
+                :class="[`${currIntroduce.tag}`]"
+                tag="selected-title"
+              >
+                <div class="w1">怪物男孩與</div>
+                <div class="w2">被詛咒的王國</div>
+              </div>
+              <div v-else class="title" :class="[`${currIntroduce.tag}`]" tag="selected-title">
                 {{ currIntroduce.title }}
               </div>
+
               <div class="content-img" tag="content-img">
                 <div class="img-1" :class="[`${currIntroduce.tag}`]">
                   <img :src="currIntroduce.img.background" />
@@ -1363,6 +1472,18 @@
               &.cytus {
                 right: -168px;
               }
+              &.jiuli {
+                right: -105px;
+              }
+              &.monster-kingdom {
+                right: -240px;
+                .w2 {
+                  position: absolute;
+                  right: -45px;
+                  top: 45px;
+                  white-space: nowrap;
+                }
+              }
             }
             .content-img {
               width: 50%;
@@ -1408,6 +1529,13 @@
                 }
 
                 //__IMG.FILTER__
+                &.monster-kingdom,
+                &.duke-nukem,
+                &.lost-epic,
+                &.brick-mansions,
+                &.jiuli,
+                &.metal-slug,
+                &.cytus,
                 &.cytus,
                 &.step-mania,
                 &.dtxmania,
@@ -1455,6 +1583,12 @@
                 font-weight: 500;
                 margin-right: 7%;
                 opacity: 0;
+              }
+            }
+
+            &.monster-kingdom {
+              .content-text {
+                width: calc(50% - 135px);
               }
             }
           }

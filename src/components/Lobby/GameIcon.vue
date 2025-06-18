@@ -128,6 +128,33 @@
         >{{ props.title }}
       </span>
     </div>
+    <div
+      v-else-if="props.status === STATUS_ICON.METALSLUG"
+      class="game-icon alpha-1"
+      :class="{
+        [STATUS.ADVENTURE.class]: true,
+        selected: model === props.selectedTag
+      }"
+    >
+      <div class="content">
+        <div class="light l-01"></div>
+        <div class="light l-02"></div>
+      </div>
+      <span
+        v-if="props.title.length < 12"
+        class="name"
+        :class="{
+          'size26-9': props.title.length === 9,
+          'size25-10': props.title.length === 10,
+          'size23-11': props.title.length === 11
+        }"
+        >{{ props.title }}
+      </span>
+      <span v-else class="name" :class="{ 'size20-12': props.title.length >= 12 }">
+        <div class="w1">BRICK</div>
+        <div class="w2">MANSIONS</div>
+      </span>
+    </div>
 
     <div v-else class="game-icon">{{ props.status }}</div>
   </div>
@@ -704,6 +731,148 @@
       }
       .name {
         color: #09eeaa;
+      }
+    }
+  }
+  // __ADVENTURE__
+  .game-icon.bar-adventure {
+    background: #a6db97;
+    border: unset;
+    display: flow-root;
+    cursor: pointer;
+
+    .content {
+      width: 105px;
+      height: 90px;
+      margin-top: 15px;
+      margin-left: 18px;
+      border: 4px solid #0f4e2a;
+      border-radius: 5px;
+      background: #5a60638a;
+      overflow: hidden;
+
+      .light {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+
+        &.l-01 {
+          width: 100%;
+          height: 12px;
+        }
+        &.l-02 {
+          width: 150%;
+          height: 30px;
+        }
+      }
+
+      .light-1 {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+      .light-2 {
+        width: 150%;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.4);
+        position: relative;
+        top: 15px;
+        left: -30px;
+        transform: rotate(315deg);
+      }
+    }
+    .name {
+      color: #405a6c;
+      position: relative;
+
+      &.size23 {
+        font-size: 23px;
+      }
+      &.size26-9 {
+        font-size: 26px;
+      }
+      &.size25-12 {
+        font-size: 20.5px;
+      }
+      &.size23-11 {
+        font-size: 23px;
+      }
+      &.size20-12 {
+        font-size: 23px;
+        .w1 {
+          position: absolute;
+          top: -3px;
+          transform: translate(75%, 0px);
+        }
+        .w2 {
+          position: absolute;
+          top: 13px;
+          transform: translate(20%, 0px);
+        }
+      }
+    }
+
+    &:hover {
+      .content {
+        border: 4px solid #22d59f;
+        background: #fcdd89c9;
+        box-shadow: 0 0 20px #e8ee82;
+      }
+      .name {
+        color: #f5ff60;
+      }
+    }
+    &.selected {
+      .content {
+        position: relative;
+        border: 4px solid #8f42e5;
+        background: rgb(241 91 172 / 91%);
+        box-shadow: 0 0 20px #ee82b7;
+
+        .light {
+          &.l-01 {
+            // background: #79ccddde;
+            background: rgb(211 234 125 / 70%);
+          }
+          &.l-02 {
+            // background: #79ccddde;
+            background: rgb(211 234 125 / 70%);
+          }
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          width: 5px;
+          height: 5px;
+          background: red;
+          animation: blink-a01 1.5s ease-in-out infinite;
+
+          @keyframes blink-a01 {
+            0%,
+            100% {
+              opacity: 0.3;
+              transform: scale(0.8);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.2);
+            }
+          }
+        }
+      }
+      .name {
+        color: #ec3c79;
       }
     }
   }
