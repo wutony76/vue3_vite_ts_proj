@@ -170,7 +170,7 @@
       const direction = scrollTop > state.lastScrollTop ? scrollAnim.DOWN : scrollAnim.UP
       state.lastScrollTop = scrollTop
       state.lastScrollTimestamp = func.ts()
-      // console.log('scroll', state.mainDom!.scrollTop, direction)
+      console.log('scroll', state.mainDom!.scrollTop, direction)
 
       // ***run.something.start
       // __process.nvbar animation__
@@ -216,6 +216,13 @@
       }
       if (scrollTop >= 2250) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1DetailHide()
+      }
+
+      // __ADD.MOUSE.EFFECT__
+      if (scrollTop >= 800 && scrollTop < 2300) {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.setup.add_center2_effect()
+      } else {
+        if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.setup.remove_center2_effect()
       }
 
       // __START-CENTER3__

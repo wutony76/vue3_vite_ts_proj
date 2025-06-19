@@ -67,6 +67,7 @@
     selectedIntroduce: 0,
     typewriterRefs: [] as any[],
     isPlaying: false,
+    isAddBalloonEffect: false,
     mouseX: 0,
     mouseY: 0,
     followerVisible: false,
@@ -745,6 +746,16 @@
   })
 
   const setup = {
+    args: {
+      follower: null as any,
+      balloonApp: null as any,
+      style: null as any,
+      mouse: {
+        move: null as any,
+        leave: null as any
+      },
+      animationFrameId: null as any
+    },
     add_video_billboard() {
       const domTag = IDS.BLOCK_1_VIDEO_BILLBOARD
       const dom = $(`#${domTag}`) as any
@@ -760,27 +771,34 @@
       })
     },
     add_center2_effect() {
-      console.log('add_center2_effect')
-      // 創建跟隨元素
-      const follower = document.createElement('div')
-      follower.className = 'mouse-follower'
+      if (state.isAddBalloonEffect) return
+      state.isAddBalloonEffect = true
 
+      // 創建跟隨元素
       // 創建 Balloon 組件實例
-      const balloonApp = createApp(Balloon, {
+      setup.args.follower = document.createElement('div')
+      setup.args.balloonApp = createApp(Balloon, {
         size: 55,
-        color: '#fe2974de',
+        color: '#11c989de',
+        // color: '#fe2974de',
         stringColor: '#723030',
         animate: true
       })
+      setup.args.style = document.createElement('style')
 
+      const _args = setup.args
+      const follower = setup.args.follower
+      const balloonApp = setup.args.balloonApp
       const balloonContainer = document.createElement('div')
       balloonContainer.style.cssText = `
         transform-origin: center bottom;
         animation: gentle-float 3s ease-in-out infinite;
       `
+      const style = setup.args.style // 添加動畫樣式
+
+      follower.className = 'mouse-follower'
       balloonApp.mount(balloonContainer)
       follower.appendChild(balloonContainer)
-
       follower.style.cssText = `
         position: fixed;
         pointer-events: none;
@@ -789,10 +807,6 @@
         transform: translate(${state.currentX}px, ${state.currentY}px) rotate(0deg);
         transition: opacity 0.3s ease-out;
       `
-      document.body.appendChild(follower)
-
-      // 添加動畫樣式
-      const style = document.createElement('style')
       style.textContent = `
         @keyframes gentle-float {
           0% { transform: translateY(0px) rotate(-2deg); }
@@ -802,11 +816,11 @@
           100% { transform: translateY(0px) rotate(-2deg); }
         }
       `
+      document.body.appendChild(follower)
       document.head.appendChild(style)
 
-      let animationFrameId: number | null = null
-
-      // 更新氣球位置的動畫函數
+      // __ANIM.ANIM.SETTINGS__.更新氣球位置的動畫函數
+      _args.animationFrameId = null
       const updateBalloonPosition = () => {
         const baseSpring = 0.02 // 基礎彈簧係數
         const friction = 0.95 // 摩擦係數
@@ -861,55 +875,64 @@
         follower.style.transform = `translate(${state.currentX}px, ${state.currentY}px) rotate(${state.currentRotation}deg)`
 
         // 繼續動畫循環
-        animationFrameId = requestAnimationFrame(updateBalloonPosition)
+        _args.animationFrameId = requestAnimationFrame(updateBalloonPosition)
       }
+      updateBalloonPosition() // 開始動畫
 
-      // 開始動畫
-      updateBalloonPosition()
-
-      // 監聽滑鼠移動
-      const handleMouseMove = (e: MouseEvent) => {
+      // const handleMouseMove.監聽滑鼠移動
+      // const handleMouseLeave.監聽滑鼠離開視窗
+      const _mouse = setup.args.mouse
+      _mouse.move = (e: MouseEvent) => {
         if (!state.followerVisible) {
           state.followerVisible = true
           follower.style.opacity = '1'
         }
+        // follower.style.opacity = '1'
 
-        // 更新目標位置
-        state.targetX = e.clientX - 40
-        state.targetY = e.clientY - 300
+        // 更新目標位置 - 使用 pageY 而不是 clientY
+        state.targetX = e.pageX - 60
+        state.targetY = e.pageY - 300
 
         state.lastMouseX = state.targetX // 記錄上一次的目標位置，而不是鼠標位置
         state.lastMouseY = state.targetY
       }
-
-      // 監聽滑鼠離開視窗
-      const handleMouseLeave = () => {
+      _mouse.leave = () => {
         state.followerVisible = false
         follower.style.opacity = '0'
       }
-
-      window.addEventListener('mousemove', handleMouseMove)
-      document.body.addEventListener('mouseleave', handleMouseLeave)
+      window.addEventListener('mousemove', _mouse.move)
+      document.body.addEventListener('mouseleave', _mouse.leave)
 
       // 在組件卸載時清理
       onUnmounted(() => {
-        window.removeEventListener('mousemove', handleMouseMove)
-        document.body.removeEventListener('mouseleave', handleMouseLeave)
-        if (animationFrameId !== null) {
-          cancelAnimationFrame(animationFrameId)
-        }
-        if (follower && follower.parentNode) {
-          balloonApp.unmount()
-          follower.parentNode.removeChild(follower)
-        }
-        if (style && style.parentNode) {
-          style.parentNode.removeChild(style)
-        }
+        setup.remove_center2_effect()
       })
+    },
+    remove_center2_effect() {
+      if (!state.isAddBalloonEffect) return
+      state.isAddBalloonEffect = false
+      state.followerVisible = false
+
+      const follower = setup.args.follower
+      const balloonApp = setup.args.balloonApp
+      const style = setup.args.style
+
+      const _args = setup.args
+      const _mouse = _args.mouse
+      window.removeEventListener('mousemove', _mouse.move)
+      document.body.removeEventListener('mouseleave', _mouse.leave)
+      if (_args.animationFrameId !== null) cancelAnimationFrame(_args.animationFrameId)
+      if (follower && follower.parentNode) {
+        balloonApp.unmount()
+        follower.parentNode.removeChild(follower)
+      }
+      if (style && style.parentNode) {
+        style.parentNode.removeChild(style)
+      }
     },
     hover() {
       setup.add_video_billboard()
-      setup.add_center2_effect()
+      // setup.add_center2_effect()
     }
   }
 
@@ -1114,7 +1137,8 @@
   }
   defineExpose({
     test: () => console.log('CENTER2.test'),
-    actions
+    actions,
+    setup
   })
 
   const handleTypewriterStatus = (status: 'playing' | 'paused' | 'completed') => {
@@ -1368,7 +1392,7 @@
 
 <style lang="scss" scoped>
   .center2 {
-    border: 1px solid #2600ff;
+    // border: 1px solid #2600ff;
     min-height: 1510px;
     margin-top: 0px;
 
@@ -1395,11 +1419,10 @@
     }
   }
 
-  // MAIN
+  // __MAIN__
   .game-info-container {
+    // border: 1px solid #00ff09;
     padding-right: 15%;
-    border: 1px solid #00ff09;
-    // overflow: hidden;
     position: relative;
 
     .info-section {
@@ -1731,8 +1754,8 @@
               font-size: 50px;
               font-weight: 900;
               letter-spacing: -5px;
-              color: #202020;
-
+              color: #500d0e;
+              // color: #202020;
               opacity: 0;
 
               &.pyramid {
@@ -1816,7 +1839,8 @@
                   position: absolute;
                   bottom: 10px;
                   right: 10px;
-                  background-color: #202020;
+                  background-color: #500d0e;
+                  // background-color: #202020;
                   color: #fff;
                   padding-left: 2px;
                   padding-right: 2px;
@@ -1864,7 +1888,8 @@
               margin-left: 2%;
 
               font-weight: 500;
-              color: #202020;
+              color: #500d0e;
+              // color: #202020;
               font-size: 14px;
               font-weight: 500;
 
@@ -1915,17 +1940,65 @@
           .title {
             color: #f52b8c;
           }
+          .content {
+            .right {
+              .title {
+                color: #604676;
+              }
+              .content-text {
+                p,
+                .note {
+                  color: #604676;
+                }
+                p {
+                  border-color: #604676;
+                }
+              }
+            }
+          }
         }
         &.bar-adventure {
           background: #48c96c;
           .title {
             color: #48c96c;
           }
+          .content {
+            .right {
+              .title {
+                color: #243f50;
+              }
+              .content-text {
+                p,
+                .note {
+                  color: #243f50;
+                }
+                p {
+                  border-color: #243f50;
+                }
+              }
+            }
+          }
         }
         &.bar-simulation {
           background: #2dabff;
           .title {
             color: #2dabff;
+          }
+          .content {
+            .right {
+              .title {
+                color: #243f50;
+              }
+              .content-text {
+                p,
+                .note {
+                  color: #243f50;
+                }
+                p {
+                  border-color: #243f50;
+                }
+              }
+            }
           }
         }
       }
@@ -1965,7 +2038,6 @@
     //   animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
     // }
   }
-
   .block-1-detail {
     margin-top: 590px;
     position: absolute;
@@ -2124,7 +2196,6 @@
       // opacity: 0.99;
     }
   }
-
   .typewriter-control {
     position: absolute;
     bottom: 20px;
@@ -2145,7 +2216,6 @@
       right: 120px;
     }
   }
-
   .mouse-follower {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;

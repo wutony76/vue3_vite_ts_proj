@@ -7,8 +7,10 @@
       :width="size"
       :height="size"
     >
-      <!-- Balloon string -->
+      <!-- Balloon string with swaying effect -->
       <path
+        class="balloon-string"
+        :class="{ sway: animate }"
         d="M12 22V14"
         :stroke="stringColor"
         stroke-width="1.5"
@@ -83,6 +85,14 @@
     }
   }
 
+  .balloon-string {
+    transform-origin: 12px 14px; // 從氣球底部開始變形
+
+    &.sway {
+      animation: string-sway 2.5s ease-in-out infinite;
+    }
+  }
+
   @keyframes float {
     0% {
       transform: translateY(0) rotate(0deg);
@@ -98,6 +108,24 @@
     }
     100% {
       transform: translateY(0) rotate(0deg);
+    }
+  }
+
+  @keyframes string-sway {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(8deg);
+    }
+    50% {
+      transform: rotate(-6deg);
+    }
+    75% {
+      transform: rotate(4deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 </style>
