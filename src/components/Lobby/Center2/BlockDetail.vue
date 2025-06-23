@@ -9,6 +9,7 @@
   const props = defineProps<{
     selected: GameStatusType
   }>()
+  const emit = defineEmits(['cbClick'])
 
   const IDS = {
     BLOCK_1_DETAIL: 'id-block1-detail'
@@ -313,7 +314,52 @@
       </div>
     </div>
 
-    <div class="footer"></div>
+    <div class="footer">
+      <div class="container">
+        <div
+          class="item-btn"
+          :class="[
+            STATUS.VISUAL_NOVEL.class,
+            selected.name === STATUS.VISUAL_NOVEL.name ? 'selected' : ''
+          ]"
+          @click="emit('cbClick', STATUS.VISUAL_NOVEL)"
+        ></div>
+      </div>
+      <div class="container">
+        <div
+          class="item-btn"
+          :class="[STATUS.SPORTS.class, selected.name === STATUS.SPORTS.name ? 'selected' : '']"
+          @click="emit('cbClick', STATUS.SPORTS)"
+        ></div>
+      </div>
+      <div class="container">
+        <div
+          class="item-btn"
+          :class="[STATUS.MUSIC.class, selected.name === STATUS.MUSIC.name ? 'selected' : '']"
+          @click="emit('cbClick', STATUS.MUSIC)"
+        ></div>
+      </div>
+      <div class="container">
+        <div
+          class="item-btn"
+          :class="[
+            STATUS.ADVENTURE.class,
+            selected.name === STATUS.ADVENTURE.name ? 'selected' : ''
+          ]"
+          @click="emit('cbClick', STATUS.ADVENTURE)"
+        ></div>
+      </div>
+      <div class="container">
+        <div
+          class="item-btn"
+          :class="[
+            STATUS.SIMULATION.class,
+            selected.name === STATUS.SIMULATION.name ? 'selected' : ''
+          ]"
+          @click="emit('cbClick', STATUS.SIMULATION)"
+        ></div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -415,6 +461,109 @@
         }
       }
     }
+    .footer {
+      position: absolute;
+      bottom: -175px;
+      height: 73px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding-left: 6%;
+
+      .container {
+        width: 50px;
+        margin-right: 10px;
+      }
+      .item-btn {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+          width: 45px;
+          height: 45px;
+          &::before {
+            content: '';
+            color: #6b5050;
+            font-size: 17px;
+            font-weight: 900;
+            padding: 3px;
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+        &.selected {
+          width: 50px;
+          height: 50px;
+          border: 5px solid #fff;
+
+          &::before {
+            content: '';
+            color: #fff;
+            font-weight: 900;
+            font-size: 21px;
+            // border: 1px solid #fff;
+            padding: 3px;
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+
+        &.bar-visual-novel {
+          background: #f22b4e;
+          &:hover,
+          &.selected {
+            &::before {
+              content: 'V';
+            }
+          }
+        }
+        &.bar-sports {
+          background: #ffa333;
+          &:hover,
+          &.selected {
+            &::before {
+              content: 'S';
+            }
+          }
+        }
+        &.bar-music {
+          background: #f52b8c;
+          &:hover,
+          &.selected {
+            &::before {
+              content: 'M';
+            }
+          }
+        }
+        &.bar-adventure {
+          background: #48c96c;
+          &:hover,
+          &.selected {
+            &::before {
+              content: 'A';
+            }
+          }
+        }
+        &.bar-simulation {
+          background: #2dabff;
+          &:hover,
+          &.selected {
+            &::before {
+              content: 'S';
+            }
+          }
+        }
+      }
+    }
 
     &.bar-visual-novel {
       .title {
@@ -449,6 +598,9 @@
             opacity: 0.2;
           }
         }
+      }
+      .footer {
+        bottom: -100px;
       }
     }
     &.bar-sports {
@@ -492,8 +644,9 @@
           overflow: unset;
         }
       }
-      // background: #ffa333;
-      // opacity: 0.99;
+      .footer {
+        bottom: -150px;
+      }
     }
     &.bar-music {
       .title {
@@ -526,6 +679,9 @@
           border-bottom: unset;
           border-radius: unset;
         }
+      }
+      .footer {
+        bottom: -190px;
       }
     }
     &.bar-adventure {
@@ -574,8 +730,9 @@
           }
         }
       }
-      // background: #48c96c;
-      // opacity: 0.99;
+      .footer {
+        bottom: -195px;
+      }
     }
     &.bar-simulation {
       .title {
@@ -605,8 +762,9 @@
           border-radius: 0 0 0 30px;
         }
       }
-      // background: #2dabff;
-      // opacity: 0.99;
+      .footer {
+        bottom: -160px;
+      }
     }
   }
 

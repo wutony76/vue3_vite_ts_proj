@@ -1325,67 +1325,11 @@
         </div>
       </div>
       <!-- detail -->
-      <BlockDetail ref="refDetail" :selected="state.selected" />
-      <div class="block-1-detail" :class="state.selected.class" style="display: none">
-        <div class="title">
-          <div class="W1">{{ handle.selectedTitle()[0] }}</div>
-          <div class="W2" v-if="handle.selectedTitle().length > 1">
-            {{ handle.selectedTitle()[1] }}
-          </div>
-        </div>
-        <div
-          v-if="
-            [
-              STATUS.VISUAL_NOVEL.name,
-              STATUS.SPORTS.name,
-              STATUS.MUSIC.name,
-              STATUS.ADVENTURE.name,
-              STATUS.SIMULATION.name
-            ].includes(state.selected.name)
-          "
-          class="main"
-        >
-          <div class="left">
-            <ul>
-              <li>文字界面</li>
-              <li>玩家互動</li>
-              <li>探索解謎</li>
-              <li>高自由度</li>
-              <li>具想像力</li>
-            </ul>
-          </div>
-          <div class="center">
-            <p>
-              Text-based Adventure is an interactive game type that uses text as the main interface
-              and content. Players interact with the game world, explore the story, solve puzzles,
-              or advance the plot by reading the narrative and entering commands or selecting
-              options. This type of game can be said to be one of the earliest narrative interactive
-              forms in the history of digital games, combining elements of novels, role-playing, and
-              puzzle solving.
-            </p>
-
-            <!-- <p>
-              This type of game emphasizes immersion, imagination, and choice. It is not only a
-              pioneering form of game, but also an important source of inspiration for the
-              development of narrative games today. Whether you are a player, creator, or narrative
-              lover, text adventure is a classic path worth trying.
-            </p> -->
-          </div>
-          <div class="right">
-            <div class="light"></div>
-            <div class="light2"></div>
-          </div>
-        </div>
-        <div class="footer"></div>
-      </div>
-
-      <!-- Add control button -->
-      <!-- <button class="typewriter-control" @click="toggleTypewriter">
-        {{ state.isPlaying ? '暫停' : '播放' }}
-      </button> -->
-
-      <!-- Add replay button -->
-      <!-- <button class="typewriter-control replay" @click="replayTypewriter">重新播放</button> -->
+      <BlockDetail
+        ref="refDetail"
+        :selected="state.selected"
+        @cbClick="status => click.changeCard(status)"
+      />
     </div>
   </div>
 </template>
@@ -2038,6 +1982,7 @@
     //   animation-timing-function: cubic-bezier(0.165, 0.44, 0.64, 1);
     // }
   }
+  /**
   .block-1-detail {
     margin-top: 590px;
     position: absolute;
@@ -2127,10 +2072,10 @@
       }
     }
     .footer {
-      // margin-top: 10px;
-      // background: #fff;
-      // height: 40px;
-      // border-bottom: 10px solid #ccc;
+      position: absolute;
+      height: 50px;
+      width: 100%;
+      border: 1px solid red;
     }
 
     &.bar-visual-novel {
@@ -2143,7 +2088,6 @@
         }
       }
     }
-
     &.bar-sports {
       .title {
         color: #ffa333;
@@ -2156,7 +2100,6 @@
       // background: #ffa333;
       // opacity: 0.99;
     }
-
     &.bar-music {
       .title {
         color: #f52b8c;
@@ -2169,7 +2112,6 @@
       // background: #f52b8c;
       // opacity: 0.99;
     }
-
     &.bar-adventure {
       .title {
         color: #48c96c;
@@ -2182,7 +2124,6 @@
       // background: #48c96c;
       // opacity: 0.99;
     }
-
     &.bar-simulation {
       .title {
         color: #2dabff;
@@ -2195,7 +2136,7 @@
       // background: #2dabff;
       // opacity: 0.99;
     }
-  }
+  } */
   .typewriter-control {
     position: absolute;
     bottom: 20px;

@@ -1,9 +1,25 @@
 <script setup lang="ts">
-  import { reactive } from 'vue'
+  import { onMounted, reactive } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
+  import Net from '@/logic/base/Net'
 
   const state = reactive({
     key: _uuid2()
+  })
+
+  onMounted(() => {
+    Net.external(
+      {
+        url: 'https://api.taiwanlottery.com/TLCAPIWeB/Lottery/Lotto649Result'
+      },
+      {
+        month: '2025-05',
+        pageNum: 1,
+        pageSize: 20
+      }
+    ).then(res => {
+      console.log(res)
+    })
   })
 </script>
 
@@ -28,6 +44,14 @@
       </div>
       <div id="id-center3-block-2" class="block-main">
         <div class="b1"></div>
+      </div>
+
+      <div id="" class="block-list">
+        <div class="row r0" style="--item-index: 0"><div class="content"></div></div>
+        <div class="row r1" style="--item-index: 1"><div class="content"></div></div>
+        <div class="row r2" style="--item-index: 2"><div class="content"></div></div>
+        <div class="row r3" style="--item-index: 3"><div class="content"></div></div>
+        <div class="row r4" style="--item-index: 4"><div class="content"></div></div>
       </div>
     </div>
   </div>
@@ -96,6 +120,7 @@
     position: absolute;
     top: 65px;
     right: 0;
+    z-index: 2;
     // overflow: hidden;
     .center {
       position: relative !important;
@@ -124,17 +149,73 @@
     right: 0;
     clear: both;
     border-radius: 0px 0 0px 10px;
+    z-index: 1;
 
     .b1 {
       position: absolute;
       top: -230px;
       right: 20px;
       width: 230px;
-      height: calc(150% - 20px);
+      height: calc(150%);
       // background: #a27191;
       background: linear-gradient(180deg, rgb(198 74 132), #a27191);
       opacity: 0.95;
       border-radius: 0 0 90px 0;
+    }
+  }
+  .block-list {
+    margin-top: 227px;
+    border-top: 15px solid #8d4062d6;
+    z-index: 0;
+
+    width: 100%;
+    min-height: 500px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    .row {
+      position: relative;
+      right: 0px;
+      width: calc(95% - 20px);
+      height: 170px;
+      background: #a27191;
+      padding: 1px;
+      padding-right: 0px;
+      margin-bottom: 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      .content {
+        position: relative;
+        background: #ffeaea;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 110%;
+        height: 0.1%;
+        background-color: red;
+        transform-origin: 50% 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(7deg);
+      }
+      &.r0 {
+        width: 25%;
+        border-radius: 70px 0 0 20px;
+        .content {
+          background: #ffeaea;
+          border-radius: 80px 0 0 25px;
+        }
+      }
     }
   }
 </style>
