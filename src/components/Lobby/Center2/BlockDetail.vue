@@ -473,6 +473,9 @@
       .container {
         width: 50px;
         margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       .item-btn {
         width: 40px;
@@ -480,47 +483,89 @@
         background: #fff;
         cursor: pointer;
         position: relative;
+        border-radius: 8px;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+
+        // 波紋效果
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          transform: translate(-50%, -50%);
+          transition:
+            width 0.6s,
+            height 0.6s;
+          pointer-events: none;
+        }
+
+        &:active::after {
+          width: 60px;
+          height: 60px;
+        }
 
         &:hover {
           width: 45px;
           height: 45px;
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 8px 5px rgba(0, 0, 0, 0.2);
+
           &::before {
             content: '';
             color: #6b5050;
             font-size: 17px;
             font-weight: 900;
             padding: 3px;
-
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            z-index: 2;
           }
         }
+
         &.selected {
           width: 50px;
           height: 50px;
           border: 5px solid #fff;
+          animation: pulse-glow 2s infinite;
+          box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 
           &::before {
             content: '';
             color: #fff;
             font-weight: 900;
             font-size: 21px;
-            // border: 1px solid #fff;
             padding: 3px;
-
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            z-index: 2;
           }
+        }
+
+        // 彈跳動畫
+        &:hover {
+          animation: bounce 0.6s ease-in-out;
         }
 
         &.bar-visual-novel {
           background: #f22b4e;
-          &:hover,
+          &:hover {
+            box-shadow: 0 8px 5px rgba(242, 43, 78, 0.4);
+            &::before {
+              content: 'V';
+            }
+          }
           &.selected {
+            box-shadow: 0 0 5px rgba(242, 43, 78, 0.8);
             &::before {
               content: 'V';
             }
@@ -528,8 +573,14 @@
         }
         &.bar-sports {
           background: #ffa333;
-          &:hover,
+          &:hover {
+            box-shadow: 0 8px 5px rgba(255, 163, 51, 0.4);
+            &::before {
+              content: 'S';
+            }
+          }
           &.selected {
+            box-shadow: 0 0 5px rgba(255, 163, 51, 0.8);
             &::before {
               content: 'S';
             }
@@ -537,8 +588,14 @@
         }
         &.bar-music {
           background: #f52b8c;
-          &:hover,
+          &:hover {
+            box-shadow: 0 8px 5px rgba(245, 43, 140, 0.4);
+            &::before {
+              content: 'M';
+            }
+          }
           &.selected {
+            box-shadow: 0 0 5px rgba(245, 43, 140, 0.8);
             &::before {
               content: 'M';
             }
@@ -546,8 +603,14 @@
         }
         &.bar-adventure {
           background: #48c96c;
-          &:hover,
+          &:hover {
+            box-shadow: 0 8px 25px rgba(72, 201, 108, 0.4);
+            &::before {
+              content: 'A';
+            }
+          }
           &.selected {
+            box-shadow: 0 0 30px rgba(72, 201, 108, 0.8);
             &::before {
               content: 'A';
             }
@@ -555,8 +618,14 @@
         }
         &.bar-simulation {
           background: #2dabff;
-          &:hover,
+          &:hover {
+            box-shadow: 0 8px 25px rgba(45, 171, 255, 0.4);
+            &::before {
+              content: 'S';
+            }
+          }
           &.selected {
+            box-shadow: 0 0 30px rgba(45, 171, 255, 0.8);
             &::before {
               content: 'S';
             }
@@ -910,6 +979,123 @@
       100% {
         opacity: 0;
       }
+    }
+  }
+
+  // 新增的按鈕動畫效果
+  @keyframes bounce {
+    0%,
+    20%,
+    53%,
+    80%,
+    100% {
+      transform: translateY(-3px) scale(1.05);
+    }
+    40%,
+    43% {
+      transform: translateY(-8px) scale(1.05);
+    }
+    70% {
+      transform: translateY(-5px) scale(1.05);
+    }
+    90% {
+      transform: translateY(-4px) scale(1.05);
+    }
+  }
+  @keyframes pulse-glow {
+    0% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(255, 255, 255, 1),
+        0 0 40px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+  }
+  // 為不同類型的按鈕添加特定的脈衝效果
+  .bar-visual-novel.selected {
+    animation: pulse-visual-novel 2s infinite;
+  }
+  @keyframes pulse-visual-novel {
+    0% {
+      box-shadow: 0 0 20px rgba(242, 43, 78, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(242, 43, 78, 1),
+        0 0 40px rgba(242, 43, 78, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(242, 43, 78, 0.8);
+    }
+  }
+  .bar-sports.selected {
+    animation: pulse-sports 2s infinite;
+  }
+  @keyframes pulse-sports {
+    0% {
+      box-shadow: 0 0 20px rgba(255, 163, 51, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(255, 163, 51, 1),
+        0 0 40px rgba(255, 163, 51, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(255, 163, 51, 0.8);
+    }
+  }
+
+  .bar-music.selected {
+    animation: pulse-music 2s infinite;
+  }
+  @keyframes pulse-music {
+    0% {
+      box-shadow: 0 0 20px rgba(245, 43, 140, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(245, 43, 140, 1),
+        0 0 40px rgba(245, 43, 140, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(245, 43, 140, 0.8);
+    }
+  }
+  .bar-adventure.selected {
+    animation: pulse-adventure 2s infinite;
+  }
+  @keyframes pulse-adventure {
+    0% {
+      box-shadow: 0 0 20px rgba(72, 201, 108, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(72, 201, 108, 1),
+        0 0 40px rgba(72, 201, 108, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(72, 201, 108, 0.8);
+    }
+  }
+
+  .bar-simulation.selected {
+    animation: pulse-simulation 2s infinite;
+  }
+  @keyframes pulse-simulation {
+    0% {
+      box-shadow: 0 0 20px rgba(45, 171, 255, 0.8);
+    }
+    50% {
+      box-shadow:
+        0 0 30px rgba(45, 171, 255, 1),
+        0 0 40px rgba(45, 171, 255, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(45, 171, 255, 0.8);
     }
   }
 </style>
