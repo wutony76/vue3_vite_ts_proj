@@ -604,13 +604,13 @@
         &.bar-adventure {
           background: #48c96c;
           &:hover {
-            box-shadow: 0 8px 25px rgba(72, 201, 108, 0.4);
+            box-shadow: 0 8px 5px rgba(72, 201, 108, 0.4);
             &::before {
               content: 'A';
             }
           }
           &.selected {
-            box-shadow: 0 0 30px rgba(72, 201, 108, 0.8);
+            box-shadow: 0 0 5px rgba(72, 201, 108, 0.8);
             &::before {
               content: 'A';
             }
@@ -619,13 +619,13 @@
         &.bar-simulation {
           background: #2dabff;
           &:hover {
-            box-shadow: 0 8px 25px rgba(45, 171, 255, 0.4);
+            box-shadow: 0 8px 5px rgba(45, 171, 255, 0.4);
             &::before {
               content: 'S';
             }
           }
           &.selected {
-            box-shadow: 0 0 30px rgba(45, 171, 255, 0.8);
+            box-shadow: 0 0 5px rgba(45, 171, 255, 0.8);
             &::before {
               content: 'S';
             }
