@@ -170,7 +170,7 @@
       const direction = scrollTop > state.lastScrollTop ? scrollAnim.DOWN : scrollAnim.UP
       state.lastScrollTop = scrollTop
       state.lastScrollTimestamp = func.ts()
-      console.log('scroll', state.mainDom!.scrollTop, direction)
+      // console.log('scroll', state.mainDom!.scrollTop, direction)
 
       // ***run.something.start
       // __process.nvbar animation__
@@ -214,7 +214,7 @@
       if (scrollTop >= 1200 && scrollTop < 2200) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1DetailShow()
       }
-      if (scrollTop >= 2250) {
+      if (scrollTop < 600 || (scrollTop >= 2250 && direction === scrollAnim.DOWN)) {
         if (selfRefs.pluginCenter2) selfRefs.pluginCenter2?.actions.idBlock1DetailHide()
       }
 
@@ -347,6 +347,10 @@
         Animation.addClass('contactListBlock', 'animation-block-down', 1000)
         Animation.addClass('buttonFacebook', 'animation-scale-90-show-start', 1500)
         Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 2000)
+        if (scrollAnim.scrollRecode.top250_hide) {
+          Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
+          Animation.removeClass('buttonFacebook', 'animation-scale-90-show-end')
+        }
         // Tools.delay(1500).then(() => {
         //   Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
         //   Animation.addClass('buttonFacebook', 'animation-scale-90-show-end', 10)
@@ -361,14 +365,15 @@
       scrollAnim.scrollRecode.top250_hide = true
 
       $('#contactBlock').addClass('anim-contact-out')
+      Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
+      Animation.removeClass('buttonFacebook', 'animation-scale-90-show-end')
+
       Tools.delay(450).then(() => {
         $('#contactBlock').removeClass('animation-block-right')
 
         Animation.removeClass('bannerBlock', 'animation-block-right')
         Animation.removeClass('contactBlock', 'animation-block-left')
         Animation.removeClass('contactListBlock', 'animation-block-down')
-        Animation.removeClass('buttonFacebook', 'animation-scale-90-show-start')
-        Animation.removeClass('buttonFacebook', 'animation-scale-90-show-end')
         scrollAnim.scrollRecode.top250_show = false
       })
     },

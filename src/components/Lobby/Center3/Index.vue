@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  import GameIcon from '@/components/Lobby/GameIcon.vue'
+  import LotteryItem from './LotteryItem.vue'
+
   import { onMounted, reactive } from 'vue'
   import { _uuid2 } from '@/logic/utils/Encrypt'
   import Net from '@/logic/base/Net'
@@ -14,6 +17,7 @@
       return state.lotteryTw[game.code]
     },
     infoDaLeTou: () => handle.base(GAME.DA_LE_TOU),
+    infoWeiLiCai: () => handle.base(GAME.WEI_LI_CAI),
     infoJinCai539: () => handle.base(GAME.JIN_CAI),
     infoYueHeCai39: () => handle.base(GAME.YUE_HE_CAI_39),
     infoYueHeCai49: () => handle.base(GAME.YUE_HE_CAI_49),
@@ -51,54 +55,20 @@
         </div>
       </div>
       <div id="id-center3-block-2" class="block-main">
-        <div class="b1"></div>
+        <div class="b1">
+          <GameIcon :style="`--item-index: 5`" :title="'test'" />
+        </div>
       </div>
 
       <div id="" class="block-list">
         <div class="row r0" style="--item-index: 0"><div class="content"></div></div>
-        <div class="row r1" style="--item-index: 1">
-          <div class="content">
-            <!-- {{ handle.infoDaLeTou() }} -->
-            <div class="title">{{ handle.infoDaLeTou().en }}</div>
-            <div class="period">{{ handle.infoDaLeTou().period }}</div>
-            <div class="openNumber">
-              <div
-                v-for="(item, index) in handle.infoDaLeTou().lotNumber"
-                :key="index"
-                class="flip-card"
-                :style="`--item-index: ${index}`"
-                :class="{
-                  special: handle.infoDaLeTou().lotNumber.length - 1 === index
-                }"
-              >
-                <div class="flip-card-inner">
-                  <div class="flip-card-front">
-                    <span class="number-placeholder"></span>
-                  </div>
-                  <div class="flip-card-back">
-                    <span class="number">{{ item }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="control">GO!BET</div>
-          </div>
-        </div>
-        <div class="row r2" style="--item-index: 2">
-          <div class="content">
-            {{ handle.infoJinCai539() }}
-          </div>
-        </div>
-        <div class="row r3" style="--item-index: 3">
-          <div class="content">
-            {{ handle.infoYueHeCai39() }}
-          </div>
-        </div>
-        <div class="row r4" style="--item-index: 4">
-          <div class="content">
-            {{ handle.infoYueHeCai49() }}
-          </div>
-        </div>
+        <LotteryItem :data="handle.infoDaLeTou()" class="r1" style="--item-index: 1" />
+        <LotteryItem :data="handle.infoWeiLiCai()" class="r2" style="--item-index: 2" />
+        <LotteryItem :data="handle.infoJinCai539()" class="r3" style="--item-index: 3" />
+        <LotteryItem :data="handle.infoYueHeCai49()" class="r4" style="--item-index: 4" />
+        <LotteryItem :data="handle.infoYueHeCai39()" class="r5" style="--item-index: 5" />
+        <LotteryItem :data="handle.info4XingCai()" class="r6" style="--item-index: 6" />
+        <LotteryItem :data="handle.info3XingCai()" class="r7" style="--item-index: 7" />
       </div>
     </div>
   </div>

@@ -28,12 +28,12 @@ const _JIN_CAI = {
 const _YUE_HE_CAI_39 = {
   code: 5120,
   name: '39樂合彩',
-  en: 'YUEHECAI39'
+  en: '39YUEHECAI'
 }
 const _YUE_HE_CAI_49 = {
   code: 1121,
   name: '49樂合彩',
-  en: 'YUEHECAI49'
+  en: '49YUEHECAI'
 }
 const _XING_CAI_3 = {
   code: 2108,
@@ -65,7 +65,7 @@ export const GAME: GameMap = {
   XING_CAI_3: _XING_CAI_3,
   2108: _XING_CAI_3,
   XING_CAI_4: _XING_CAI_4,
-  2109: _XING_CAI_3,
+  2109: _XING_CAI_4,
   BIN_GUO: _BIN_GUO,
   1102: _BIN_GUO
 }

@@ -5,6 +5,7 @@
   import GameMusic from './GameSample/Music.vue'
   import GameSimulation from './GameSample/Simulation.vue'
   import Tools from '@/logic/utils/Tools'
+  import Footer from '../Footer.vue'
 
   const props = defineProps<{
     selected: GameStatusType
@@ -36,6 +37,7 @@
       const left = main.find('.left')
       const center = main.find('.center')
       const right = main.find('.right')
+      const footer = parent.find('.footer')
       return {
         parent,
         title,
@@ -44,11 +46,12 @@
         main,
         left,
         center,
-        right
+        right,
+        footer
       }
     },
     titleShow: (cb: Function) => {
-      const { title, w1, w2, left, center, right } = actions.base()
+      const { title, w1, w2, left, center, right, footer } = actions.base()
       if (title) title.addClass('anim-title-move')
       if (w1) w1.addClass('anim-title-show1')
       if (w2) w2.addClass('anim-title-show2')
@@ -67,13 +70,35 @@
           })
         }
         if (right) right.addClass('anim-right-show')
-        Tools.delay(1000).then(() => {
+        if (footer) {
+          footer.children('.container').each(function (this: HTMLElement, index: number) {
+            // console.log('FOOTER.this', $(this), index, 1000 + index * 2)
+            const _this = $(this)
+            _this.css({ transform: 'scale(0)', opacity: 0 })
+            Tools.delay(1000 + index * 100).then(() => {
+              _this.addClass('animation-item-intro')
+            })
+          })
+        }
+
+        Tools.delay(1500).then(() => {
+          Tools.delay(1000).then(() => {
+            if (footer) {
+              footer.children('.container').each(function (this: HTMLElement, index: number) {
+                const _this = $(this)
+                _this.removeClass('animation-item-intro')
+                _this.css({ transform: 'scale(1)', opacity: 1 })
+              })
+            }
+          })
+
+          // __CALLBACK__
           if (cb) cb?.()
         })
       })
     },
     titleHide: (cb: Function) => {
-      const { main, title, w1, w2, left, center, right } = actions.base()
+      const { main, title, w1, w2, left, center, right, footer } = actions.base()
       if (main) main.addClass('anim-main-hide')
       if (title) title.addClass('anim-main-hide')
       // __init.anim__
@@ -95,6 +120,13 @@
           }, index * 300)
         })
         if (right) right.removeClass('anim-right-show')
+        if (footer) {
+          footer.children('.container').each(function (this: HTMLElement, index: number) {
+            const _this = $(this)
+            _this.css({ transform: 'scale(0)', opacity: 0 })
+          })
+        }
+
         if (cb) cb?.()
       })
     }

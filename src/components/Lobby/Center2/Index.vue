@@ -1783,7 +1783,7 @@
                   position: absolute;
                   bottom: 10px;
                   right: 10px;
-                  background-color: #500d0e;
+                  background-color: #000;
                   // background-color: #202020;
                   color: #fff;
                   padding-left: 2px;
