@@ -1,12 +1,9 @@
-
 export default class Lobby {
-
-  constructor () {
+  constructor() {
     this.init()
   }
 
-  init () {
+  init() {
     console.log('Lobby.init')
   }
-
 }

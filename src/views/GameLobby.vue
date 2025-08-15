@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { nextTick, onMounted, reactive, ref } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import { nextTick, onMounted, reactive, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import Splitting from 'splitting'
   import Net from '@/logic/base/Net'
@@ -8,6 +9,7 @@
   import ArtsEffect from '@/logic/utils/ArtsEffect'
   import { ACTIONS, GAME, STATIC, PATH_NAME, STATUS_ICON } from '@/logic/utils/Parameter'
   import Lobby from '@/logic/lobby/Lobby'
+  import { useBaseStore } from '@/logic/stores/base'
   import Nvbar from '@/components/Ui/NvbarList.vue'
   import GameIcon from '@/components/Lobby/GameIcon.vue'
   import PluginCenter2 from '@/components/Lobby/Center2/Index.vue'
@@ -22,6 +24,7 @@
     inheritAttrs: false
   })
 
+  const { bsState } = storeToRefs(useBaseStore())
   const state = reactive({
     mainDom: null as HTMLElement | null,
     hasDom: false,
@@ -33,11 +36,14 @@
   })
 
   const selfRefs = reactive({
-    pluginCenter2: null
+    pluginCenter2: null as InstanceType<typeof PluginCenter2> | null,
+    pluginCenter3: null as InstanceType<typeof PluginCenter3> | null,
+    pluginFooter: null as InstanceType<typeof MainFooter> | null
   })
   // 用於綁定 ref 的函式
-  const setRef = (el: any) => {
-    if (el) selfRefs.pluginCenter2 = el
+  const setRef = (el: any, key: string = 'none') => {
+    // if (el) selfRefs.pluginCenter2 = el
+    if (el) selfRefs[key as keyof typeof selfRefs] = el
   }
 
   // Animation timing constants
@@ -482,6 +488,13 @@
     }
   }
 
+  watch(
+    () => bsState.value.isHoverFooter,
+    val => {
+      console.log('WATCH.isHoverFooter.', val)
+    }
+  )
+
   onMounted(() => {
     // state.isReady = true
     // if (!state.isReady) return
@@ -503,6 +516,7 @@
   <div class="gameLobby animations">
     <div id="loadPage" class="loadPage"></div>
     <div id="lobbyContainer" class="lobbyContainer">
+      <!-- __NV.BAR__ -->
       <div id="nvbarBlock" class="nvbar">
         <div class="nvbarContainer">
           <div class="content-block">
@@ -515,7 +529,7 @@
               </div>
               <div id="logoLine" class="line1"></div>
             </div>
-            <div>center</div>
+            <!-- <div>center</div> -->
             <div class="settings">
               <div class="listBox">
                 <span
@@ -652,19 +666,20 @@
           </div>
         </div>
         <!-- center2 -->
-        <PluginCenter2 :ref="el => setRef(el)" />
+        <PluginCenter2 :ref="el => setRef(el, 'pluginCenter2')" />
         <!-- center3 -->
-        <PluginCenter3 />
+        <PluginCenter3 :ref="el => setRef(el, 'pluginCenter3')" />
         <div class="center end"></div>
       </div>
       <!-- <div class="main-footer"></div> -->
-      <MainFooter id="mainFooter" />
+      <MainFooter id="mainFooter" :ref="el => setRef(el, 'pluginFooter')" />
 
       <!-- GAMEBOYICON 回到頂端按鈕 -->
       <div style="position: fixed; bottom: 20px; right: 25px; z-index: 90">
         <PluginGameBoyAnim
           :size="90"
           :text="'HAPPY FAT YOYO'"
+          :is-up="bsState.isHoverFooter"
           @click="clickListener(ACTIONS.SCROLL_TOP)"
         />
       </div>

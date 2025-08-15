@@ -1,8 +1,28 @@
 <script setup lang="ts">
   import { reactive } from 'vue'
   import { nextTick, onMounted } from 'vue'
+  import { storeToRefs } from 'pinia'
+  import { useBaseStore } from '@/logic/stores/base'
+  const { bsState } = storeToRefs(useBaseStore())
   const state = reactive({
     isHovered: false
+  })
+  console.log('FOOTER.bsState', bsState.value)
+
+  const handle = {
+    enter: () => {
+      state.isHovered = true
+      bsState.value.isHoverFooter = true
+    },
+    leave: () => {
+      state.isHovered = false
+      bsState.value.isHoverFooter = false
+    }
+  }
+
+  // 暴露 isHovered 属性给父组件
+  defineExpose({
+    isHovered: () => state.isHovered
   })
 
   onMounted(() => {
@@ -15,11 +35,12 @@
 </script>
 
 <template>
+  <!-- :class="{ 'is-hovered': state.isHovered }" -->
   <div
     class="container-footer"
-    @mouseenter="state.isHovered = true"
-    @mouseleave="state.isHovered = false"
-    :class="{ 'is-hovered': state.isHovered }"
+    @mouseenter="handle.enter()"
+    @mouseleave="handle.leave()"
+    :class="{ 'is-hovered': bsState.isHoverFooter }"
   >
     <div class="top">
       <!-- <div data-splitting class="my-name headline--flip">
