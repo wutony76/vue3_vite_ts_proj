@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { storeToRefs } from 'pinia'
-  import { nextTick, onMounted, reactive, watch } from 'vue'
+  import { nextTick, onMounted, onUnmounted, reactive, watch } from 'vue'
+  import type { Component } from 'vue'
   import { useRouter } from 'vue-router'
   import Splitting from 'splitting'
   import Net from '@/logic/base/Net'
@@ -18,6 +19,37 @@
   import PluginGameBoyAnim from '@/components/SelfIcon/PluginGameBoyAnim.vue'
   import Tools from '@/logic/utils/Tools'
 
+  import BannerGameSoon from '@/assets/images/banner/banner_gamestartsoon.vue'
+  import BannerGameTime from '@/assets/images/banner/banner_gametime.vue'
+
+  type BannerItem = { component: Component; props?: Record<string, unknown> }
+  const bannerList: BannerItem[] = [
+    {
+      component: BannerGameSoon,
+      props: {
+        preset: 'pastel',
+        bgTop: '#7e6274',
+        bgBottom: '#544d5d',
+        borderStart: '#00e5ff',
+        borderMid: '#7a00ff',
+        borderEnd: '#00e5ff',
+        textStart: '#e2f9ff',
+        textMid: '#9ad2ff',
+        textEnd: '#e2f9ff',
+        neonCyan: '#00e5ff',
+        neonMagenta: '#ff00ff',
+        cornerColor: '#00e5ff',
+        outerShadowColor: '#00e5ff',
+        subtitleColor: '#d4f1ff',
+        gridStroke: '#00e5ff',
+        neonCyanOpacity: 0.75,
+        neonMagentaOpacity: 0.65,
+        desaturate: 1
+      }
+    },
+    { component: BannerGameTime }
+  ]
+
   const router = useRouter()
   defineOptions({
     name: 'GameLoddy',
@@ -32,7 +64,9 @@
     isInit: false,
     timeCheck: false,
     lastScrollTop: 0,
-    lastScrollTimestamp: 0
+    lastScrollTimestamp: 0,
+    bannerIndex: 0,
+    showBannerTime: false
   })
 
   const selfRefs = reactive({
@@ -44,6 +78,16 @@
   const setRef = (el: any, key: string = 'none') => {
     // if (el) selfRefs.pluginCenter2 = el
     if (el) selfRefs[key as keyof typeof selfRefs] = el
+  }
+
+  // banner auto switch
+  let bannerTimer: number | null = null
+  const startBannerAutoSwitch = () => {
+    if (bannerTimer) clearInterval(bannerTimer)
+    if (bannerList.length <= 1) return
+    bannerTimer = window.setInterval(() => {
+      state.bannerIndex = (state.bannerIndex + 1) % bannerList.length
+    }, 8000)
   }
 
   // Animation timing constants
@@ -500,6 +544,7 @@
     // if (!state.isReady) return
     init.test()
     init.run()
+    startBannerAutoSwitch()
     nextTick(() => {
       initAnimations()
       setup.hover_note_effects()
@@ -509,6 +554,13 @@
         selfRefs.pluginCenter2.test()
       }
     })
+  })
+
+  onUnmounted(() => {
+    if (bannerTimer) {
+      clearInterval(bannerTimer)
+      bannerTimer = null
+    }
   })
 </script>
 
@@ -549,7 +601,16 @@
       <div class="main">
         <div class="header">
           <div id="bannerBlock" class="bannerBlock">
-            <div class="content-block">banner</div>
+            <div class="content-block">
+              <!-- banner -->
+              <transition name="fade" mode="out-in">
+                <component
+                  :is="bannerList[state.bannerIndex].component"
+                  v-bind="bannerList[state.bannerIndex].props"
+                  :key="state.bannerIndex"
+                />
+              </transition>
+            </div>
             <span class="item setting-text"> INTRODUCE </span>
             <div class="footer"></div>
           </div>
@@ -787,5 +848,15 @@
       opacity: 0;
       visibility: visible;
     }
+  }
+
+  // banner fade transition
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.6s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
   }
 </style>
